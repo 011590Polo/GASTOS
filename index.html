@@ -4,13 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Administrador de Gastos</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="Aplicación para gestionar y controlar gastos personales">
+    <meta name="theme-color" content="#1976d2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Gastos">
+    <meta name="msapplication-TileColor" content="#1976d2">
+    <meta name="msapplication-config" content="/browserconfig.xml">
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="./manifest.json">
+    
+    <!-- Apple Touch Icons -->
+    <link rel="apple-touch-icon" href="./icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./icons/icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="./icons/icon-167x167.png">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./icons/icon-16x16.png">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="material-design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Material Design Web Components (opcional) -->
-    <script src="https://unpkg.com/@material/web@1.0.0/material-web.js" type="module"></script>
+    <!-- Material Design Web Components (removido por problemas de CORS) -->
+    <!-- <script src="https://unpkg.com/@material/web@1.0.0/material-web.js" type="module"></script> -->
     <!-- Chart.js para gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -651,5 +673,7 @@
     </div>
 
     <script src="script.js"></script>
+    <script src="pwa-error-handler.js"></script>
+    <script src="pwa.js"></script>
 </body>
 </html>

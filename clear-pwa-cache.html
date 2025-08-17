@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Limpiar Cache PWA - Administrador de Gastos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        .button:hover {
+            background: #1565c0;
+        }
+        .button.danger {
+            background: #f44336;
+        }
+        .button.danger:hover {
+            background: #d32f2f;
+        }
+        .status {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 4px;
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+        }
+        .status.error {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+        .status.success {
+            background: #e8f5e8;
+            border-left-color: #4caf50;
+        }
+        .log {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            max-height: 200px;
+            overflow-y: auto;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 Herramientas de PWA</h1>
+        <p>Esta página te permite limpiar el cache y forzar actualizaciones de la PWA.</p>
+        
+        <div class="status" id="status">Listo para limpiar cache...</div>
+        
+        <div>
+            <button class="button" onclick="clearServiceWorkerCache()">🗑️ Limpiar Cache del Service Worker</button>
+            <button class="button" onclick="unregisterServiceWorker()">❌ Desregistrar Service Worker</button>
+            <button class="button" onclick="clearAllCaches()">🧹 Limpiar Todos los Caches</button>
+            <button class="button danger" onclick="clearAllData()">💥 Limpiar Todos los Datos</button>
+        </div>
+        
+        <div>
+            <button class="button" onclick="checkPWAStatus()">🔍 Verificar Estado PWA</button>
+            <button class="button" onclick="forceUpdate()">🔄 Forzar Actualización</button>
+            <button class="button" onclick="clearLog()">📝 Limpiar Log</button>
+        </div>
+        
+        <h3>Log de Operaciones:</h3>
+        <div class="log" id="log"></div>
+        
+        <div style="margin-top: 20px;">
+            <a href="./" class="button">🏠 Volver a la Aplicación</a>
+        </div>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const logDiv = document.getElementById('log');
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            logDiv.innerHTML += logEntry + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+            
+            if (type === 'error') {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = message;
+            } else if (type === 'success') {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = message;
+            }
+        }
+        
+        function clearLog() {
+            logDiv.innerHTML = '';
+            statusDiv.className = 'status';
+            statusDiv.textContent = 'Listo para limpiar cache...';
+        }
+        
+        async function clearServiceWorkerCache() {
+            try {
+                log('Limpiando cache del Service Worker...');
+                
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    log(`Encontrados ${cacheNames.length} caches`);
+                    
+                    for (const cacheName of cacheNames) {
+                        if (cacheName.includes('gastos-app')) {
+                            await caches.delete(cacheName);
+                            log(`Cache eliminado: ${cacheName}`, 'success');
+                        }
+                    }
+                }
+                
+                log('Cache del Service Worker limpiado exitosamente', 'success');
+            } catch (error) {
+                log(`Error al limpiar cache: ${error.message}`, 'error');
+            }
+        }
+        
+        async function unregisterServiceWorker() {
+            try {
+                log('Desregistrando Service Worker...');
+                
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    log(`Encontrados ${registrations.length} Service Workers`);
+                    
+                    for (const registration of registrations) {
+                        await registration.unregister();
+                        log(`Service Worker desregistrado: ${registration.scope}`, 'success');
+                    }
+                }
+                
+                log('Service Workers desregistrados exitosamente', 'success');
+            } catch (error) {
+                log(`Error al desregistrar Service Worker: ${error.message}`, 'error');
+            }
+        }
+        
+        async function clearAllCaches() {
+            try {
+                log('Limpiando todos los caches...');
+                
+                if ('caches' in window) {
+                    const cacheNames = await caches.keys();
+                    log(`Encontrados ${cacheNames.length} caches totales`);
+                    
+                    for (const cacheName of cacheNames) {
+                        await caches.delete(cacheName);
+                        log(`Cache eliminado: ${cacheName}`, 'success');
+                    }
+                }
+                
+                log('Todos los caches limpiados exitosamente', 'success');
+            } catch (error) {
+                log(`Error al limpiar caches: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearAllData() {
+            try {
+                log('Limpiando todos los datos...');
+                
+                // Limpiar localStorage
+                localStorage.clear();
+                log('localStorage limpiado', 'success');
+                
+                // Limpiar sessionStorage
+                sessionStorage.clear();
+                log('sessionStorage limpiado', 'success');
+                
+                // Limpiar IndexedDB si existe
+                if ('indexedDB' in window) {
+                    indexedDB.databases().then(databases => {
+                        databases.forEach(db => {
+                            indexedDB.deleteDatabase(db.name);
+                            log(`Base de datos eliminada: ${db.name}`, 'success');
+                        });
+                    });
+                }
+                
+                log('Todos los datos limpiados exitosamente', 'success');
+            } catch (error) {
+                log(`Error al limpiar datos: ${error.message}`, 'error');
+            }
+        }
+        
+        async function checkPWAStatus() {
+            try {
+                log('Verificando estado de PWA...');
+                
+                const status = {
+                    serviceWorkerSupported: 'serviceWorker' in navigator,
+                    cachesSupported: 'caches' in window,
+                    localStorageSupported: 'localStorage' in window,
+                    manifestSupported: 'manifest' in document.createElement('link')
+                };
+                
+                log('Estado de PWA:');
+                Object.entries(status).forEach(([key, value]) => {
+                    log(`  ${key}: ${value ? '✅' : '❌'}`);
+                });
+                
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    log(`Service Workers registrados: ${registrations.length}`);
+                    
+                    registrations.forEach((registration, index) => {
+                        log(`  SW ${index + 1}: ${registration.scope} (${registration.active ? 'Activo' : 'Inactivo'})`);
+                    });
+                }
+                
+                log('Verificación completada', 'success');
+            } catch (error) {
+                log(`Error al verificar PWA: ${error.message}`, 'error');
+            }
+        }
+        
+        async function forceUpdate() {
+            try {
+                log('Forzando actualización...');
+                
+                if ('serviceWorker' in navigator) {
+                    const registrations = await navigator.serviceWorker.getRegistrations();
+                    
+                    for (const registration of registrations) {
+                        await registration.update();
+                        log(`Actualización forzada para: ${registration.scope}`, 'success');
+                    }
+                }
+                
+                log('Actualización forzada completada', 'success');
+                
+                // Recargar la página después de 2 segundos
+                setTimeout(() => {
+                    log('Recargando página en 2 segundos...');
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 2000);
+                }, 1000);
+                
+            } catch (error) {
+                log(`Error al forzar actualización: ${error.message}`, 'error');
+            }
+        }
+        
+        // Verificar estado inicial
+        window.addEventListener('load', () => {
+            log('Página cargada. Herramientas PWA listas.');
+            checkPWAStatus();
+        });
+    </script>
+</body>
+</html>

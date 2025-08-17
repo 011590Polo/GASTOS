@@ -1,0 +1,14 @@
+{
+  "name": "gastos-pwa",
+  "version": "1.0.0",
+  "description": "Aplicación PWA para gestión de gastos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "keywords": ["pwa", "gastos", "finanzas"],
+  "author": "011590Polo",
+  "license": "MIT",
+  "dependencies": {}
+}
