@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Notificaciones - Administrador de Gastos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            margin: 10px 5px;
+            font-size: 16px;
+            width: 100%;
+            max-width: 300px;
+        }
+        .button:hover {
+            background: #1565c0;
+        }
+        .button.success {
+            background: #4caf50;
+        }
+        .button.warning {
+            background: #ff9800;
+        }
+        .button.danger {
+            background: #f44336;
+        }
+        .status {
+            margin: 15px 0;
+            padding: 15px;
+            border-radius: 8px;
+            background: #e3f2fd;
+            border-left: 4px solid #1976d2;
+        }
+        .status.error {
+            background: #ffebee;
+            border-left-color: #f44336;
+        }
+        .status.success {
+            background: #e8f5e8;
+            border-left-color: #4caf50;
+        }
+        .status.warning {
+            background: #fff3e0;
+            border-left-color: #ff9800;
+        }
+        .log {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            max-height: 300px;
+            overflow-y: auto;
+            margin: 15px 0;
+            border: 1px solid #ddd;
+        }
+        .device-info {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .device-info h3 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .info-item {
+            padding: 8px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        .info-label {
+            font-weight: bold;
+            color: #666;
+            font-size: 12px;
+        }
+        .info-value {
+            color: #333;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de Notificaciones</h1>
+        <p>Esta página te permite probar las notificaciones en tu dispositivo móvil Android.</p>
+        
+        <div class="device-info">
+            <h3>📱 Información del Dispositivo</h3>
+            <div class="info-grid" id="deviceInfo">
+                <!-- Se llenará dinámicamente -->
+            </div>
+        </div>
+        
+        <div class="status" id="status">Verificando estado de notificaciones...</div>
+        
+        <div>
+            <button class="button" onclick="requestPermission()">🔔 Solicitar Permisos</button>
+            <button class="button success" onclick="testBasicNotification()">🧪 Notificación Básica</button>
+            <button class="button warning" onclick="testUrgentNotification()">⚠️ Notificación Urgente</button>
+            <button class="button" onclick="testPaymentNotification()">✅ Notificación de Pago</button>
+            <button class="button" onclick="testReminderNotification()">🔔 Notificación Recordatorio</button>
+            <button class="button danger" onclick="clearNotifications()">🗑️ Limpiar Notificaciones</button>
+        </div>
+        
+        <div>
+            <button class="button" onclick="checkNotificationStatus()">🔍 Verificar Estado</button>
+            <button class="button" onclick="testVibration()">📳 Probar Vibración</button>
+            <button class="button" onclick="clearLog()">📝 Limpiar Log</button>
+        </div>
+        
+        <h3>📋 Log de Operaciones:</h3>
+        <div class="log" id="log"></div>
+        
+        <div style="margin-top: 20px;">
+            <a href="./" class="button">🏠 Volver a la Aplicación</a>
+        </div>
+    </div>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const logDiv = document.getElementById('log');
+        const deviceInfoDiv = document.getElementById('deviceInfo');
+        
+        // Mostrar información del dispositivo
+        function showDeviceInfo() {
+            const info = {
+                'User Agent': navigator.userAgent,
+                'Platform': navigator.platform,
+                'Language': navigator.language,
+                'Online': navigator.onLine ? 'Sí' : 'No',
+                'Service Worker': 'serviceWorker' in navigator ? 'Soportado' : 'No soportado',
+                'Notifications': 'Notification' in window ? 'Soportado' : 'No soportado',
+                'Push Manager': 'PushManager' in window ? 'Soportado' : 'No soportado',
+                'Vibration': 'vibrate' in navigator ? 'Soportado' : 'No soportado',
+                'Display Mode': window.matchMedia('(display-mode: standalone)').matches ? 'Standalone' : 'Navegador'
+            };
+            
+            deviceInfoDiv.innerHTML = Object.entries(info)
+                .map(([key, value]) => `
+                    <div class="info-item">
+                        <div class="info-label">${key}</div>
+                        <div class="info-value">${value}</div>
+                    </div>
+                `).join('');
+        }
+        
+        function log(message, type = 'info') {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${message}`;
+            logDiv.innerHTML += logEntry + '\n';
+            logDiv.scrollTop = logDiv.scrollHeight;
+            
+            if (type === 'error') {
+                statusDiv.className = 'status error';
+                statusDiv.textContent = message;
+            } else if (type === 'success') {
+                statusDiv.className = 'status success';
+                statusDiv.textContent = message;
+            } else if (type === 'warning') {
+                statusDiv.className = 'status warning';
+                statusDiv.textContent = message;
+            }
+        }
+        
+        function clearLog() {
+            logDiv.innerHTML = '';
+            statusDiv.className = 'status';
+            statusDiv.textContent = 'Listo para probar notificaciones...';
+        }
+        
+        async function requestPermission() {
+            try {
+                log('Solicitando permisos de notificación...');
+                
+                if (!('Notification' in window)) {
+                    log('Notificaciones no soportadas en este navegador', 'error');
+                    return;
+                }
+                
+                const permission = await Notification.requestPermission();
+                log(`Permiso obtenido: ${permission}`, permission === 'granted' ? 'success' : 'warning');
+                
+                if (permission === 'granted') {
+                    // Inicializar el sistema de notificaciones
+                    if (window.notificationManager) {
+                        await window.notificationManager.subscribeToPush();
+                    }
+                }
+            } catch (error) {
+                log(`Error al solicitar permisos: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testBasicNotification() {
+            try {
+                log('Enviando notificación básica...');
+                
+                if (window.notificationManager) {
+                    const success = await window.notificationManager.sendLocalNotification(
+                        '🧪 Notificación de Prueba',
+                        {
+                            body: 'Esta es una notificación de prueba para verificar que funcionan en tu dispositivo móvil.',
+                            tag: 'test-notification'
+                        }
+                    );
+                    
+                    if (success) {
+                        log('✅ Notificación básica enviada exitosamente', 'success');
+                    } else {
+                        log('❌ Error al enviar notificación básica', 'error');
+                    }
+                } else {
+                    log('❌ Sistema de notificaciones no disponible', 'error');
+                }
+            } catch (error) {
+                log(`Error al enviar notificación: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testUrgentNotification() {
+            try {
+                log('Enviando notificación urgente...');
+                
+                if (window.notificationManager) {
+                    const mockExpense = {
+                        id: 'test-urgent',
+                        nombre: 'Servicio Urgente',
+                        deuda: 150000
+                    };
+                    
+                    const success = await window.notificationManager.notifyUrgentExpense(mockExpense);
+                    
+                    if (success) {
+                        log('✅ Notificación urgente enviada exitosamente', 'success');
+                    } else {
+                        log('❌ Error al enviar notificación urgente', 'error');
+                    }
+                } else {
+                    log('❌ Sistema de notificaciones no disponible', 'error');
+                }
+            } catch (error) {
+                log(`Error al enviar notificación urgente: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testPaymentNotification() {
+            try {
+                log('Enviando notificación de pago...');
+                
+                if (window.notificationManager) {
+                    const mockPayment = {
+                        id: 'test-payment',
+                        nombre: 'Pago de Servicios',
+                        valorPagado: 85000
+                    };
+                    
+                    const success = await window.notificationManager.notifyPaymentCompleted(mockPayment);
+                    
+                    if (success) {
+                        log('✅ Notificación de pago enviada exitosamente', 'success');
+                    } else {
+                        log('❌ Error al enviar notificación de pago', 'error');
+                    }
+                } else {
+                    log('❌ Sistema de notificaciones no disponible', 'error');
+                }
+            } catch (error) {
+                log(`Error al enviar notificación de pago: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testReminderNotification() {
+            try {
+                log('Enviando notificación de recordatorio...');
+                
+                if (window.notificationManager) {
+                    const success = await window.notificationManager.notifyReminder(
+                        'Tienes gastos pendientes que requieren atención.'
+                    );
+                    
+                    if (success) {
+                        log('✅ Notificación de recordatorio enviada exitosamente', 'success');
+                    } else {
+                        log('❌ Error al enviar notificación de recordatorio', 'error');
+                    }
+                } else {
+                    log('❌ Sistema de notificaciones no disponible', 'error');
+                }
+            } catch (error) {
+                log(`Error al enviar notificación de recordatorio: ${error.message}`, 'error');
+            }
+        }
+        
+        async function clearNotifications() {
+            try {
+                log('Limpiando notificaciones...');
+                
+                if ('serviceWorker' in navigator) {
+                    const registration = await navigator.serviceWorker.ready;
+                    const notifications = await registration.getNotifications();
+                    
+                    notifications.forEach(notification => {
+                        notification.close();
+                    });
+                    
+                    log(`✅ ${notifications.length} notificaciones cerradas`, 'success');
+                } else {
+                    log('❌ Service Worker no disponible', 'error');
+                }
+            } catch (error) {
+                log(`Error al limpiar notificaciones: ${error.message}`, 'error');
+            }
+        }
+        
+        async function checkNotificationStatus() {
+            try {
+                log('Verificando estado de notificaciones...');
+                
+                if (window.notificationManager) {
+                    const status = window.notificationManager.getNotificationStatus();
+                    
+                    log('Estado de notificaciones:');
+                    Object.entries(status).forEach(([key, value]) => {
+                        log(`  ${key}: ${value ? '✅' : '❌'}`);
+                    });
+                    
+                    if (status.canNotify) {
+                        log('✅ Notificaciones funcionando correctamente', 'success');
+                    } else {
+                        log('⚠️ Notificaciones no disponibles', 'warning');
+                    }
+                } else {
+                    log('❌ Sistema de notificaciones no inicializado', 'error');
+                }
+            } catch (error) {
+                log(`Error al verificar estado: ${error.message}`, 'error');
+            }
+        }
+        
+        function testVibration() {
+            try {
+                log('Probando vibración...');
+                
+                if ('vibrate' in navigator) {
+                    navigator.vibrate([100, 50, 100, 50, 100]);
+                    log('✅ Vibración ejecutada', 'success');
+                } else {
+                    log('❌ Vibración no soportada', 'error');
+                }
+            } catch (error) {
+                log(`Error al probar vibración: ${error.message}`, 'error');
+            }
+        }
+        
+        // Inicializar cuando la página cargue
+        window.addEventListener('load', () => {
+            showDeviceInfo();
+            log('Página cargada. Sistema de notificaciones listo.');
+            checkNotificationStatus();
+        });
+    </script>
+</body>
+</html>

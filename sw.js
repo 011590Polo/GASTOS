@@ -155,14 +155,18 @@ self.addEventListener('message', (event) => {
 self.addEventListener('push', (event) => {
   console.log('Service Worker: Push recibido');
   
-  const options = {
-    body: event.data ? event.data.text() : 'Nueva notificación de Gastos',
+  let notificationData = {
+    title: 'Administrador de Gastos',
+    body: 'Nueva notificación de Gastos',
     icon: './icons/icon-192x192.png',
     badge: './icons/icon-72x72.png',
     vibrate: [100, 50, 100],
+    requireInteraction: true,
+    tag: 'gastos-notification',
     data: {
       dateOfArrival: Date.now(),
-      primaryKey: 1
+      primaryKey: 1,
+      url: './'
     },
     actions: [
       {
@@ -178,20 +182,53 @@ self.addEventListener('push', (event) => {
     ]
   };
 
+  // Si hay datos en el push, usarlos
+  if (event.data) {
+    try {
+      const pushData = event.data.json();
+      notificationData = { ...notificationData, ...pushData };
+    } catch (e) {
+      notificationData.body = event.data.text();
+    }
+  }
+
   event.waitUntil(
-    self.registration.showNotification('Administrador de Gastos', options)
+    self.registration.showNotification(notificationData.title, notificationData)
   );
 });
 
 // Manejo de clics en notificaciones
 self.addEventListener('notificationclick', (event) => {
-  console.log('Service Worker: Notificación clickeada');
+  console.log('Service Worker: Notificación clickeada', event.action);
   
   event.notification.close();
 
-  if (event.action === 'explore') {
-    event.waitUntil(
-      clients.openWindow('./')
-    );
+  // Determinar la URL a abrir
+  let urlToOpen = './';
+  if (event.notification.data && event.notification.data.url) {
+    urlToOpen = event.notification.data.url;
   }
+
+  if (event.action === 'explore') {
+    urlToOpen = './';
+  }
+
+  event.waitUntil(
+    clients.matchAll({
+      type: 'window',
+      includeUncontrolled: true
+    }).then((clientList) => {
+      // Buscar si ya hay una ventana abierta
+      for (const client of clientList) {
+        if (client.url.includes(window.location.origin) && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      
+      // Si no hay ventana abierta, abrir una nueva
+      if (clients.openWindow) {
+        return clients.openWindow(urlToOpen);
+      }
+    })
+  );
 });
