@@ -11,15 +11,16 @@
     "notas_pago": "250000",
     "pagos": [
       {
-        "id": 1755295666495,
+        "id": 1755399399177,
         "fecha": "2025-08-15",
         "valor": 200000,
         "diferencia": 0,
-        "comprobante": "2323",
-        "notas": "wewe"
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
     ],
-    "nic": "rober15@live.com->011590Polo@->1449742"
+    "nic": "rober15@live.com->011590Polo@->1449742",
+    "dia_pago": 19
   },
   {
     "id": 1755268030425,
@@ -31,27 +32,20 @@
     "enlace_pago": "https://portalpagos.davivienda.com/#/cargos/credito",
     "pagos": [
       {
-        "id": 1755326109281,
-        "fecha": "2025-08-01",
-        "valor": 450000,
-        "diferencia": 0,
-        "comprobante": "Pse",
-        "notas": "Crédito apt"
-      },
-      {
-        "id": 1755370467119,
-        "fecha": "2025-08-16",
+        "id": 1755399495399,
+        "fecha": "2025-08-17",
         "valor": 438000,
         "diferencia": -12000,
-        "comprobante": "Pse",
-        "notas": "Pse"
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
     ],
-    "nic": "5702381100025463"
+    "nic": "5702381100025463",
+    "dia_pago": 28
   },
   {
     "id": 1755268398273,
-    "nombre": "INTERNET",
+    "nombre": "INTERNET HOGAR",
     "deuda": 95000,
     "fecha_a_pagar": "2025-08-15",
     "fecha_de_pago": "2025-08-15",
@@ -60,14 +54,15 @@
     "nic": "44907638",
     "pagos": [
       {
-        "id": 1755388094036,
+        "id": 1755399260066,
         "fecha": "2025-08-16",
         "valor": 95000,
         "diferencia": 0,
-        "comprobante": "Pse",
-        "notas": "Pse"
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
-    ]
+    ],
+    "dia_pago": 14
   },
   {
     "id": 1755268560441,
@@ -80,14 +75,15 @@
     "nic": "3126863477-roberto011590@gmail.com",
     "pagos": [
       {
-        "id": 1755370080396,
+        "id": 1755399337374,
         "fecha": "2025-08-16",
-        "valor": 80600,
-        "diferencia": -400,
-        "comprobante": "Pes",
-        "notas": "Pse"
+        "valor": 81000,
+        "diferencia": 0,
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
-    ]
+    ],
+    "dia_pago": 18
   },
   {
     "id": 1755268655204,
@@ -100,22 +96,15 @@
     "nic": "1029414",
     "pagos": [
       {
-        "id": 1755326160743,
-        "fecha": "2025-07-16",
+        "id": 1755399191714,
+        "fecha": "2025-08-08",
         "valor": 60000,
         "diferencia": 0,
-        "comprobante": "Pse",
-        "notas": "Agua 💧"
-      },
-      {
-        "id": 1755385977845,
-        "fecha": "2025-08-05",
-        "valor": 56000,
-        "diferencia": -4000,
-        "comprobante": "Pse",
-        "notas": "Pse"
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
-    ]
+    ],
+    "dia_pago": 9
   },
   {
     "id": 1755268757569,
@@ -128,14 +117,15 @@
     "nic": "8009758",
     "pagos": [
       {
-        "id": 1755387542626,
-        "fecha": "2025-08-09",
+        "id": 1755399563926,
+        "fecha": "2025-08-17",
         "valor": 165000,
         "diferencia": -35000,
-        "comprobante": "Pse",
-        "notas": "Pse"
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
-    ]
+    ],
+    "dia_pago": 29
   },
   {
     "id": 1755268843305,
@@ -148,14 +138,15 @@
     "nic": "66882889",
     "pagos": [
       {
-        "id": 1755387835550,
+        "id": 1755399680702,
         "fecha": "2025-08-16",
         "valor": 10000,
         "diferencia": 0,
-        "comprobante": "Pse",
-        "notas": "Pse"
+        "comprobante": "PS",
+        "notas": "PSE"
       }
-    ]
+    ],
+    "dia_pago": 29
   },
   {
     "id": 1755268966234,
@@ -167,43 +158,37 @@
     "enlace_pago": "https://web-conjuntos.jelpit.com/pagar-mi-administracion#/",
     "pagos": [
       {
-        "id": 1755388776778,
-        "fecha": "2025-08-16",
+        "id": 1755399698177,
+        "fecha": "2025-08-17",
         "valor": 100000,
         "diferencia": 0,
-        "comprobante": "Pse",
-        "notas": "Pse"
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
     ],
-    "nic": "1571199-convenio"
+    "nic": "1571199-convenio",
+    "dia_pago": 29
   },
   {
     "id": 1755269063570,
-    "nombre": "PAGOS TARJETA",
-    "deuda": 250000,
+    "nombre": "USO MADRE",
+    "deuda": 260000,
     "fecha_a_pagar": "2025-08-30",
     "fecha_de_pago": "2025-08-30",
     "estado": "pagado",
     "enlace_pago": "https://nuevaversion.bbvanet.com.co/loginAEM.html",
     "pagos": [
       {
-        "id": 1755388413499,
-        "fecha": "2025-08-16",
-        "valor": 250000,
-        "diferencia": 0,
-        "comprobante": "Ara",
-        "notas": "Madre tarjeta"
-      },
-      {
-        "id": 1755388941206,
+        "id": 1755400294048,
         "fecha": "2025-08-17",
-        "valor": 150000,
-        "diferencia": -100000,
-        "comprobante": "Tarjeta personal",
-        "notas": "Compra olímpica"
+        "valor": 260000,
+        "diferencia": 0,
+        "comprobante": "PSE",
+        "notas": "PSE"
       }
     ],
-    "nic": "credito-personal-madre"
+    "nic": "TARJETA DE CREDITO",
+    "dia_pago": 20
   },
   {
     "id": 1755276861923,
@@ -215,41 +200,15 @@
     "estado": "pendiente",
     "pagos": [
       {
-        "id": 1755387367384,
-        "fecha": "2025-08-16",
+        "id": 1755399290746,
+        "fecha": "2025-08-17",
         "valor": 25000,
         "diferencia": 0,
-        "comprobante": "Nequi",
-        "notas": "Pse"
+        "comprobante": "NEQUI",
+        "notas": "NEQUI"
       }
-    ]
-  },
-  {
-    "id": 1755389089431,
-    "nic": "3126863477",
-    "nombre": "Traspaso de BBVA a Nequi",
-    "deuda": 500000,
-    "fecha_a_pagar": "2025-08-29",
-    "enlace_pago": null,
-    "estado": "puede esperar",
-    "pagos": [
-      {
-        "id": 1755389149247,
-        "fecha": "2025-08-17",
-        "valor": 200000,
-        "diferencia": -300000,
-        "comprobante": "Compra",
-        "notas": "Creatina y proteína"
-      },
-      {
-        "id": 1755389216248,
-        "fecha": "2025-08-17",
-        "valor": 100000,
-        "diferencia": -400000,
-        "comprobante": "Comer",
-        "notas": "Comida"
-      }
-    ]
+    ],
+    "dia_pago": 14
   },
   {
     "id": 1755389314167,
@@ -261,12 +220,39 @@
     "estado": "puede esperar",
     "pagos": [
       {
-        "id": 1755389345842,
+        "id": 1755399526412,
         "fecha": "2025-08-17",
         "valor": 100000,
         "diferencia": 0,
-        "comprobante": "Fabio",
-        "notas": "Fabio"
+        "comprobante": "NEQUI",
+        "notas": "NEQUI"
+      }
+    ],
+    "dia_pago": 28
+  },
+  {
+    "id": 1755397462020,
+    "nic": "1080013244",
+    "nombre": "GASTOS PERSONALES",
+    "deuda": 500000,
+    "dia_pago": 30,
+    "enlace_pago": null,
+    "pagos": [
+      {
+        "id": 1755400338952,
+        "fecha": "2025-08-17",
+        "valor": 100000,
+        "diferencia": -400000,
+        "comprobante": "COMIDA",
+        "notas": "COMIDA"
+      },
+      {
+        "id": 1755400418800,
+        "fecha": "2025-08-17",
+        "valor": 200000,
+        "diferencia": -300000,
+        "comprobante": "PSE",
+        "notas": "CREATINA-PROTEINA"
       }
     ]
   }
