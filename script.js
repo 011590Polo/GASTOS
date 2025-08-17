@@ -752,7 +752,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Verificar pagos urgentes cada hora
     verificarPagosUrgentes();
-    setInterval(verificarPagosUrgentes, 3600000); // 3600000 ms = 1 hora
+    setInterval(verificarPagosUrgentes, 120000); // 3600000 ms = 1 hora
 });
 
 // ... existing code ...
