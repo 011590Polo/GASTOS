@@ -185,6 +185,7 @@ function crearGasto() {
 
 function mostrarGastos(gastosFiltrados = null) {
     let gastos = gastosFiltrados || obtenerGastos();
+    console.log('Mostrando gastos:', gastos);
     
     // Ordenar gastos por día de pago (los que no tienen día van al final)
     gastos = ordenarGastosPorDia(gastos);
@@ -816,6 +817,9 @@ document.addEventListener('DOMContentLoaded', () => {
 let chartEstados = null;
 let chartCategorias = null;
 let chartPagosMensuales = null;
+let chartEstadosDashboard = null;
+let chartCategoriasDashboard = null;
+let chartPagosMensualesDashboard = null;
 
 // Función para limpiar todos los gráficos
 function limpiarGraficos() {
@@ -830,6 +834,18 @@ function limpiarGraficos() {
     if (chartPagosMensuales) {
         chartPagosMensuales.destroy();
         chartPagosMensuales = null;
+    }
+    if (chartEstadosDashboard) {
+        chartEstadosDashboard.destroy();
+        chartEstadosDashboard = null;
+    }
+    if (chartCategoriasDashboard) {
+        chartCategoriasDashboard.destroy();
+        chartCategoriasDashboard = null;
+    }
+    if (chartPagosMensualesDashboard) {
+        chartPagosMensualesDashboard.destroy();
+        chartPagosMensualesDashboard = null;
     }
 }
 
@@ -916,6 +932,7 @@ function actualizarEstadisticasGenerales() {
 // Gráfico de distribución por estado
 function actualizarGraficoEstados() {
     const gastos = obtenerGastos();
+    console.log('Gastos para gráfico de estados:', gastos);
     
     // Contar gastos por estado
     const estados = {};
@@ -923,7 +940,10 @@ function actualizarGraficoEstados() {
         const estadoInfo = calcularEstadoGasto(gasto);
         const estado = estadoInfo.estado;
         estados[estado] = (estados[estado] || 0) + 1;
+        console.log(`Gasto: ${gasto.nombre}, Estado calculado: ${estado}`);
     });
+    
+    console.log('Estados contados:', estados);
     
     const ctx = document.getElementById('chartEstados');
     if (!ctx) {
@@ -994,6 +1014,7 @@ function actualizarGraficoEstados() {
 // Gráfico de gastos por categoría
 function actualizarGraficoCategorias() {
     const gastos = obtenerGastos();
+    console.log('Gastos para gráfico de categorías:', gastos);
     
     // Agrupar por categoría (usando el nombre del gasto como categoría)
     const categorias = {};
@@ -1007,7 +1028,10 @@ function actualizarGraficoCategorias() {
         }
         categorias[categoria].cantidad++;
         categorias[categoria].total += parseFloat(gasto.deuda);
+        console.log(`Gasto: ${gasto.nombre}, Categoría: ${categoria}, Deuda: ${gasto.deuda}`);
     });
+    
+    console.log('Categorías agrupadas:', categorias);
     
     const ctx = document.getElementById('chartCategorias');
     if (!ctx) {
@@ -1109,6 +1133,7 @@ function actualizarGraficoCategorias() {
 // Gráfico de pagos por mes
 function actualizarGraficoPagosMensuales() {
     const gastos = obtenerGastos();
+    console.log('Gastos para gráfico de pagos mensuales:', gastos);
     
     // Obtener todos los pagos de todos los gastos
     const todosLosPagos = [];
@@ -1122,6 +1147,8 @@ function actualizarGraficoPagosMensuales() {
             });
         }
     });
+    
+    console.log('Todos los pagos recolectados:', todosLosPagos);
     
     // Agrupar pagos por mes
     const pagosPorMes = {};
@@ -1264,5 +1291,883 @@ function obtenerCategoriaGasto(nombre) {
     }
 }
 
+// ===== FUNCIONES DEL MENÚ LATERAL Y NAVEGACIÓN =====
 
+// Toggle del sidebar
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const mainContent = document.getElementById('mainContent');
+    const sidebarToggleDesktop = document.querySelector('.sidebar-toggle-desktop');
+    
+    // Verificar si estamos en pantalla grande (desktop)
+    if (window.innerWidth >= 1024) {
+        // En desktop: alternar entre abierto y cerrado
+        sidebar.classList.toggle('closed');
+        mainContent.classList.toggle('sidebar-closed');
+        
+        // Cambiar ícono del botón según el estado
+        if (sidebarToggleDesktop) {
+            const icon = sidebarToggleDesktop.querySelector('i');
+            if (sidebar.classList.contains('closed')) {
+                icon.textContent = 'menu';
+            } else {
+                icon.textContent = 'close';
+            }
+        }
+        
+        // Guardar estado en localStorage
+        const isClosed = sidebar.classList.contains('closed');
+        localStorage.setItem('sidebarClosed', isClosed);
+    } else {
+        // En móvil: usar el comportamiento original
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('show');
+    }
+}
 
+// Mostrar sección específica
+function mostrarSeccion(seccionId) {
+    // Ocultar todas las secciones
+    const secciones = document.querySelectorAll('.content-section');
+    secciones.forEach(seccion => {
+        seccion.classList.remove('active');
+    });
+    
+    // Mostrar la sección seleccionada
+    const seccionActiva = document.getElementById(seccionId);
+    if (seccionActiva) {
+        seccionActiva.classList.add('active');
+    }
+    
+    // Actualizar menú activo
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach(item => {
+        item.classList.remove('active');
+    });
+    
+    const menuItemActivo = document.querySelector(`[data-section="${seccionId}"]`);
+    if (menuItemActivo) {
+        menuItemActivo.classList.add('active');
+    }
+    
+    // Actualizar título de la página
+    const pageTitle = document.getElementById('pageTitle');
+    const titulos = {
+        'dashboard': 'Dashboard',
+        'gastos': 'Gastos',
+        'estadisticas': 'Estadísticas',
+        'configuracion': 'Configuración',
+        'ayuda': 'Ayuda',
+        'acerca': 'Acerca de'
+    };
+    
+    if (pageTitle && titulos[seccionId]) {
+        pageTitle.textContent = titulos[seccionId];
+    }
+    
+    // Cerrar sidebar en móviles
+    if (window.innerWidth < 1024) {
+        toggleSidebar();
+    }
+    
+    // Ejecutar funciones específicas según la sección
+    switch(seccionId) {
+        case 'dashboard':
+            actualizarDashboard();
+            break;
+        case 'gastos':
+            mostrarGastosSeccion();
+            break;
+        case 'estadisticas':
+            actualizarEstadisticasSeccion();
+            break;
+    }
+}
+
+// Actualizar dashboard
+function actualizarDashboard() {
+    const gastos = obtenerGastos();
+    
+    // Actualizar estadísticas rápidas usando la misma lógica que actualizarEstadisticasGenerales
+    document.getElementById('totalGastosDashboard').textContent = gastos.length;
+    
+    // Contar gastos por estado usando calcularEstadoGasto (misma lógica que estadísticas)
+    let gastosPendientes = 0;
+    let gastosPagados = 0;
+    let gastosUrgentes = 0;
+    
+    gastos.forEach(gasto => {
+        const estadoInfo = calcularEstadoGasto(gasto);
+        switch (estadoInfo.estado) {
+            case 'pagado':
+                gastosPagados++;
+                break;
+            case 'urgente':
+                gastosUrgentes++;
+                break;
+            case 'puede esperar':
+                gastosPendientes++;
+                break;
+        }
+    });
+    
+    document.getElementById('gastosPendientesDashboard').textContent = gastosPendientes;
+    document.getElementById('gastosPagadosDashboard').textContent = gastosPagados;
+    document.getElementById('gastosUrgentesDashboard').textContent = gastosUrgentes;
+    
+    // Actualizar gastos recientes
+    actualizarGastosRecientes();
+    
+    // Actualizar gráficos del dashboard
+    setTimeout(() => {
+        actualizarGraficoEstadosDashboard();
+        actualizarGraficoCategoriasDashboard();
+        actualizarGraficoPagosMensualesDashboard();
+    }, 100);
+}
+
+// Actualizar últimos pagos realizados en el dashboard
+function actualizarGastosRecientes() {
+    const gastos = obtenerGastos();
+    const recentList = document.getElementById('recentGastosList');
+    
+    if (!recentList) return;
+    
+    // Recolectar todos los pagos de todos los gastos
+    const todosLosPagos = [];
+    gastos.forEach(gasto => {
+        if (gasto.pagos && gasto.pagos.length > 0) {
+            gasto.pagos.forEach(pago => {
+                todosLosPagos.push({
+                    ...pago,
+                    gastoNombre: gasto.nombre,
+                    gastoNic: gasto.nic
+                });
+            });
+        }
+    });
+    
+    // Ordenar pagos por fecha (más recientes primero) y tomar los últimos 5
+    const pagosRecientes = todosLosPagos
+        .sort((a, b) => new Date(b.fecha) - new Date(a.fecha))
+        .slice(0, 5);
+    
+    if (pagosRecientes.length === 0) {
+        recentList.innerHTML = '<p style="color: var(--md-on-surface-variant); text-align: center;">No hay pagos registrados</p>';
+        return;
+    }
+    
+    recentList.innerHTML = pagosRecientes.map(pago => `
+        <div class="recent-item" style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: var(--md-surface-variant);
+            border-radius: 8px;
+            border-left: 4px solid #4caf50;
+        ">
+            <div>
+                <div style="font-weight: 500; color: var(--md-on-surface);">${pago.gastoNombre}</div>
+                <div style="font-size: 14px; color: var(--md-on-surface-variant);">${pago.gastoNic} - ${pago.fecha}</div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-weight: 500; color: var(--md-on-surface);">
+                    ${parseFloat(pago.valor).toLocaleString('es-CO', { style: 'currency', currency: 'COP' })}
+                </div>
+                <div style="font-size: 12px; color: var(--md-on-surface-variant);">
+                    Pago realizado
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Función auxiliar para obtener color del estado
+function getEstadoColor(estado) {
+    switch(estado) {
+        case 'urgente': return '#f44336';
+        case 'pagado': return '#4caf50';
+        case 'puede esperar': return '#ff9800';
+        default: return '#9e9e9e';
+    }
+}
+
+// Mostrar gastos (sección principal)
+function mostrarGastosSeccion() {
+    mostrarGastos();
+    filtrarGastos();
+}
+
+// Actualizar estadísticas
+function actualizarEstadisticasSeccion() {
+    actualizarEstadisticas();
+    // Los gráficos se actualizan dentro de actualizarEstadisticas()
+    actualizarResumenFinanciero();
+}
+
+// ===== FUNCIONES DE CONFIGURACIÓN =====
+
+// Cambiar tema
+function cambiarTema() {
+    const themeSelect = document.getElementById('themeSelect');
+    const tema = themeSelect.value;
+    
+    // Guardar preferencia
+    localStorage.setItem('tema', tema);
+    
+    // Aplicar tema
+    document.body.className = tema;
+    
+    mostrarSnackbar('Tema cambiado exitosamente');
+}
+
+// Cambiar color principal
+function cambiarColorPrincipal() {
+    const colorInput = document.getElementById('primaryColor');
+    const color = colorInput.value;
+    
+    // Guardar preferencia
+    localStorage.setItem('colorPrincipal', color);
+    
+    // Aplicar color
+    document.documentElement.style.setProperty('--md-primary', color);
+    
+    mostrarSnackbar('Color principal cambiado');
+}
+
+// Limpiar todos los datos
+function limpiarDatos() {
+    if (confirm('¿Estás seguro de que quieres eliminar todos los datos? Esta acción no se puede deshacer.')) {
+        localStorage.removeItem('gastos');
+        localStorage.removeItem('pagos');
+        
+        // Limpiar tablas y estadísticas
+        document.getElementById('tabla_gastos').innerHTML = '';
+        actualizarEstadisticas();
+        actualizarDashboard();
+        
+        mostrarSnackbar('Todos los datos han sido eliminados');
+    }
+}
+
+// ===== FUNCIONES DE INICIALIZACIÓN =====
+
+// Inicializar configuración
+function inicializarConfiguracion() {
+    // Cargar tema guardado
+    const temaGuardado = localStorage.getItem('tema') || 'light';
+    const themeSelect = document.getElementById('themeSelect');
+    if (themeSelect) {
+        themeSelect.value = temaGuardado;
+        document.body.className = temaGuardado;
+    }
+    
+    // Cargar color principal guardado
+    const colorGuardado = localStorage.getItem('colorPrincipal') || '#1976d2';
+    const colorInput = document.getElementById('primaryColor');
+    if (colorInput) {
+        colorInput.value = colorGuardado;
+        document.documentElement.style.setProperty('--md-primary', colorGuardado);
+    }
+    
+    // Cargar preferencias de notificaciones
+    const notifUrgentes = localStorage.getItem('notifUrgentes') !== 'false';
+    const notifVencidos = localStorage.getItem('notifVencidos') !== 'false';
+    
+    const notifUrgentesCheckbox = document.getElementById('notifUrgentes');
+    const notifVencidosCheckbox = document.getElementById('notifVencidos');
+    
+    if (notifUrgentesCheckbox) notifUrgentesCheckbox.checked = notifUrgentes;
+    if (notifVencidosCheckbox) notifVencidosCheckbox.checked = notifVencidos;
+}
+
+// Guardar preferencias de notificaciones
+function guardarPreferenciasNotificaciones() {
+    const notifUrgentes = document.getElementById('notifUrgentes').checked;
+    const notifVencidos = document.getElementById('notifVencidos').checked;
+    
+    localStorage.setItem('notifUrgentes', notifUrgentes);
+    localStorage.setItem('notifVencidos', notifVencidos);
+    
+    mostrarSnackbar('Preferencias guardadas');
+}
+
+// ===== EVENT LISTENERS =====
+
+// Agregar event listeners cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar configuración
+    inicializarConfiguracion();
+    
+    // Restaurar estado del sidebar
+    restaurarEstadoSidebar();
+    
+    // Event listeners para checkboxes de configuración
+    const notifUrgentesCheckbox = document.getElementById('notifUrgentes');
+    const notifVencidosCheckbox = document.getElementById('notifVencidos');
+    
+    if (notifUrgentesCheckbox) {
+        notifUrgentesCheckbox.addEventListener('change', guardarPreferenciasNotificaciones);
+    }
+    
+    if (notifVencidosCheckbox) {
+        notifVencidosCheckbox.addEventListener('change', guardarPreferenciasNotificaciones);
+    }
+    
+    // Cerrar sidebar al hacer clic en overlay
+    const overlay = document.getElementById('sidebarOverlay');
+    if (overlay) {
+        overlay.addEventListener('click', toggleSidebar);
+    }
+    
+    // Navegación con teclado
+    document.addEventListener('keydown', function(e) {
+        // ESC para cerrar sidebar
+        if (e.key === 'Escape') {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar && sidebar.classList.contains('open')) {
+                toggleSidebar();
+            }
+        }
+    });
+    
+    // Mostrar dashboard por defecto
+    mostrarSeccion('dashboard');
+    
+    // Cargar datos iniciales
+    cargarDatosIniciales();
+    mostrarGastos();
+    actualizarDashboard();
+});
+
+// ===== FUNCIONES DE UTILIDAD =====
+
+// Cargar datos iniciales si no existen
+function cargarDatosIniciales() {
+    const gastos = obtenerGastos();
+    console.log('Gastos actuales:', gastos);
+    
+    // Si no hay gastos, cargar datos de ejemplo
+    if (gastos.length === 0) {
+        const datosEjemplo = [
+            {
+                id: 1,
+                nic: "NIC-001",
+                nombre: "Internet Hogar",
+                deuda: 89900,
+                dia_pago: 15,
+                enlace_pago: "https://www.claro.com.co/pagos",
+                estado: "puede esperar",
+                fechaCreacion: new Date().toISOString(),
+                pagos: [
+                    {
+                        id: 101,
+                        fecha: "2024-01-15",
+                        valor: 89900,
+                        diferencia: 0,
+                        comprobante: "COMP-001",
+                        notas: "Pago mensual"
+                    }
+                ]
+            },
+            {
+                id: 2,
+                nic: "NIC-002", 
+                nombre: "Servicio de Luz",
+                deuda: 156200,
+                dia_pago: 10,
+                enlace_pago: "https://www.epm.com.co/pagos",
+                estado: "urgente",
+                fechaCreacion: new Date().toISOString(),
+                pagos: [
+                    {
+                        id: 102,
+                        fecha: "2024-01-10",
+                        valor: 156200,
+                        diferencia: 0,
+                        comprobante: "COMP-002",
+                        notas: "Pago mensual"
+                    },
+                    {
+                        id: 103,
+                        fecha: "2024-02-10",
+                        valor: 145000,
+                        diferencia: -11200,
+                        comprobante: "COMP-003",
+                        notas: "Pago con descuento"
+                    }
+                ]
+            },
+            {
+                id: 3,
+                nic: "NIC-003",
+                nombre: "Agua y Alcantarillado",
+                deuda: 45600,
+                dia_pago: 20,
+                enlace_pago: "https://www.aaa.com.co/pagos",
+                estado: "puede esperar",
+                fechaCreacion: new Date().toISOString(),
+                pagos: [
+                    {
+                        id: 104,
+                        fecha: "2024-01-20",
+                        valor: 45600,
+                        diferencia: 0,
+                        comprobante: "COMP-004",
+                        notas: "Pago mensual"
+                    }
+                ]
+            },
+            {
+                id: 4,
+                nic: "NIC-004",
+                nombre: "Netflix Premium",
+                deuda: 45000,
+                dia_pago: 5,
+                enlace_pago: "https://www.netflix.com/account",
+                estado: "puede esperar",
+                fechaCreacion: new Date().toISOString(),
+                pagos: [
+                    {
+                        id: 105,
+                        fecha: "2024-01-05",
+                        valor: 45000,
+                        diferencia: 0,
+                        comprobante: "COMP-005",
+                        notas: "Suscripción mensual"
+                    }
+                ]
+            },
+            {
+                id: 5,
+                nic: "NIC-005",
+                nombre: "Davivienda Tarjeta",
+                deuda: 250000,
+                dia_pago: 25,
+                enlace_pago: "https://www.davivienda.com",
+                estado: "urgente",
+                fechaCreacion: new Date().toISOString(),
+                pagos: [
+                    {
+                        id: 106,
+                        fecha: "2024-01-25",
+                        valor: 250000,
+                        diferencia: 0,
+                        comprobante: "COMP-006",
+                        notas: "Pago tarjeta de crédito"
+                    }
+                ]
+            }
+        ];
+        
+        localStorage.setItem('gastos', JSON.stringify(datosEjemplo));
+        console.log('Datos de ejemplo cargados:', datosEjemplo);
+    }
+}
+
+// Función para mostrar notificaciones mejorada
+function mostrarSnackbar(mensaje, tipo = 'info') {
+    const snackbar = document.getElementById('snackbar');
+    const snackbarText = document.getElementById('snackbar-text');
+    
+    if (snackbar && snackbarText) {
+        snackbarText.textContent = mensaje;
+        
+        // Aplicar clase según el tipo
+        snackbar.className = `md-snackbar ${tipo}`;
+        
+        snackbar.classList.add('show');
+        
+        setTimeout(() => {
+            snackbar.classList.remove('show');
+        }, 3000);
+    }
+}
+
+// Función para formatear fechas
+function formatearFecha(fecha) {
+    if (!fecha) return 'N/A';
+    
+    const fechaObj = new Date(fecha);
+    return fechaObj.toLocaleDateString('es-CO', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric'
+    });
+}
+
+// Función para formatear moneda
+function formatearMoneda(valor) {
+    return parseFloat(valor).toLocaleString('es-CO', {
+        style: 'currency',
+        currency: 'COP'
+    });
+}
+
+// Función para restaurar el estado del sidebar
+function restaurarEstadoSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const sidebarToggleDesktop = document.querySelector('.sidebar-toggle-desktop');
+    
+    if (window.innerWidth >= 1024) {
+        // En desktop: restaurar estado guardado
+        const sidebarClosed = localStorage.getItem('sidebarClosed') === 'true';
+        if (sidebarClosed) {
+            sidebar.classList.add('closed');
+            mainContent.classList.add('sidebar-closed');
+        }
+        
+        // Actualizar ícono del botón según el estado
+        if (sidebarToggleDesktop) {
+            const icon = sidebarToggleDesktop.querySelector('i');
+            if (sidebar.classList.contains('closed')) {
+                icon.textContent = 'menu';
+            } else {
+                icon.textContent = 'close';
+            }
+        }
+    }
+}
+
+// Listener para cambio de tamaño de ventana
+window.addEventListener('resize', function() {
+    const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
+    const overlay = document.getElementById('sidebarOverlay');
+    const sidebarToggleDesktop = document.querySelector('.sidebar-toggle-desktop');
+    
+    if (window.innerWidth >= 1024) {
+        // Cambiar a desktop: limpiar clases de móvil
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+        
+        // Restaurar estado del sidebar
+        restaurarEstadoSidebar();
+    } else {
+        // Cambiar a móvil: limpiar clases de desktop
+        sidebar.classList.remove('closed');
+        mainContent.classList.remove('sidebar-closed');
+        
+        // Resetear ícono del botón en móvil
+        if (sidebarToggleDesktop) {
+            const icon = sidebarToggleDesktop.querySelector('i');
+            icon.textContent = 'menu';
+        }
+    }
+});
+
+// ===== FUNCIONES ESPECÍFICAS PARA GRÁFICOS DEL DASHBOARD =====
+
+// Gráfico de distribución por estado para el dashboard
+function actualizarGraficoEstadosDashboard() {
+    const gastos = obtenerGastos();
+    console.log('Gastos para gráfico de estados del dashboard:', gastos);
+    
+    // Contar gastos por estado
+    const estados = {};
+    gastos.forEach(gasto => {
+        const estadoInfo = calcularEstadoGasto(gasto);
+        const estado = estadoInfo.estado;
+        estados[estado] = (estados[estado] || 0) + 1;
+        console.log(`Gasto: ${gasto.nombre}, Estado calculado: ${estado}`);
+    });
+    
+    console.log('Estados contados para dashboard:', estados);
+    
+    const ctx = document.getElementById('chartEstadosDashboard');
+    if (!ctx) {
+        console.error('Canvas chartEstadosDashboard no encontrado');
+        return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (chartEstadosDashboard) {
+        chartEstadosDashboard.destroy();
+        chartEstadosDashboard = null;
+    }
+    
+    // Verificar que hay datos para mostrar
+    if (Object.keys(estados).length === 0) {
+        console.log('No hay datos para mostrar en el gráfico de estados del dashboard');
+        return;
+    }
+    
+    try {
+        chartEstadosDashboard = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: Object.keys(estados).map(estado => {
+                    const labels = {
+                        'puede esperar': 'Pendientes',
+                        'urgente': 'Urgentes',
+                        'pagado': 'Pagados'
+                    };
+                    return labels[estado] || estado;
+                }),
+                datasets: [{
+                    data: Object.values(estados),
+                    backgroundColor: [
+                        '#FF6384', // Rojo para urgentes
+                        '#36A2EB', // Azul para pendientes
+                        '#4BC0C0', // Verde para pagados
+                        '#FFCE56'  // Amarillo para otros
+                    ],
+                    borderWidth: 2,
+                    borderColor: '#fff'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom'
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                return `${context.label}: ${context.parsed} (${percentage}%)`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+        console.log('Gráfico de estados del dashboard creado exitosamente');
+    } catch (error) {
+        console.error('Error al crear gráfico de estados del dashboard:', error);
+    }
+}
+
+// Gráfico de gastos por categoría para el dashboard
+function actualizarGraficoCategoriasDashboard() {
+    const gastos = obtenerGastos();
+    console.log('Gastos para gráfico de categorías del dashboard:', gastos);
+    
+    // Agrupar por categoría (usando el nombre del gasto como categoría)
+    const categorias = {};
+    gastos.forEach(gasto => {
+        const categoria = obtenerCategoriaGasto(gasto.nombre);
+        if (!categorias[categoria]) {
+            categorias[categoria] = {
+                cantidad: 0,
+                total: 0
+            };
+        }
+        categorias[categoria].cantidad++;
+        categorias[categoria].total += parseFloat(gasto.deuda);
+        console.log(`Gasto: ${gasto.nombre}, Categoría: ${categoria}, Deuda: ${gasto.deuda}`);
+    });
+    
+    console.log('Categorías agrupadas para dashboard:', categorias);
+    
+    const ctx = document.getElementById('chartCategoriasDashboard');
+    if (!ctx) {
+        console.error('Canvas chartCategoriasDashboard no encontrado');
+        return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (chartCategoriasDashboard) {
+        chartCategoriasDashboard.destroy();
+        chartCategoriasDashboard = null;
+    }
+    
+    // Verificar que hay datos para mostrar
+    if (Object.keys(categorias).length === 0) {
+        console.log('No hay datos para mostrar en el gráfico de categorías del dashboard');
+        return;
+    }
+    
+    try {
+        chartCategoriasDashboard = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: Object.keys(categorias),
+                datasets: [{
+                    label: 'Cantidad de Gastos',
+                    data: Object.values(categorias).map(cat => cat.cantidad),
+                    backgroundColor: 'rgba(54, 162, 235, 0.8)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                }, {
+                    label: 'Total (miles COP)',
+                    data: Object.values(categorias).map(cat => Math.round(cat.total / 1000)),
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1,
+                    yAxisID: 'y1'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Categorías'
+                        }
+                    },
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cantidad'
+                        },
+                        grid: {
+                            drawOnChartArea: true,
+                        },
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total (miles COP)'
+                        },
+                        grid: {
+                            drawOnChartArea: false,
+                        },
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false
+                    }
+                }
+            }
+        });
+        console.log('Gráfico de categorías del dashboard creado exitosamente');
+    } catch (error) {
+        console.error('Error al crear gráfico de categorías del dashboard:', error);
+    }
+}
+
+// Gráfico de pagos por mes para el dashboard
+function actualizarGraficoPagosMensualesDashboard() {
+    const gastos = obtenerGastos();
+    console.log('Gastos para gráfico de pagos mensuales del dashboard:', gastos);
+    
+    // Obtener todos los pagos de todos los gastos
+    const todosLosPagos = [];
+    gastos.forEach(gasto => {
+        if (gasto.pagos && gasto.pagos.length > 0) {
+            gasto.pagos.forEach(pago => {
+                todosLosPagos.push({
+                    fecha: pago.fecha,
+                    valor: pago.valor
+                });
+            });
+        }
+    });
+    
+    console.log('Todos los pagos recolectados para dashboard:', todosLosPagos);
+    
+    // Agrupar pagos por mes
+    const pagosPorMes = {};
+    todosLosPagos.forEach(pago => {
+        const fecha = new Date(pago.fecha);
+        const mesAnio = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
+        
+        if (!pagosPorMes[mesAnio]) {
+            pagosPorMes[mesAnio] = {
+                total: 0,
+                cantidad: 0
+            };
+        }
+        pagosPorMes[mesAnio].total += pago.valor;
+        pagosPorMes[mesAnio].cantidad++;
+    });
+    
+    // Ordenar por fecha
+    const mesesOrdenados = Object.keys(pagosPorMes).sort();
+    
+    const ctx = document.getElementById('chartPagosMensualesDashboard');
+    if (!ctx) {
+        console.error('Canvas chartPagosMensualesDashboard no encontrado');
+        return;
+    }
+    
+    // Destruir gráfico existente si existe
+    if (chartPagosMensualesDashboard) {
+        chartPagosMensualesDashboard.destroy();
+        chartPagosMensualesDashboard = null;
+    }
+    
+    // Verificar que hay datos para mostrar
+    if (mesesOrdenados.length === 0) {
+        console.log('No hay datos para mostrar en el gráfico de pagos mensuales del dashboard');
+        return;
+    }
+    
+    try {
+        chartPagosMensualesDashboard = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: mesesOrdenados.map(mes => {
+                    const [anio, mesNum] = mes.split('-');
+                    const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 
+                                 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+                    return `${meses[parseInt(mesNum) - 1]} ${anio}`;
+                }),
+                datasets: [{
+                    label: 'Total Pagado (miles COP)',
+                    data: mesesOrdenados.map(mes => Math.round(pagosPorMes[mes].total / 1000)),
+                    borderColor: 'rgb(75, 192, 192)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    tension: 0.1,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        display: true,
+                        title: {
+                            display: true,
+                            text: 'Mes'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Total (miles COP)'
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        position: 'top'
+                    }
+                }
+            }
+        });
+        console.log('Gráfico de pagos mensuales del dashboard creado exitosamente');
+    } catch (error) {
+        console.error('Error al crear gráfico de pagos mensuales del dashboard:', error);
+    }
+}

@@ -3,14 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrador de Gastos</title>
+    <title>Prueba - Menú de Navegación</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="material-design.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Material Design Web Components (opcional) -->
-    <script src="https://unpkg.com/@material/web@1.0.0/material-web.js" type="module"></script>
     <!-- Chart.js para gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -81,14 +79,9 @@
     <main class="main-content" id="mainContent">
         <!-- Header principal -->
         <header class="main-header">
-            <div class="header-left">
-                <button class="menu-toggle" onclick="toggleSidebar()" title="Abrir menú">
-                    <i class="material-icons">menu</i>
-                </button>
-                <button class="sidebar-toggle-desktop" onclick="toggleSidebar()" title="Alternar menú">
-                    <i class="material-icons">menu</i>
-                </button>
-            </div>
+            <button class="menu-toggle" onclick="toggleSidebar()" title="Abrir menú">
+                <i class="material-icons">menu</i>
+            </button>
             <h1 class="page-title" id="pageTitle">Dashboard</h1>
             <div class="header-actions">
                 <button class="md-button md-button--primary md-ripple" onclick="abrirModalAgregarGasto()" title="Agregar gasto">
@@ -108,7 +101,7 @@
                             <i class="material-icons">receipt_long</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="totalGastosDashboard">0</h4>
+                            <h4 id="totalGastosDashboard">5</h4>
                             <p>Total Gastos</p>
                         </div>
                     </div>
@@ -117,7 +110,7 @@
                             <i class="material-icons">pending</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="gastosPendientesDashboard">0</h4>
+                            <h4 id="gastosPendientesDashboard">3</h4>
                             <p>Pendientes</p>
                         </div>
                     </div>
@@ -126,7 +119,7 @@
                             <i class="material-icons">check_circle</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="gastosPagadosDashboard">0</h4>
+                            <h4 id="gastosPagadosDashboard">1</h4>
                             <p>Pagados</p>
                         </div>
                     </div>
@@ -135,7 +128,7 @@
                             <i class="material-icons">warning</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="gastosUrgentesDashboard">0</h4>
+                            <h4 id="gastosUrgentesDashboard">1</h4>
                             <p>Urgentes</p>
                         </div>
                     </div>
@@ -145,7 +138,7 @@
                 <div class="quick-actions">
                     <h3><i class="material-icons">flash_on</i> Acciones Rápidas</h3>
                     <div class="actions-grid">
-                        <button class="action-card" onclick="abrirModalAgregarGasto()">
+                        <button class="action-card" onclick="mostrarSeccion('gastos')">
                             <i class="material-icons">add_circle</i>
                             <span>Agregar Gasto</span>
                         </button>
@@ -153,38 +146,57 @@
                             <i class="material-icons">analytics</i>
                             <span>Ver Estadísticas</span>
                         </button>
-                        <button class="action-card" onclick="exportarJSON()">
-                            <i class="material-icons">file_download</i>
-                            <span>Exportar Datos</span>
+                        <button class="action-card" onclick="mostrarSeccion('configuracion')">
+                            <i class="material-icons">settings</i>
+                            <span>Configuración</span>
                         </button>
-                        <button class="action-card" onclick="importarJSON()">
-                            <i class="material-icons">file_upload</i>
-                            <span>Importar Datos</span>
+                        <button class="action-card" onclick="mostrarSeccion('ayuda')">
+                            <i class="material-icons">help</i>
+                            <span>Ayuda</span>
                         </button>
                     </div>
                 </div>
 
-                <!-- Últimos pagos realizados -->
+                <!-- Gastos recientes -->
                 <div class="recent-gastos">
-                    <h3><i class="material-icons">payment</i> Últimos Pagos Realizados</h3>
+                    <h3><i class="material-icons">schedule</i> Gastos Recientes</h3>
                     <div class="recent-list" id="recentGastosList">
-                        <!-- Se llenará dinámicamente -->
-                    </div>
-                </div>
-
-                <!-- Gráficos del dashboard -->
-                <div class="charts-container">
-                    <div class="chart-card">
-                        <h4><i class="material-icons">pie_chart</i> Distribución por Estado</h4>
-                        <canvas id="chartEstadosDashboard" width="400" height="200"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h4><i class="material-icons">bar_chart</i> Gastos por Categoría</h4>
-                        <canvas id="chartCategoriasDashboard" width="400" height="200"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h4><i class="material-icons">trending_up</i> Pagos Mensuales</h4>
-                        <canvas id="chartPagosMensualesDashboard" width="400" height="200"></canvas>
+                        <div class="recent-item" style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 12px;
+                            background: var(--md-surface-variant);
+                            border-radius: 8px;
+                            border-left: 4px solid #ff9800;
+                        ">
+                            <div>
+                                <div style="font-weight: 500; color: var(--md-on-surface);">Internet Hogar</div>
+                                <div style="font-size: 14px; color: var(--md-on-surface-variant);">NIC-001</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 500; color: var(--md-on-surface);">$89.900</div>
+                                <div style="font-size: 12px; color: var(--md-on-surface-variant);">puede esperar</div>
+                            </div>
+                        </div>
+                        <div class="recent-item" style="
+                            display: flex;
+                            justify-content: space-between;
+                            align-items: center;
+                            padding: 12px;
+                            background: var(--md-surface-variant);
+                            border-radius: 8px;
+                            border-left: 4px solid #f44336;
+                        ">
+                            <div>
+                                <div style="font-weight: 500; color: var(--md-on-surface);">Servicio de Luz</div>
+                                <div style="font-size: 14px; color: var(--md-on-surface-variant);">NIC-002</div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 500; color: var(--md-on-surface);">$156.200</div>
+                                <div style="font-size: 12px; color: var(--md-on-surface-variant);">urgente</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -192,7 +204,6 @@
 
         <!-- Sección Gastos -->
         <section id="gastos" class="content-section">
-            <!-- Tarjeta de filtros -->
             <div class="filters-card">
                 <div class="filters-header">
                     <h3><i class="material-icons">filter_list</i> Filtros de Búsqueda</h3>
@@ -201,14 +212,14 @@
                     <div class="filter-group">
                         <div class="search-box">
                             <i class="material-icons">search</i>
-                            <input type="text" id="filtroBusqueda" placeholder="Buscar gastos..." oninput="filtrarGastos()">
-                            <button onclick="limpiarFiltro()" class="btn-limpiar" title="Limpiar filtro">
+                            <input type="text" placeholder="Buscar gastos...">
+                            <button class="btn-limpiar" title="Limpiar filtro">
                                 <i class="material-icons">clear</i>
                             </button>
                         </div>
                     </div>
                     <div class="filter-group">
-                        <select id="filtroEstado" onchange="filtrarGastos()">
+                        <select>
                             <option value="">Todos los estados</option>
                             <option value="puede esperar">Puede Esperar</option>
                             <option value="urgente">Urgente</option>
@@ -218,29 +229,6 @@
                 </div>
             </div>
 
-            <!-- Tarjeta de resultados y acciones -->
-            <div class="results-card">
-                <div class="results-header">
-                    <h3><i class="material-icons">analytics</i> Resultados y Acciones</h3>
-                </div>
-                <div class="results-content">
-                    <div class="filter-results">
-                        <div class="results-left">
-                            <span id="resultadosFiltro">Mostrando todos los gastos</span>
-                        </div>
-                        <div class="results-right">
-                            <button onclick="importarJSON()" class="md-button md-button--primary md-ripple">
-                                <i class="material-icons">file_upload</i> Importar JSON
-                            </button>
-                            <button onclick="exportarJSON()" class="md-button md-button--success md-ripple">
-                                <i class="material-icons">file_download</i> Exportar JSON
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Tarjeta de la tabla de gastos -->
             <div class="table-card">
                 <div class="table-header">
                     <h3><i class="material-icons">table_chart</i> Tabla de Gastos</h3>
@@ -258,7 +246,32 @@
                                 <th>Acciones</th>
                             </tr>
                         </thead>
-                        <tbody id="tabla_gastos"></tbody>
+                        <tbody>
+                            <tr>
+                                <td>NIC-001</td>
+                                <td>Internet Hogar</td>
+                                <td>$89.900</td>
+                                <td>15/01/2024</td>
+                                <td><span class="estado puede-esperar">Puede Esperar</span></td>
+                                <td><a href="#" class="enlace-pago">Pagar</a></td>
+                                <td>
+                                    <button class="btn-accion">Editar</button>
+                                    <button class="btn-accion">Pagar</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>NIC-002</td>
+                                <td>Servicio de Luz</td>
+                                <td>$156.200</td>
+                                <td>10/01/2024</td>
+                                <td><span class="estado urgente">Urgente</span></td>
+                                <td><a href="#" class="enlace-pago">Pagar</a></td>
+                                <td>
+                                    <button class="btn-accion">Editar</button>
+                                    <button class="btn-accion">Pagar</button>
+                                </td>
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -268,20 +281,19 @@
         <section id="estadisticas" class="content-section">
             <div class="stats-header">
                 <h3><i class="material-icons">analytics</i> Estadísticas Detalladas</h3>
-                <button onclick="actualizarEstadisticas()" class="md-button md-button--primary md-ripple">
+                <button class="md-button md-button--primary md-ripple">
                     <i class="material-icons">refresh</i> Actualizar
                 </button>
             </div>
             
-            <div class="stats-content" id="statsContent">
-                <!-- Tarjetas de estadísticas generales -->
+            <div class="stats-content">
                 <div class="stats-overview">
                     <div class="stat-card">
                         <div class="stat-icon">
                             <i class="material-icons">receipt_long</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="totalGastos">0</h4>
+                            <h4>5</h4>
                             <p>Total Gastos</p>
                         </div>
                     </div>
@@ -290,7 +302,7 @@
                             <i class="material-icons">pending</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="gastosPendientes">0</h4>
+                            <h4>3</h4>
                             <p>Pendientes</p>
                         </div>
                     </div>
@@ -299,7 +311,7 @@
                             <i class="material-icons">check_circle</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="gastosPagados">0</h4>
+                            <h4>1</h4>
                             <p>Pagados</p>
                         </div>
                     </div>
@@ -308,50 +320,25 @@
                             <i class="material-icons">warning</i>
                         </div>
                         <div class="stat-info">
-                            <h4 id="gastosUrgentes">0</h4>
+                            <h4>1</h4>
                             <p>Urgentes</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- Gráficos -->
                 <div class="charts-container">
                     <div class="chart-card">
                         <h4><i class="material-icons">pie_chart</i> Distribución por Estado</h4>
-                        <canvas id="chartEstados" width="400" height="200"></canvas>
+                        <div style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--md-on-surface-variant);">
+                            Gráfico de distribución
+                        </div>
                     </div>
                     <div class="chart-card">
                         <h4><i class="material-icons">bar_chart</i> Gastos por Categoría</h4>
-                        <canvas id="chartCategorias" width="400" height="200"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h4><i class="material-icons">trending_up</i> Pagos por Mes</h4>
-                        <canvas id="chartPagosMensuales" width="400" height="200"></canvas>
-                    </div>
-                    <div class="chart-card">
-                        <h4><i class="material-icons">account_balance_wallet</i> Resumen Financiero</h4>
-                        <div class="financial-summary">
-                            <div class="summary-item">
-                                <span>Total Deudas:</span>
-                                <span id="totalDeudas" class="amount">$0</span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Total Pagado:</span>
-                                <span id="totalPagado" class="amount">$0</span>
-                            </div>
-                            <div class="summary-item">
-                                <span>Pendiente por Pagar:</span>
-                                <span id="pendientePagar" class="amount">$0</span>
-                            </div>
+                        <div style="height: 200px; display: flex; align-items: center; justify-content: center; color: var(--md-on-surface-variant);">
+                            Gráfico de categorías
                         </div>
                     </div>
-                </div>
-                
-                <!-- Botón de emergencia para detener gráficos -->
-                <div class="emergency-controls" style="text-align: center; margin-top: 20px;">
-                    <button onclick="limpiarGraficos()" class="md-button md-button--danger md-ripple" style="background: #f44336; color: white;">
-                        <i class="material-icons">stop</i> Detener Gráficos (Emergencia)
-                    </button>
                 </div>
             </div>
         </section>
@@ -365,7 +352,7 @@
                         <h4><i class="material-icons">palette</i> Apariencia</h4>
                         <div class="config-item">
                             <label>Tema:</label>
-                            <select id="themeSelect" onchange="cambiarTema()">
+                            <select id="themeSelect">
                                 <option value="light">Claro</option>
                                 <option value="dark">Oscuro</option>
                                 <option value="auto">Automático</option>
@@ -373,7 +360,7 @@
                         </div>
                         <div class="config-item">
                             <label>Color principal:</label>
-                            <input type="color" id="primaryColor" value="#1976d2" onchange="cambiarColorPrincipal()">
+                            <input type="color" id="primaryColor" value="#1976d2">
                         </div>
                     </div>
                     
@@ -396,18 +383,13 @@
                     <div class="config-section">
                         <h4><i class="material-icons">backup</i> Datos</h4>
                         <div class="config-item">
-                            <button onclick="exportarJSON()" class="md-button md-button--primary md-ripple">
+                            <button class="md-button md-button--primary md-ripple">
                                 <i class="material-icons">file_download</i> Exportar Datos
                             </button>
                         </div>
                         <div class="config-item">
-                            <button onclick="importarJSON()" class="md-button md-button--success md-ripple">
+                            <button class="md-button md-button--success md-ripple">
                                 <i class="material-icons">file_upload</i> Importar Datos
-                            </button>
-                        </div>
-                        <div class="config-item">
-                            <button onclick="limpiarDatos()" class="md-button md-button--danger md-ripple">
-                                <i class="material-icons">delete_forever</i> Limpiar Todos los Datos
                             </button>
                         </div>
                     </div>
@@ -446,11 +428,6 @@
                             <li><strong>Búsqueda:</strong> Escribe en la barra de búsqueda para encontrar gastos específicos</li>
                             <li><strong>Estado:</strong> Selecciona un estado para filtrar por "Puede Esperar", "Urgente" o "Pagado"</li>
                         </ul>
-                    </div>
-                    
-                    <div class="help-section">
-                        <h4><i class="material-icons">backup</i> ¿Cómo respaldar mis datos?</h4>
-                        <p>Usa la función "Exportar JSON" para descargar una copia de todos tus datos. Para restaurar, usa "Importar JSON".</p>
                     </div>
                 </div>
             </div>
@@ -500,156 +477,70 @@
         </section>
     </main>
 
-    <!-- Modal para agregar gasto -->
-    <div id="modalAgregarGasto" class="modal">
-        <div class="modal-contenido">
-            <div class="modal-header">
-                <h3>Agregar Gasto / Categoría</h3>
-            </div>
-            <form class="form-horizontal" onsubmit="event.preventDefault(); crearGasto();">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="nic">NIC:</label>
-                        <input type="text" id="nic" placeholder="Número de Identificación del Cliente" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="nombre">Nombre:</label>
-                        <input type="text" id="nombre" required>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="deuda">Deuda (COP):</label>
-                        <input type="number" id="deuda" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="dia_pago">Día de pago:</label>
-                        <input type="number" id="dia_pago" min="1" max="31" placeholder="Ej: 15">
-                        <small style="color: #666; font-size: 0.8rem;">Día del mes en que se debe pagar (1-31)</small>
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="enlace_pago">Enlace de pago:</label>
-                        <input type="url" id="enlace_pago" placeholder="https://...">
-                    </div>
-                </div>
-                <div class="modal-botones">
-                    <button type="submit" id="btnGuardar" class="btn-registrar">
-                        <i class="material-icons">save</i> Guardar
-                    </button>
-                    <button type="button" onclick="cerrarModalAgregarGasto()" class="btn-cancelar">
-                        <i class="material-icons">close</i> Cancelar
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Modal para registrar pago -->
-    <div id="modalPago" class="modal">
-        <div class="modal-contenido">
-            <h3>Registrar Pago</h3>
-            <div class="info-gasto">
-                <p>Gasto: <span id="modalNombreGasto"></span></p>
-                <p>Monto: <span id="modalMontoGasto"></span></p>
-                <p>Fecha a pagar: <span id="modalFechaPagar"></span></p>
-            </div>
-            <div class="form-pago">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Fecha de pago:</label>
-                        <input type="date" id="modalFechaPago">
-                    </div>
-                    <div class="form-group">
-                        <label>Valor pagado (COP):</label>
-                        <input type="number" id="modalValorPagado" placeholder="Ingrese el valor real pagado">
-                    </div>
-                </div>
-                
-                <div class="diferencia-valor" id="diferenciaPago"></div>
-                
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Comprobante de pago (opcional):</label>
-                        <input type="text" id="modalComprobante" placeholder="Número de comprobante o referencia">
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label>Notas adicionales:</label>
-                    <textarea id="modalNotas" rows="3"></textarea>
-                </div>
-                
-                <div class="modal-botones">
-                    <button onclick="registrarPago()" class="btn-registrar">Registrar Pago</button>
-                    <button onclick="cerrarModal()" class="btn-cancelar">Cancelar</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal para historial de pagos -->
-    <div id="modalHistorial" class="modal">
-        <div class="modal-contenido">
-            <h3>Historial de Pagos</h3>
-            <div class="info-gasto">
-                <p>Gasto: <span id="historialNombreGasto"></span></p>
-                <p>Valor Original: <span id="historialValorOriginal"></span></p>
-                <p>Estado: <span id="historialEstado"></span></p>
-            </div>
-            <div class="tabla-historial">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Fecha</th>
-                            <th>Valor Pagado</th>
-                            <th>Diferencia</th>
-                            <th>Comprobante</th>
-                            <th>Notas</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="listaPagos"></tbody>
-                </table>
-            </div>
-            <div class="total-pagado" id="historialTotalPagado"></div>
-            <div class="modal-botones">
-                <button onclick="cerrarModalHistorial()" class="btn-cancelar">Cerrar</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal de confirmación para eliminar -->
-    <div id="modalConfirmacion" class="modal">
-        <div class="modal-contenido modal-confirmacion">
-            <div class="confirmacion-header">
-                <i class="fas fa-exclamation-triangle"></i>
-                <h3>Confirmar Eliminación</h3>
-            </div>
-            <div class="confirmacion-body">
-                <p>¿Estás seguro de que deseas eliminar este elemento?</p>
-                <div id="detallesEliminacion"></div>
-            </div>
-            <div class="modal-botones">
-                <button onclick="confirmarEliminacion()" class="button button-danger">
-                    <i class="fas fa-trash"></i> Sí, Eliminar
-                </button>
-                <button onclick="cerrarModalConfirmacion()" class="button">
-                    <i class="fas fa-times"></i> Cancelar
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Input oculto para importar JSON -->
-    <input type="file" id="importarArchivo" accept=".json" style="display: none;" onchange="procesarArchivoImportado(event)">
-
     <!-- Snackbar para notificaciones -->
     <div id="snackbar" class="md-snackbar">
         <span id="snackbar-text"></span>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        // Funciones básicas para la prueba
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebarOverlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('show');
+        }
+
+        function mostrarSeccion(seccionId) {
+            // Ocultar todas las secciones
+            const secciones = document.querySelectorAll('.content-section');
+            secciones.forEach(seccion => {
+                seccion.classList.remove('active');
+            });
+            
+            // Mostrar la sección seleccionada
+            const seccionActiva = document.getElementById(seccionId);
+            if (seccionActiva) {
+                seccionActiva.classList.add('active');
+            }
+            
+            // Actualizar menú activo
+            const menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            const menuItemActivo = document.querySelector(`[data-section="${seccionId}"]`);
+            if (menuItemActivo) {
+                menuItemActivo.classList.add('active');
+            }
+            
+            // Actualizar título de la página
+            const pageTitle = document.getElementById('pageTitle');
+            const titulos = {
+                'dashboard': 'Dashboard',
+                'gastos': 'Gastos',
+                'estadisticas': 'Estadísticas',
+                'configuracion': 'Configuración',
+                'ayuda': 'Ayuda',
+                'acerca': 'Acerca de'
+            };
+            
+            if (pageTitle && titulos[seccionId]) {
+                pageTitle.textContent = titulos[seccionId];
+            }
+            
+            // Cerrar sidebar en móviles
+            if (window.innerWidth < 1024) {
+                toggleSidebar();
+            }
+        }
+
+        // Inicializar
+        document.addEventListener('DOMContentLoaded', function() {
+            mostrarSeccion('dashboard');
+        });
+    </script>
 </body>
 </html>
