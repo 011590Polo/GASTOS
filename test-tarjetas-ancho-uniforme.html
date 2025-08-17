@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Tarjetas Ancho Uniforme</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .test-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #1565c0;
+        }
+        .feature-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #1976d2;
+        }
+        .feature-info h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .demo-data {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-family: monospace;
+            font-size: 12px;
+        }
+        .width-info {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        .width-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .width-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            background: #4caf50;
+        }
+        .measurement {
+            font-family: monospace;
+            font-weight: bold;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test: Ancho Uniforme de Tarjetas</h1>
+        
+        <div class="test-section">
+            <h2>Mejora Implementada</h2>
+            <div class="feature-info">
+                <h4>Ancho Estandarizado:</h4>
+                <ul>
+                    <li><strong>Problema Anterior:</strong> Las tarjetas tenían anchos diferentes (800px, 1000px, 1200px)</li>
+                    <li><strong>Solución:</strong> Todas las tarjetas ahora tienen el mismo ancho máximo de 1200px</li>
+                    <li><strong>Beneficio:</strong> Apariencia visual uniforme y coherente</li>
+                    <li><strong>Responsive:</strong> Se mantiene la adaptabilidad a diferentes pantallas</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Anchos Estandarizados</h2>
+            <p>Todas las tarjetas ahora tienen el mismo ancho máximo:</p>
+            <div class="width-info">
+                <div class="width-item">
+                    <div class="width-box"></div>
+                    <span><strong>Filtros:</strong> <span class="measurement">1200px</span></span>
+                </div>
+                <div class="width-item">
+                    <div class="width-box"></div>
+                    <span><strong>Resultados:</strong> <span class="measurement">1200px</span></span>
+                </div>
+                <div class="width-item">
+                    <div class="width-box"></div>
+                    <span><strong>Tabla:</strong> <span class="measurement">1200px</span></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Estructura Visual Mejorada</h2>
+            <p>La nueva organización con ancho uniforme:</p>
+            <div class="demo-data">
+                1. Título Principal (centrado)<br>
+                2. Tarjeta de Filtros (1200px - azul)<br>
+                3. Tarjeta de Resultados (1200px - verde)<br>
+                4. Tarjeta de Tabla (1200px - naranja)<br>
+                5. FAB (botón flotante)
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Funcionalidades a Verificar</h2>
+            <ul>
+                <li><strong>✅ Ancho Uniforme:</strong> Todas las tarjetas tienen el mismo ancho máximo</li>
+                <li><strong>✅ Alineación Visual:</strong> Las tarjetas están perfectamente alineadas</li>
+                <li><strong>✅ Responsive:</strong> Se adaptan correctamente en móviles y tablets</li>
+                <li><strong>✅ Efectos Hover:</strong> Mantienen las animaciones suaves</li>
+                <li><strong>✅ Colores Distintivos:</strong> Cada tarjeta mantiene su color característico</li>
+                <li><strong>✅ Funcionalidad:</strong> Todos los elementos funcionan correctamente</li>
+                <li><strong>✅ Espaciado:</strong> Márgenes y padding consistentes</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Responsive</h2>
+            <p>Verifica la adaptación en diferentes dispositivos:</p>
+            <ol>
+                <li><strong>Desktop (>1200px):</strong> Las tarjetas mantienen su ancho máximo de 1200px</li>
+                <li><strong>Tablet (768px-1200px):</strong> Las tarjetas se adaptan al ancho de pantalla</li>
+                <li><strong>Móvil (<768px):</strong> Las tarjetas ocupan todo el ancho disponible</li>
+                <li><strong>Consistencia:</strong> Todas las tarjetas se comportan igual en cada breakpoint</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Datos de Prueba</h2>
+            <p>Usa estos datos para probar la funcionalidad:</p>
+            <button class="test-button" onclick="cargarDatosPrueba()">
+                <i class="fas fa-database"></i> Cargar Datos de Prueba
+            </button>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="md-fab md-ripple" onclick="abrirModalAgregarGasto()" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <!-- Input oculto para importar JSON -->
+    <input type="file" id="importarArchivo" accept=".json" style="display: none;" onchange="procesarArchivoImportado(event)">
+
+    <!-- Modal para agregar gasto -->
+    <div id="modalAgregarGasto" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Agregar Gasto / Categoría</h3>
+            </div>
+            <form class="form-horizontal" onsubmit="event.preventDefault(); simularGuardar();">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nic">NIC:</label>
+                        <input type="text" id="nic" placeholder="Número de Identificación del Cliente" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="deuda">Deuda (COP):</label>
+                        <input type="number" id="deuda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_a_pagar">Fecha a pagar:</label>
+                        <input type="date" id="fecha_a_pagar">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="enlace_pago">Enlace de pago:</label>
+                        <input type="url" id="enlace_pago" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="modal-botones">
+                    <button type="submit" id="btnGuardar" class="btn-registrar">
+                        <i class="material-icons">save</i> Guardar
+                    </button>
+                    <button type="button" onclick="cerrarModalAgregarGasto()" class="btn-cancelar">
+                        <i class="material-icons">close</i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function cargarDatosPrueba() {
+            const datosPrueba = [
+                {
+                    id: Date.now() + 1,
+                    nic: "123456789",
+                    nombre: "Internet",
+                    deuda: 150000,
+                    fecha_a_pagar: "2024-02-15",
+                    enlace_pago: "https://internet.com/pago",
+                    estado: "puede esperar",
+                    pagos: []
+                },
+                {
+                    id: Date.now() + 2,
+                    nic: "987654321",
+                    nombre: "Electricidad",
+                    deuda: 200000,
+                    fecha_a_pagar: "2024-02-20",
+                    enlace_pago: "https://electricidad.com/pago",
+                    estado: "puede esperar",
+                    pagos: []
+                },
+                {
+                    id: Date.now() + 3,
+                    nic: "456789123",
+                    nombre: "Agua",
+                    deuda: 80000,
+                    fecha_a_pagar: "2024-02-10",
+                    enlace_pago: "https://agua.com/pago",
+                    estado: "pagado",
+                    pagos: [{
+                        id: Date.now() + 100,
+                        fecha: "2024-02-10",
+                        valor: 80000,
+                        diferencia: 0,
+                        comprobante: "COMP-001",
+                        notas: "Pago completo"
+                    }]
+                },
+                {
+                    id: Date.now() + 4,
+                    nic: "789123456",
+                    nombre: "Gas",
+                    deuda: 120000,
+                    fecha_a_pagar: "2024-02-05",
+                    enlace_pago: "https://gas.com/pago",
+                    estado: "urgente",
+                    pagos: []
+                }
+            ];
+
+            localStorage.setItem("gastos", JSON.stringify(datosPrueba));
+            mostrarGastos();
+            mostrarSnackbar("Datos de prueba cargados exitosamente");
+        }
+
+        function abrirModalAgregarGasto() {
+            const modal = document.getElementById('modalAgregarGasto');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => {
+                    document.getElementById("nombre").focus();
+                }, 300);
+                mostrarSnackbar("Modal abierta para agregar nuevo gasto");
+            }
+        }
+
+        function cerrarModalAgregarGasto() {
+            const modal = document.getElementById('modalAgregarGasto');
+            if (modal) {
+                modal.style.display = 'none';
+                mostrarSnackbar("Modal cerrada");
+            }
+        }
+
+        function simularGuardar() {
+            mostrarSnackbar("Gasto guardado exitosamente");
+            cerrarModalAgregarGasto();
+        }
+
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Eventos para cerrar modales al hacer clic fuera
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('modalAgregarGasto').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cerrarModalAgregarGasto();
+                }
+            });
+        });
+
+        // Cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+    </script>
+</body>
+</html>

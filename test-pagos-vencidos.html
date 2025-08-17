@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Pagos Vencidos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .test-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .test-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .test-content {
+            padding: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .test-btn.success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .test-btn.warning {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .test-btn.danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .test-results {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-results h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .test-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .estado-demo {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 2px;
+        }
+        
+        .estado-pagado {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .estado-urgente {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .estado-puede-esperar {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .scenario-card {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .scenario-card.vencido {
+            border-color: #f5576c;
+            background: #fff5f5;
+        }
+        
+        .scenario-card.urgente {
+            border-color: #fa709a;
+            background: #fff8f0;
+        }
+        
+        .scenario-card.normal {
+            border-color: #43e97b;
+            background: #f0fff4;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="material-icons">warning</i> Test - Pagos Vencidos</h1>
+            <p>Verificación de la lógica corregida para pagos vencidos</p>
+        </div>
+        
+        <div class="test-content">
+            <div class="test-section">
+                <h2><i class="material-icons">play_arrow</i> Pruebas de Pagos Vencidos</h2>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testPagosVencidos()">
+                        <i class="material-icons">warning</i> Test Pagos Vencidos
+                    </button>
+                    <button class="test-btn" onclick="testEscenariosEspecificos()">
+                        <i class="material-icons">scenario</i> Test Escenarios
+                    </button>
+                    <button class="test-btn success" onclick="cargarDatosVencidos()">
+                        <i class="material-icons">data_usage</i> Cargar Datos Vencidos
+                    </button>
+                    <button class="test-btn danger" onclick="limpiarDatos()">
+                        <i class="material-icons">clear_all</i> Limpiar Datos
+                    </button>
+                </div>
+                
+                <div class="test-results" id="testResults">
+                    <h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>
+                    <p>Haz clic en los botones de arriba para ejecutar las pruebas.</p>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2><i class="material-icons">info</i> Escenarios de Prueba</h2>
+                
+                                 <div class="scenario-card vencido">
+                     <h3>🚨 Pago Vencido (Día 9, Hoy 16)</h3>
+                     <p><strong>Escenario:</strong> Un pago que debía hacerse el día 9 y hoy es 16</p>
+                     <p><strong>Resultado esperado:</strong> <span class="estado-demo estado-urgente">Urgente</span> - Vencido hace 7 días</p>
+                     <p><strong>Lógica:</strong> Cualquier pago vencido es SIEMPRE urgente, sin importar cuántos días de retraso tenga.</p>
+                 </div>
+                
+                <div class="scenario-card urgente">
+                    <h3>⚠️ Pago Vencido Reciente (Día 14, Hoy 16)</h3>
+                    <p><strong>Escenario:</strong> Un pago que debía hacerse el día 14 y hoy es 16</p>
+                    <p><strong>Resultado esperado:</strong> <span class="estado-demo estado-urgente">Urgente</span> - Vencido hace 2 días</p>
+                    <p><strong>Lógica:</strong> Está vencido por 2 días, por lo tanto es urgente.</p>
+                </div>
+                
+                <div class="scenario-card urgente">
+                    <h3>⏰ Pago Próximo (Día 18, Hoy 16)</h3>
+                    <p><strong>Escenario:</strong> Un pago que debe hacerse el día 18 y hoy es 16</p>
+                    <p><strong>Resultado esperado:</strong> <span class="estado-demo estado-urgente">Urgente</span> - Faltan 2 días</p>
+                    <p><strong>Lógica:</strong> Faltan 2 días, por lo tanto es urgente.</p>
+                </div>
+                
+                <div class="scenario-card normal">
+                    <h3>✅ Pago Normal (Día 25, Hoy 16)</h3>
+                    <p><strong>Escenario:</strong> Un pago que debe hacerse el día 25 y hoy es 16</p>
+                    <p><strong>Resultado esperado:</strong> <span class="estado-demo estado-puede-esperar">Puede esperar</span> - Faltan 9 días</p>
+                    <p><strong>Lógica:</strong> Faltan más de 2 días, por lo tanto puede esperar.</p>
+                </div>
+                
+                                 <div class="scenario-card vencido">
+                     <h3>🚨 Pago Vencido Antiguo (Día 5, Hoy 16)</h3>
+                     <p><strong>Escenario:</strong> Un pago que debía hacerse el día 5 y hoy es 16</p>
+                     <p><strong>Resultado esperado:</strong> <span class="estado-demo estado-urgente">Urgente</span> - Vencido hace 11 días</p>
+                     <p><strong>Lógica:</strong> Cualquier pago vencido es SIEMPRE urgente, sin importar cuántos días de retraso tenga.</p>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Datos de ejemplo con pagos vencidos
+        const datosVencidos = [
+            {
+                "id": 1,
+                "nombre": "PAGO VENCIDO (Día 9)",
+                "deuda": 100000,
+                "dia_pago": 9,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST001"
+            },
+            {
+                "id": 2,
+                "nombre": "PAGO VENCIDO RECIENTE (Día 14)",
+                "deuda": 150000,
+                "dia_pago": 14,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST002"
+            },
+            {
+                "id": 3,
+                "nombre": "PAGO PRÓXIMO (Día 18)",
+                "deuda": 200000,
+                "dia_pago": 18,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST003"
+            },
+            {
+                "id": 4,
+                "nombre": "PAGO NORMAL (Día 25)",
+                "deuda": 80000,
+                "dia_pago": 25,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST004"
+            },
+            {
+                "id": 5,
+                "nombre": "PAGO VENCIDO ANTIGUO (Día 5)",
+                "deuda": 120000,
+                "dia_pago": 5,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST005"
+            },
+            {
+                "id": 6,
+                "nombre": "PAGO CON PAGO REALIZADO",
+                "deuda": 90000,
+                "dia_pago": 10,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [
+                    {
+                        "id": 999,
+                        "fecha": new Date().toISOString().split('T')[0],
+                        "valor": 90000,
+                        "comprobante": "TEST",
+                        "notas": "Pago de prueba"
+                    }
+                ],
+                "nic": "TEST006"
+            }
+        ];
+
+        // Función para agregar resultado de prueba
+        function agregarResultadoTest(nombre, estado, mensaje) {
+            const resultsDiv = document.getElementById('testResults');
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item';
+            
+            const statusClass = estado === 'success' ? 'success' : 
+                              estado === 'error' ? 'error' : 'warning';
+            
+            testItem.innerHTML = `
+                <span><strong>${nombre}:</strong> ${mensaje}</span>
+                <span class="test-status ${statusClass}">${estado.toUpperCase()}</span>
+            `;
+            
+            resultsDiv.appendChild(testItem);
+        }
+
+        // Función para limpiar resultados
+        function limpiarResultados() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>';
+        }
+
+        // Test de pagos vencidos
+        function testPagosVencidos() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                
+                if (gastos.length === 0) {
+                    agregarResultadoTest('Test Pagos Vencidos', 'warning', 'No hay gastos para probar. Carga datos primero.');
+                    return;
+                }
+                
+                agregarResultadoTest('Total Gastos', 'success', `${gastos.length} gastos encontrados`);
+                
+                const hoy = new Date();
+                const diaActual = hoy.getDate();
+                agregarResultadoTest('Día Actual', 'success', `Hoy es día ${diaActual}`);
+                
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    const estadoClass = estadoInfo.estado === 'pagado' ? 'estado-pagado' : 
+                                      estadoInfo.estado === 'urgente' ? 'estado-urgente' : 'estado-puede-esperar';
+                    
+                    const diasText = estadoInfo.diasRestantes !== null ? 
+                        (estadoInfo.diasRestantes < 0 ? 
+                            `Vencido hace ${Math.abs(estadoInfo.diasRestantes)} días` : 
+                            `Faltan ${estadoInfo.diasRestantes} días`) : 
+                        'N/A';
+                    
+                    agregarResultadoTest(`${gasto.nombre}`, 'success', 
+                        `Día ${gasto.dia_pago} → <span class="estado-demo ${estadoClass}">${estadoInfo.estado}</span> (${diasText})`);
+                });
+                
+            } catch (error) {
+                agregarResultadoTest('Test Pagos Vencidos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de escenarios específicos
+        function testEscenariosEspecificos() {
+            limpiarResultados();
+            
+            try {
+                const hoy = new Date();
+                const diaActual = hoy.getDate();
+                
+                agregarResultadoTest('Día Actual', 'success', `Hoy es día ${diaActual}`);
+                
+                // Escenario 1: Pago vencido (día 9, hoy 16)
+                const gastoVencido = {
+                    id: 999999,
+                    nombre: "TEST VENCIDO (Día 9)",
+                    deuda: 100000,
+                    dia_pago: 9,
+                    pagos: []
+                };
+                
+                const estadoVencido = calcularEstadoGasto(gastoVencido);
+                const diasVencido = estadoVencido.diasRestantes < 0 ? 
+                    `Vencido hace ${Math.abs(estadoVencido.diasRestantes)} días` : 
+                    `Faltan ${estadoVencido.diasRestantes} días`;
+                
+                agregarResultadoTest('Escenario 1 - Pago Vencido', 'success', 
+                    `Día 9 → <span class="estado-demo estado-${estadoVencido.estado}">${estadoVencido.estado}</span> (${diasVencido})`);
+                
+                // Escenario 2: Pago vencido reciente (día 14, hoy 16)
+                const gastoVencidoReciente = {
+                    id: 999998,
+                    nombre: "TEST VENCIDO RECIENTE (Día 14)",
+                    deuda: 100000,
+                    dia_pago: 14,
+                    pagos: []
+                };
+                
+                const estadoVencidoReciente = calcularEstadoGasto(gastoVencidoReciente);
+                const diasVencidoReciente = estadoVencidoReciente.diasRestantes < 0 ? 
+                    `Vencido hace ${Math.abs(estadoVencidoReciente.diasRestantes)} días` : 
+                    `Faltan ${estadoVencidoReciente.diasRestantes} días`;
+                
+                agregarResultadoTest('Escenario 2 - Pago Vencido Reciente', 'success', 
+                    `Día 14 → <span class="estado-demo estado-${estadoVencidoReciente.estado}">${estadoVencidoReciente.estado}</span> (${diasVencidoReciente})`);
+                
+                // Escenario 3: Pago próximo (día 18, hoy 16)
+                const gastoProximo = {
+                    id: 999997,
+                    nombre: "TEST PRÓXIMO (Día 18)",
+                    deuda: 100000,
+                    dia_pago: 18,
+                    pagos: []
+                };
+                
+                const estadoProximo = calcularEstadoGasto(gastoProximo);
+                agregarResultadoTest('Escenario 3 - Pago Próximo', 'success', 
+                    `Día 18 → <span class="estado-demo estado-${estadoProximo.estado}">${estadoProximo.estado}</span> (Faltan ${estadoProximo.diasRestantes} días)`);
+                
+                // Escenario 4: Pago normal (día 25, hoy 16)
+                const gastoNormal = {
+                    id: 999996,
+                    nombre: "TEST NORMAL (Día 25)",
+                    deuda: 100000,
+                    dia_pago: 25,
+                    pagos: []
+                };
+                
+                const estadoNormal = calcularEstadoGasto(gastoNormal);
+                agregarResultadoTest('Escenario 4 - Pago Normal', 'success', 
+                    `Día 25 → <span class="estado-demo estado-${estadoNormal.estado}">${estadoNormal.estado}</span> (Faltan ${estadoNormal.diasRestantes} días)`);
+                
+                // Escenario 5: Con pago realizado
+                const gastoConPago = {
+                    id: 999995,
+                    nombre: "TEST CON PAGO",
+                    deuda: 100000,
+                    dia_pago: 10,
+                    pagos: [{
+                        id: 999999,
+                        fecha: new Date().toISOString().split('T')[0],
+                        valor: 100000,
+                        comprobante: "TEST",
+                        notas: "Pago de prueba"
+                    }]
+                };
+                
+                const estadoConPago = calcularEstadoGasto(gastoConPago);
+                agregarResultadoTest('Escenario 5 - Con Pago Realizado', 'success', 
+                    `Día 10 → <span class="estado-demo estado-${estadoConPago.estado}">${estadoConPago.estado}</span> (Prioridad máxima)`);
+                
+            } catch (error) {
+                agregarResultadoTest('Test Escenarios Específicos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Cargar datos vencidos
+        function cargarDatosVencidos() {
+            limpiarResultados();
+            
+            try {
+                localStorage.setItem('gastos', JSON.stringify(datosVencidos));
+                agregarResultadoTest('Datos Vencidos', 'success', 
+                    `${datosVencidos.length} gastos con pagos vencidos cargados exitosamente`);
+                
+                // Ejecutar prueba automáticamente
+                setTimeout(() => {
+                    testPagosVencidos();
+                }, 1000);
+                
+            } catch (error) {
+                agregarResultadoTest('Datos Vencidos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Limpiar datos
+        function limpiarDatos() {
+            limpiarResultados();
+            
+            try {
+                localStorage.removeItem('gastos');
+                agregarResultadoTest('Limpiar Datos', 'success', 'Datos eliminados exitosamente');
+                
+            } catch (error) {
+                agregarResultadoTest('Limpiar Datos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            agregarResultadoTest('Inicialización', 'success', 'Test de pagos vencidos cargado correctamente');
+        });
+    </script>
+</body>
+</html>

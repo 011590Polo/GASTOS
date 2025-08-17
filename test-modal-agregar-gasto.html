@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modal Agregar Gasto</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #1565c0;
+        }
+        .feature-info {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #4caf50;
+        }
+        .feature-info h4 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test: Modal Agregar Gasto</h1>
+        
+        <div class="test-section">
+            <h2>Nuevas Funcionalidades</h2>
+            <div class="feature-info">
+                <h4>Cambios Implementados:</h4>
+                <ul>
+                    <li><strong>Formulario Convertido en Modal:</strong> El formulario de gastos ahora es una modal</li>
+                    <li><strong>FAB Actualizado:</strong> El FAB ahora abre la modal en lugar de hacer scroll</li>
+                    <li><strong>Interfaz Más Limpia:</strong> La página principal muestra solo la tabla de gastos</li>
+                    <li><strong>Edición en Modal:</strong> Al editar un gasto, se abre la modal con los datos</li>
+                    <li><strong>Cierre Automático:</strong> La modal se cierra automáticamente después de guardar</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Modal Agregar Gasto</h2>
+            <p>Haz clic en el FAB (botón flotante azul) para abrir la modal de agregar gasto:</p>
+            <button class="test-button" onclick="abrirModalAgregarGasto()">
+                <i class="fas fa-plus"></i> Abrir Modal Agregar Gasto
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Edición</h2>
+            <p>Simula editar un gasto existente:</p>
+            <button class="test-button" onclick="simularEdicion()">
+                <i class="fas fa-edit"></i> Simular Edición
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Instrucciones de Prueba</h2>
+            <ol>
+                <li>Haz clic en el FAB para abrir la modal de agregar gasto</li>
+                <li>Verifica que la modal se abra correctamente con el formulario</li>
+                <li>Prueba llenar los campos y guardar</li>
+                <li>Verifica que la modal se cierre automáticamente después de guardar</li>
+                <li>Prueba hacer clic fuera de la modal para cerrarla</li>
+                <li>Prueba el botón "Simular Edición" para ver cómo se comporta en modo edición</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Funcionalidades a Verificar</h2>
+            <ul>
+                <li><strong>✅ Apertura de Modal:</strong> El FAB abre la modal correctamente</li>
+                <li><strong>✅ Formulario Completo:</strong> Todos los campos están presentes</li>
+                <li><strong>✅ Validación:</strong> Los campos obligatorios funcionan</li>
+                <li><strong>✅ Cierre Automático:</strong> La modal se cierra después de guardar</li>
+                <li><strong>✅ Cierre Manual:</strong> Se puede cerrar con el botón Cancelar</li>
+                <li><strong>✅ Cierre Externo:</strong> Se puede cerrar haciendo clic fuera</li>
+                <li><strong>✅ Modo Edición:</strong> Los datos se cargan correctamente al editar</li>
+                <li><strong>✅ Responsive:</strong> La modal se adapta a diferentes tamaños de pantalla</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="md-fab md-ripple" onclick="abrirModalAgregarGasto()" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <!-- Modal para agregar gasto -->
+    <div id="modalAgregarGasto" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Agregar Gasto / Categoría</h3>
+            </div>
+            <form class="form-horizontal" onsubmit="event.preventDefault(); simularGuardar();">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nic">NIC:</label>
+                        <input type="text" id="nic" placeholder="Número de Identificación del Cliente" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="deuda">Deuda (COP):</label>
+                        <input type="number" id="deuda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fecha_a_pagar">Fecha a pagar:</label>
+                        <input type="date" id="fecha_a_pagar">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="enlace_pago">Enlace de pago:</label>
+                        <input type="url" id="enlace_pago" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="modal-botones">
+                    <button type="submit" id="btnGuardar" class="btn-registrar">
+                        <i class="material-icons">save</i> Guardar
+                    </button>
+                    <button type="button" onclick="cerrarModalAgregarGasto()" class="btn-cancelar">
+                        <i class="material-icons">close</i> Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let modoEdicion = false;
+
+        function abrirModalAgregarGasto() {
+            const modal = document.getElementById('modalAgregarGasto');
+            if (modal) {
+                modal.style.display = 'flex';
+                
+                if (!modoEdicion) {
+                    // Limpiar formulario
+                    document.getElementById("nic").value = "";
+                    document.getElementById("nombre").value = "";
+                    document.getElementById("deuda").value = "";
+                    document.getElementById("fecha_a_pagar").value = "";
+                    document.getElementById("enlace_pago").value = "";
+                    
+                    // Resetear botón
+                    document.getElementById("btnGuardar").innerHTML = '<i class="material-icons">save</i> Guardar';
+                }
+                
+                setTimeout(() => {
+                    document.getElementById("nombre").focus();
+                }, 300);
+                
+                mostrarSnackbar("Modal abierta para agregar nuevo gasto");
+            }
+        }
+
+        function cerrarModalAgregarGasto() {
+            const modal = document.getElementById('modalAgregarGasto');
+            if (modal) {
+                modal.style.display = 'none';
+                
+                // Limpiar formulario
+                document.getElementById("nic").value = "";
+                document.getElementById("nombre").value = "";
+                document.getElementById("deuda").value = "";
+                document.getElementById("fecha_a_pagar").value = "";
+                document.getElementById("enlace_pago").value = "";
+                
+                // Resetear botón
+                document.getElementById("btnGuardar").innerHTML = '<i class="material-icons">save</i> Guardar';
+                
+                modoEdicion = false;
+                mostrarSnackbar("Modal cerrada");
+            }
+        }
+
+        function simularEdicion() {
+            modoEdicion = true;
+            
+            // Cargar datos de ejemplo
+            document.getElementById("nic").value = "123456789";
+            document.getElementById("nombre").value = "Servicios de Internet";
+            document.getElementById("deuda").value = "150000";
+            document.getElementById("fecha_a_pagar").value = "2024-02-15";
+            document.getElementById("enlace_pago").value = "https://ejemplo.com/pago";
+            
+            // Cambiar botón
+            document.getElementById("btnGuardar").innerHTML = '<i class="material-icons">update</i> Actualizar';
+            
+            // Abrir modal
+            abrirModalAgregarGasto();
+            
+            mostrarSnackbar("Modo edición activado");
+        }
+
+        function simularGuardar() {
+            const nic = document.getElementById("nic").value.trim();
+            const nombre = document.getElementById("nombre").value.trim();
+            const deuda = document.getElementById("deuda").value.trim();
+            
+            if (!nic || !nombre || !deuda) {
+                mostrarSnackbar("Por favor completa todos los campos obligatorios");
+                return;
+            }
+            
+            if (modoEdicion) {
+                mostrarSnackbar("Gasto actualizado exitosamente");
+            } else {
+                mostrarSnackbar("Gasto creado exitosamente");
+            }
+            
+            // Cerrar modal
+            cerrarModalAgregarGasto();
+        }
+
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Eventos para cerrar modales al hacer clic fuera
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('modalAgregarGasto').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    cerrarModalAgregarGasto();
+                }
+            });
+        });
+
+        // Cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+    </script>
+</body>
+</html>

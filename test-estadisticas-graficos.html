@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Estadísticas y Gráficos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .test-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .test-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .test-content {
+            padding: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .test-btn.success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .test-btn.warning {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .test-btn.danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .test-results {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-results h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .test-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="material-icons">analytics</i> Test de Estadísticas y Gráficos</h1>
+            <p>Verificación de la funcionalidad de análisis de datos</p>
+        </div>
+        
+        <div class="test-content">
+            <div class="test-section">
+                <h2><i class="material-icons">play_arrow</i> Pruebas de Funcionalidad</h2>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testEstadisticasGenerales()">
+                        <i class="material-icons">assessment</i> Test Estadísticas Generales
+                    </button>
+                    <button class="test-btn" onclick="testGraficoEstados()">
+                        <i class="material-icons">pie_chart</i> Test Gráfico Estados
+                    </button>
+                    <button class="test-btn" onclick="testGraficoCategorias()">
+                        <i class="material-icons">bar_chart</i> Test Gráfico Categorías
+                    </button>
+                    <button class="test-btn" onclick="testGraficoPagos()">
+                        <i class="material-icons">trending_up</i> Test Gráfico Pagos
+                    </button>
+                    <button class="test-btn success" onclick="testResumenFinanciero()">
+                        <i class="material-icons">account_balance_wallet</i> Test Resumen Financiero
+                    </button>
+                    <button class="test-btn warning" onclick="testDatosEjemplo()">
+                        <i class="material-icons">data_usage</i> Cargar Datos de Ejemplo
+                    </button>
+                    <button class="test-btn danger" onclick="limpiarDatos()">
+                        <i class="material-icons">clear_all</i> Limpiar Datos
+                    </button>
+                </div>
+                
+                <div class="test-results" id="testResults">
+                    <h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>
+                    <p>Haz clic en los botones de arriba para ejecutar las pruebas.</p>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2><i class="material-icons">visibility</i> Vista Previa de Estadísticas</h2>
+                
+                <!-- Aquí se mostrarán las estadísticas -->
+                <div id="statsPreview"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Datos de ejemplo para las pruebas
+        const datosEjemplo = [
+            {
+                "id": 1755267977379,
+                "nombre": "ICETEX",
+                "deuda": 200000,
+                "fecha_a_pagar": "2025-09-20",
+                "estado": "pendiente",
+                "enlace_pago": "https://www.icetex.gov.co/",
+                "pagos": [
+                    {
+                        "id": 1755295666495,
+                        "fecha": "2025-08-15",
+                        "valor": 50000,
+                        "comprobante": "2323",
+                        "notas": "Pago parcial"
+                    }
+                ],
+                "nic": "rober15@live.com->011590Polo@->1449742"
+            },
+            {
+                "id": 1755268030425,
+                "nombre": "DAVIVIENDA",
+                "deuda": 450000,
+                "fecha_a_pagar": "2025-08-01",
+                "estado": "pendiente",
+                "enlace_pago": "https://portalpagos.davivienda.com/",
+                "pagos": [],
+                "nic": "5702381100025463"
+            },
+            {
+                "id": 1755268398273,
+                "nombre": "INTERNET",
+                "deuda": 95000,
+                "fecha_a_pagar": "2025-08-15",
+                "estado": "pagado",
+                "enlace_pago": "https://portalpagos.claro.com.co/",
+                "pagos": [
+                    {
+                        "id": 1755295666496,
+                        "fecha": "2025-08-10",
+                        "valor": 95000,
+                        "comprobante": "12345",
+                        "notas": "Pago completo"
+                    }
+                ],
+                "nic": "44907638"
+            },
+            {
+                "id": 1755268560441,
+                "nombre": "SERVICIO DE AGUA",
+                "deuda": 60000,
+                "fecha_a_pagar": "2025-08-10",
+                "estado": "pendiente",
+                "enlace_pago": "https://gp.aaa.com.co/",
+                "pagos": [],
+                "nic": "1029414"
+            },
+            {
+                "id": 1755268757569,
+                "nombre": "SERVICIO DE LUZ",
+                "deuda": 200000,
+                "fecha_a_pagar": "2025-08-30",
+                "estado": "pendiente",
+                "enlace_pago": "https://caribesol.facture.co/",
+                "pagos": [],
+                "nic": "8009758"
+            }
+        ];
+
+        // Función para agregar resultado de prueba
+        function agregarResultadoTest(nombre, estado, mensaje) {
+            const resultsDiv = document.getElementById('testResults');
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item';
+            
+            const statusClass = estado === 'success' ? 'success' : 
+                              estado === 'error' ? 'error' : 'warning';
+            
+            testItem.innerHTML = `
+                <span><strong>${nombre}:</strong> ${mensaje}</span>
+                <span class="test-status ${statusClass}">${estado.toUpperCase()}</span>
+            `;
+            
+            resultsDiv.appendChild(testItem);
+        }
+
+        // Función para limpiar resultados
+        function limpiarResultados() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>';
+        }
+
+        // Test de estadísticas generales
+        function testEstadisticasGenerales() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                const totalGastos = gastos.length;
+                const gastosPendientes = gastos.filter(g => g.estado === 'pendiente').length;
+                const gastosPagados = gastos.filter(g => g.estado === 'pagado').length;
+                
+                agregarResultadoTest('Total de Gastos', 'success', `${totalGastos} gastos encontrados`);
+                agregarResultadoTest('Gastos Pendientes', 'warning', `${gastosPendientes} gastos pendientes`);
+                agregarResultadoTest('Gastos Pagados', 'success', `${gastosPagados} gastos pagados`);
+                
+                if (totalGastos > 0) {
+                    agregarResultadoTest('Porcentaje Pagado', 'success', 
+                        `${((gastosPagados / totalGastos) * 100).toFixed(1)}%`);
+                }
+                
+            } catch (error) {
+                agregarResultadoTest('Estadísticas Generales', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de gráfico de estados
+        function testGraficoEstados() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                const estados = {};
+                
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    const estado = estadoInfo.estado;
+                    estados[estado] = (estados[estado] || 0) + 1;
+                });
+                
+                agregarResultadoTest('Gráfico Estados', 'success', 
+                    `Estados encontrados: ${Object.keys(estados).join(', ')}`);
+                
+                Object.entries(estados).forEach(([estado, cantidad]) => {
+                    agregarResultadoTest(`Estado ${estado}`, 'success', `${cantidad} gastos`);
+                });
+                
+            } catch (error) {
+                agregarResultadoTest('Gráfico Estados', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de gráfico de categorías
+        function testGraficoCategorias() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                const categorias = {};
+                
+                gastos.forEach(gasto => {
+                    const categoria = obtenerCategoriaGasto(gasto.nombre);
+                    if (!categorias[categoria]) {
+                        categorias[categoria] = {
+                            cantidad: 0,
+                            total: 0
+                        };
+                    }
+                    categorias[categoria].cantidad++;
+                    categorias[categoria].total += parseFloat(gasto.deuda);
+                });
+                
+                agregarResultadoTest('Gráfico Categorías', 'success', 
+                    `${Object.keys(categorias).length} categorías encontradas`);
+                
+                Object.entries(categorias).forEach(([categoria, datos]) => {
+                    agregarResultadoTest(`Categoría ${categoria}`, 'success', 
+                        `${datos.cantidad} gastos - $${datos.total.toLocaleString()}`);
+                });
+                
+            } catch (error) {
+                agregarResultadoTest('Gráfico Categorías', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de gráfico de pagos
+        function testGraficoPagos() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                const todosLosPagos = [];
+                
+                gastos.forEach(gasto => {
+                    if (gasto.pagos && gasto.pagos.length > 0) {
+                        gasto.pagos.forEach(pago => {
+                            todosLosPagos.push({
+                                fecha: pago.fecha,
+                                valor: pago.valor
+                            });
+                        });
+                    }
+                });
+                
+                agregarResultadoTest('Gráfico Pagos', 'success', 
+                    `${todosLosPagos.length} pagos registrados`);
+                
+                if (todosLosPagos.length > 0) {
+                    const totalPagado = todosLosPagos.reduce((sum, pago) => sum + pago.valor, 0);
+                    agregarResultadoTest('Total Pagado', 'success', 
+                        `$${totalPagado.toLocaleString()}`);
+                    
+                    const pagosPorMes = {};
+                    todosLosPagos.forEach(pago => {
+                        const fecha = new Date(pago.fecha);
+                        const mesAnio = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
+                        pagosPorMes[mesAnio] = (pagosPorMes[mesAnio] || 0) + pago.valor;
+                    });
+                    
+                    agregarResultadoTest('Meses con Pagos', 'success', 
+                        `${Object.keys(pagosPorMes).length} meses`);
+                }
+                
+            } catch (error) {
+                agregarResultadoTest('Gráfico Pagos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de resumen financiero
+        function testResumenFinanciero() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                let totalDeudas = 0;
+                let totalPagado = 0;
+                
+                gastos.forEach(gasto => {
+                    totalDeudas += parseFloat(gasto.deuda);
+                    
+                    if (gasto.pagos && gasto.pagos.length > 0) {
+                        gasto.pagos.forEach(pago => {
+                            totalPagado += pago.valor;
+                        });
+                    }
+                });
+                
+                const pendientePagar = totalDeudas - totalPagado;
+                
+                agregarResultadoTest('Total Deudas', 'warning', 
+                    `$${totalDeudas.toLocaleString()}`);
+                agregarResultadoTest('Total Pagado', 'success', 
+                    `$${totalPagado.toLocaleString()}`);
+                agregarResultadoTest('Pendiente por Pagar', 'error', 
+                    `$${pendientePagar.toLocaleString()}`);
+                
+                if (totalDeudas > 0) {
+                    const porcentajePagado = ((totalPagado / totalDeudas) * 100).toFixed(1);
+                    agregarResultadoTest('Porcentaje Pagado', 'success', `${porcentajePagado}%`);
+                }
+                
+            } catch (error) {
+                agregarResultadoTest('Resumen Financiero', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Cargar datos de ejemplo
+        function testDatosEjemplo() {
+            limpiarResultados();
+            
+            try {
+                localStorage.setItem('gastos', JSON.stringify(datosEjemplo));
+                agregarResultadoTest('Datos de Ejemplo', 'success', 
+                    `${datosEjemplo.length} gastos cargados exitosamente`);
+                
+                // Ejecutar todas las pruebas automáticamente
+                setTimeout(() => {
+                    testEstadisticasGenerales();
+                    setTimeout(() => testGraficoEstados(), 500);
+                    setTimeout(() => testGraficoCategorias(), 1000);
+                    setTimeout(() => testGraficoPagos(), 1500);
+                    setTimeout(() => testResumenFinanciero(), 2000);
+                }, 1000);
+                
+            } catch (error) {
+                agregarResultadoTest('Datos de Ejemplo', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Limpiar datos
+        function limpiarDatos() {
+            limpiarResultados();
+            
+            try {
+                localStorage.removeItem('gastos');
+                agregarResultadoTest('Limpiar Datos', 'success', 'Datos eliminados exitosamente');
+                
+                // Limpiar vista previa
+                document.getElementById('statsPreview').innerHTML = '';
+                
+            } catch (error) {
+                agregarResultadoTest('Limpiar Datos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            agregarResultadoTest('Inicialización', 'success', 'Test de estadísticas y gráficos cargado correctamente');
+        });
+    </script>
+</body>
+</html>
+

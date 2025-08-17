@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Día de Pago</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .test-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .test-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .test-content {
+            padding: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .test-btn.success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .test-btn.warning {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .test-btn.danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .test-results {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-results h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .test-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .estado-demo {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 2px;
+        }
+        
+        .estado-pagado {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .estado-urgente {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .estado-puede-esperar {
+            background: #fff3cd;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="material-icons">calendar_today</i> Test - Día de Pago</h1>
+            <p>Verificación de la nueva funcionalidad de día de pago y estados</p>
+        </div>
+        
+        <div class="test-content">
+            <div class="test-section">
+                <h2><i class="material-icons">play_arrow</i> Pruebas de Funcionalidad</h2>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testDiaPago()">
+                        <i class="material-icons">calendar_today</i> Test Día de Pago
+                    </button>
+                    <button class="test-btn" onclick="testEstados()">
+                        <i class="material-icons">assessment</i> Test Estados
+                    </button>
+                    <button class="test-btn" onclick="testPrioridadEstados()">
+                        <i class="material-icons">priority_high</i> Test Prioridad Estados
+                    </button>
+                    <button class="test-btn success" onclick="cargarDatosEjemplo()">
+                        <i class="material-icons">data_usage</i> Cargar Datos de Ejemplo
+                    </button>
+                    <button class="test-btn danger" onclick="limpiarDatos()">
+                        <i class="material-icons">clear_all</i> Limpiar Datos
+                    </button>
+                </div>
+                
+                <div class="test-results" id="testResults">
+                    <h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>
+                    <p>Haz clic en los botones de arriba para ejecutar las pruebas.</p>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2><i class="material-icons">info</i> Información de la Nueva Funcionalidad</h2>
+                
+                <div style="background: #e3f2fd; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+                    <h3>📅 Cambios Implementados:</h3>
+                    <ul>
+                        <li><strong>Campo "Fecha a pagar" → "Día de pago"</strong>: Ahora se especifica solo el día del mes (1-31)</li>
+                        <li><strong>Nueva lógica de estados</strong>:</li>
+                                                 <ul>
+                             <li><span class="estado-demo estado-pagado">Pagado</span>: Si existe un pago en el mes actual</li>
+                             <li><span class="estado-demo estado-urgente">Urgente</span>: Si faltan 2 días o menos para el día de pago O si ya está vencido</li>
+                             <li><span class="estado-demo estado-puede-esperar">Puede esperar</span>: Si faltan más de 2 días y no está vencido</li>
+                         </ul>
+                        <li><strong>Prioridad de estados</strong>: Pagado > Urgente > Puede esperar</li>
+                    </ul>
+                </div>
+                
+                                 <div style="background: #f3e5f5; padding: 20px; border-radius: 10px;">
+                     <h3>🎯 Ejemplos de Cálculo (Lógica Final):</h3>
+                     <ul>
+                         <li><strong>Hoy día 16, pago día 9</strong>: <span class="estado-demo estado-urgente">Urgente</span> (vencido hace 7 días)</li>
+                         <li><strong>Hoy día 16, pago día 14</strong>: <span class="estado-demo estado-urgente">Urgente</span> (vencido hace 2 días)</li>
+                         <li><strong>Hoy día 16, pago día 18</strong>: <span class="estado-demo estado-urgente">Urgente</span> (faltan 2 días)</li>
+                         <li><strong>Hoy día 16, pago día 25</strong>: <span class="estado-demo estado-puede-esperar">Puede esperar</span> (faltan 9 días)</li>
+                         <li><strong>Con pago en el mes actual</strong>: <span class="estado-demo estado-pagado">Pagado</span> (prioridad máxima)</li>
+                     </ul>
+                 </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Datos de ejemplo para las pruebas
+        const datosEjemplo = [
+            {
+                "id": 1755267977379,
+                "nombre": "ICETEX",
+                "deuda": 200000,
+                "dia_pago": 20,
+                "enlace_pago": "https://www.icetex.gov.co/",
+                "pagos": [
+                    {
+                        "id": 1755295666495,
+                        "fecha": new Date().toISOString().split('T')[0], // Hoy
+                        "valor": 50000,
+                        "comprobante": "2323",
+                        "notas": "Pago parcial"
+                    }
+                ],
+                "nic": "rober15@live.com->011590Polo@->1449742"
+            },
+            {
+                "id": 1755268030425,
+                "nombre": "DAVIVIENDA",
+                "deuda": 450000,
+                "dia_pago": 5,
+                "enlace_pago": "https://portalpagos.davivienda.com/",
+                "pagos": [],
+                "nic": "5702381100025463"
+            },
+            {
+                "id": 1755268398273,
+                "nombre": "INTERNET",
+                "deuda": 95000,
+                "dia_pago": 15,
+                "enlace_pago": "https://portalpagos.claro.com.co/",
+                "pagos": [],
+                "nic": "44907638"
+            },
+            {
+                "id": 1755268560441,
+                "nombre": "SERVICIO DE AGUA",
+                "deuda": 60000,
+                "dia_pago": 10,
+                "enlace_pago": "https://gp.aaa.com.co/",
+                "pagos": [],
+                "nic": "1029414"
+            },
+            {
+                "id": 1755268757569,
+                "nombre": "SERVICIO DE LUZ",
+                "deuda": 200000,
+                "dia_pago": 25,
+                "enlace_pago": "https://caribesol.facture.co/",
+                "pagos": [],
+                "nic": "8009758"
+            }
+        ];
+
+        // Función para agregar resultado de prueba
+        function agregarResultadoTest(nombre, estado, mensaje) {
+            const resultsDiv = document.getElementById('testResults');
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item';
+            
+            const statusClass = estado === 'success' ? 'success' : 
+                              estado === 'error' ? 'error' : 'warning';
+            
+            testItem.innerHTML = `
+                <span><strong>${nombre}:</strong> ${mensaje}</span>
+                <span class="test-status ${statusClass}">${estado.toUpperCase()}</span>
+            `;
+            
+            resultsDiv.appendChild(testItem);
+        }
+
+        // Función para limpiar resultados
+        function limpiarResultados() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>';
+        }
+
+        // Test de día de pago
+        function testDiaPago() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                const gastosConDia = gastos.filter(g => g.dia_pago);
+                const gastosSinDia = gastos.filter(g => !g.dia_pago);
+                
+                agregarResultadoTest('Total Gastos', 'success', `${gastos.length} gastos encontrados`);
+                agregarResultadoTest('Con Día de Pago', 'success', `${gastosConDia.length} gastos`);
+                agregarResultadoTest('Sin Día de Pago', 'warning', `${gastosSinDia.length} gastos`);
+                
+                // Mostrar detalles de días de pago
+                gastosConDia.forEach(gasto => {
+                    agregarResultadoTest(`Día de Pago - ${gasto.nombre}`, 'success', `Día ${gasto.dia_pago}`);
+                });
+                
+            } catch (error) {
+                agregarResultadoTest('Test Día de Pago', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de estados
+        function testEstados() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                const estados = {};
+                
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    const estado = estadoInfo.estado;
+                    estados[estado] = (estados[estado] || 0) + 1;
+                });
+                
+                agregarResultadoTest('Estados Calculados', 'success', 
+                    `${Object.keys(estados).length} tipos de estado encontrados`);
+                
+                Object.entries(estados).forEach(([estado, cantidad]) => {
+                    const estadoClass = estado === 'pagado' ? 'estado-pagado' : 
+                                      estado === 'urgente' ? 'estado-urgente' : 'estado-puede-esperar';
+                    
+                    agregarResultadoTest(`Estado ${estado}`, 'success', 
+                        `<span class="estado-demo ${estadoClass}">${estado}</span> - ${cantidad} gastos`);
+                });
+                
+                // Mostrar detalles de cada gasto
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    const estadoClass = estadoInfo.estado === 'pagado' ? 'estado-pagado' : 
+                                      estadoInfo.estado === 'urgente' ? 'estado-urgente' : 'estado-puede-esperar';
+                    
+                    const diasText = estadoInfo.diasRestantes !== null ? 
+                        (estadoInfo.diasRestantes < 0 ? 
+                            `Vencido hace ${Math.abs(estadoInfo.diasRestantes)} días` : 
+                            `Faltan ${estadoInfo.diasRestantes} días`) : 
+                        'N/A';
+                    
+                    agregarResultadoTest(`${gasto.nombre}`, 'success', 
+                        `Día ${gasto.dia_pago || 'N/A'} → <span class="estado-demo ${estadoClass}">${estadoInfo.estado}</span> (${diasText})`);
+                });
+                
+            } catch (error) {
+                agregarResultadoTest('Test Estados', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test de prioridad de estados
+        function testPrioridadEstados() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                
+                // Crear un gasto de prueba con pago en el mes actual
+                const gastoConPago = {
+                    id: 999999,
+                    nombre: "TEST CON PAGO",
+                    deuda: 100000,
+                    dia_pago: 15,
+                    pagos: [{
+                        id: 999999,
+                        fecha: new Date().toISOString().split('T')[0],
+                        valor: 100000,
+                        comprobante: "TEST",
+                        notas: "Pago de prueba"
+                    }]
+                };
+                
+                const estadoConPago = calcularEstadoGasto(gastoConPago);
+                agregarResultadoTest('Prioridad - Con Pago', 'success', 
+                    `<span class="estado-demo estado-pagado">${estadoConPago.estado}</span> (debe ser pagado)`);
+                
+                // Crear un gasto urgente
+                const hoy = new Date();
+                const diaActual = hoy.getDate();
+                const gastoUrgente = {
+                    id: 999998,
+                    nombre: "TEST URGENTE",
+                    deuda: 100000,
+                    dia_pago: diaActual + 1, // Mañana
+                    pagos: []
+                };
+                
+                const estadoUrgente = calcularEstadoGasto(gastoUrgente);
+                agregarResultadoTest('Prioridad - Urgente', 'success', 
+                    `<span class="estado-demo estado-urgente">${estadoUrgente.estado}</span> (debe ser urgente)`);
+                
+                // Crear un gasto que puede esperar
+                const gastoPuedeEsperar = {
+                    id: 999997,
+                    nombre: "TEST PUEDE ESPERAR",
+                    deuda: 100000,
+                    dia_pago: diaActual + 5, // En 5 días
+                    pagos: []
+                };
+                
+                const estadoPuedeEsperar = calcularEstadoGasto(gastoPuedeEsperar);
+                agregarResultadoTest('Prioridad - Puede Esperar', 'success', 
+                    `<span class="estado-demo estado-puede-esperar">${estadoPuedeEsperar.estado}</span> (debe ser puede esperar)`);
+                
+            } catch (error) {
+                agregarResultadoTest('Test Prioridad Estados', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Cargar datos de ejemplo
+        function cargarDatosEjemplo() {
+            limpiarResultados();
+            
+            try {
+                localStorage.setItem('gastos', JSON.stringify(datosEjemplo));
+                agregarResultadoTest('Datos de Ejemplo', 'success', 
+                    `${datosEjemplo.length} gastos cargados exitosamente`);
+                
+                // Ejecutar todas las pruebas automáticamente
+                setTimeout(() => {
+                    testDiaPago();
+                    setTimeout(() => testEstados(), 500);
+                    setTimeout(() => testPrioridadEstados(), 1000);
+                }, 1000);
+                
+            } catch (error) {
+                agregarResultadoTest('Datos de Ejemplo', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Limpiar datos
+        function limpiarDatos() {
+            limpiarResultados();
+            
+            try {
+                localStorage.removeItem('gastos');
+                agregarResultadoTest('Limpiar Datos', 'success', 'Datos eliminados exitosamente');
+                
+            } catch (error) {
+                agregarResultadoTest('Limpiar Datos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            agregarResultadoTest('Inicialización', 'success', 'Test de día de pago cargado correctamente');
+        });
+    </script>
+</body>
+</html>

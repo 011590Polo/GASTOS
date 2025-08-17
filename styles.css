@@ -1,0 +1,2119 @@
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    padding: 20px;
+    background-color: #f5f5f5;
+    max-width: 1200px;
+    margin: 0 auto;
+    color: #333;
+}
+
+/* Título principal centrado */
+.main-title {
+    text-align: center;
+    margin: 20px 0 30px 0;
+    padding: 20px;
+}
+
+.main-title h1 {
+    margin: 0;
+    color: #1976d2;
+    font-size: 2.5em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    text-shadow: 0 2px 4px rgba(25, 118, 210, 0.1);
+}
+
+.main-title i {
+    font-size: 1.2em;
+    color: #1976d2;
+}
+
+.page-title {
+    color: #1976D2;
+    font-size: 2em;
+    margin-bottom: 1em;
+    text-align: center;
+}
+
+.content-section {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+/* Tarjeta de filtros */
+.filters-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px auto 30px auto;
+    max-width: 1200px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Tarjeta de resultados y acciones */
+.results-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px auto 30px auto;
+    max-width: 1200px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.results-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.results-header {
+    background: linear-gradient(135deg, #4caf50, #45a049);
+    color: white;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.results-header h3 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.results-header i {
+    font-size: 24px;
+}
+
+.results-content {
+    padding: 24px;
+}
+
+.filters-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.filters-header {
+    background: linear-gradient(135deg, #1976d2, #1565c0);
+    color: white;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.filters-header h3 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.filters-header i {
+    font-size: 24px;
+}
+
+.filters-content {
+    padding: 24px;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 280px;
+    max-width: 350px;
+}
+
+.filter-group select {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    height: 48px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+.filter-group select:hover {
+    border-color: #1976d2;
+}
+
+/* Estilos para el header con acciones */
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Contenedor del filtro */
+.filter-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 300px;
+}
+
+/* Caja de búsqueda */
+.search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    height: 48px;
+    box-sizing: border-box;
+}
+
+.search-box:focus-within {
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+    transform: translateY(-1px);
+}
+
+.search-box i {
+    color: #666;
+    margin-right: 8px;
+    font-size: 20px;
+}
+
+.search-box input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    background: transparent;
+    color: #333;
+}
+
+.search-box input::placeholder {
+    color: #999;
+}
+
+.btn-limpiar {
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.btn-limpiar:hover {
+    background: #f5f5f5;
+    color: #333;
+}
+
+/* Opciones de filtro */
+.filter-options {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-options select {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    min-width: 140px;
+    height: 48px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.filter-options select:focus {
+    outline: none;
+    border-color: #1976d2;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+}
+
+.filter-options select:hover {
+    border-color: #1976d2;
+}
+
+/* Resultados del filtro */
+.filter-results {
+    margin-top: 15px;
+    padding: 10px 15px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    border-left: 4px solid #1976d2;
+    animation: fadeIn 0.3s ease-in-out;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.results-left {
+    flex: 1;
+    min-width: 200px;
+}
+
+.results-right {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.filter-results span {
+    color: #666;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Estilos para enlaces de pago */
+.enlace-pago {
+    color: #1976d2;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.enlace-pago:hover {
+    color: #1565c0;
+    text-decoration: underline;
+}
+
+.form-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.form-container--highlight {
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+    border: 2px solid #1976d2;
+    animation: formHighlight 0.6s ease-out;
+}
+
+@keyframes formHighlight {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    50% {
+        transform: scale(1.02);
+        box-shadow: 0 8px 20px rgba(25, 118, 210, 0.3);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 4px 12px rgba(25, 118, 210, 0.2);
+    }
+}
+
+.form-container h2 {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-horizontal {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.form-group label {
+    font-weight: 500;
+    color: #666;
+}
+
+.form-group input {
+    padding: 12px 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background-color: #ffffff;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    border-color: #1976d2;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(25, 118, 210, 0.1);
+    transform: translateY(-1px);
+}
+
+.buttons-group {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+
+.buttons-group button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    min-height: 44px;
+}
+
+.btn-guardar {
+    background-color: #1976d2;
+    color: white;
+}
+
+.btn-guardar:hover {
+    background-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+}
+
+.btn-exportar {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-exportar:hover {
+    background-color: #43a047;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Botón de importar */
+.md-button--primary {
+    background-color: #1976d2;
+    color: white;
+}
+
+.md-button--primary:hover {
+    background-color: #1565c0;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+}
+
+.btn-guardar:hover {
+    transform: translateY(-1px);
+}
+
+/* Tarjeta de la tabla de gastos */
+.table-card {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    margin: 20px auto 30px auto;
+    max-width: 1200px;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.table-card:hover {
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    transform: translateY(-2px);
+}
+
+.table-header {
+    background: linear-gradient(135deg, #ff9800, #f57c00);
+    color: white;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.table-header h3 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.table-header i {
+    font-size: 24px;
+}
+
+.table-content {
+    padding: 0;
+    overflow: hidden;
+}
+
+table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 0;
+    margin-bottom: 100px; /* Espacio para el FAB */
+    background-color: transparent;
+    border-radius: 0;
+    overflow: hidden;
+    box-shadow: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+table:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+th {
+    background-color: #f5f5f5;
+    color: #424242;
+    font-weight: 600;
+    padding: 16px 12px;
+    text-align: left;
+    border-bottom: 2px solid #e0e0e0;
+    white-space: nowrap;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+td {
+    padding: 16px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    vertical-align: middle;
+    transition: background-color 0.2s ease;
+}
+
+tr:hover {
+    background-color: #fafafa;
+    transform: scale(1.001);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.estado {
+    font-weight: 500;
+    padding: 6px 12px;
+    border-radius: 16px;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.estado-puede-esperar {
+    background-color: #f3e5f5;
+    color: #7b1fa2;
+    border: 1px solid #9c27b0;
+}
+
+.estado-urgente {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #f44336;
+}
+
+.estado-pagado {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border: 1px solid #4caf50;
+}
+
+.acciones {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.botones-container {
+    display: flex;
+    gap: 4px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-alerta {
+    background-color: #ff9800 !important;
+    color: white;
+    animation: parpadeo 2s infinite;
+    width: 32px !important;
+    height: 32px !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50% !important;
+    border: none;
+    cursor: pointer;
+    margin: 0 2px;
+}
+
+.btn-alerta i {
+    font-size: 16px;
+    color: white;
+}
+
+.button {
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.button:active {
+    transform: translateY(0);
+}
+
+.button i {
+    font-size: 16px;
+}
+
+.button-primary {
+    background-color: #1976D2;
+    color: white;
+}
+
+.button-primary:hover {
+    background-color: #1565C0;
+}
+
+.button-success {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-success:hover {
+    background-color: #43A047;
+}
+
+.button-danger {
+    background-color: #f44336;
+    color: white;
+}
+
+.button-danger:hover {
+    background-color: #E53935;
+}
+
+.acciones button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    margin: 0 3px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.acciones button:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.acciones button:active {
+    transform: translateY(0) scale(0.95);
+}
+
+.acciones button i {
+    font-size: 14px;
+}
+
+.btn-alerta {
+    background-color: #ff9800 !important;
+    color: white;
+    animation: parpadeo 1.5s infinite;
+}
+
+.btn-alerta:hover {
+    background-color: #f57c00 !important;
+}
+
+@keyframes parpadeo {
+    0% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.7; transform: scale(1.1); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Estilo para el tooltip */
+[title] {
+    position: relative;
+}
+
+[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    z-index: 1000;
+    pointer-events: none;
+}
+
+.btn-eliminar {
+    background-color: #ff4444;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #cc0000;
+    transform: scale(1.1);
+}
+
+.btn-historial {
+    background-color: #9c27b0;
+    color: white;
+}
+
+.btn-historial:hover {
+    background-color: #7b1fa2;
+    transform: scale(1.1);
+}
+
+/* Estilos para el historial de pagos */
+.tabla-historial {
+    max-height: 400px;
+    overflow-y: auto;
+    margin: 15px 0;
+    width: 100%;
+}
+
+.tabla-historial table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.tabla-historial th,
+.tabla-historial td {
+    padding: 12px;
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Ancho de columnas */
+.tabla-historial th:nth-child(1), /* Fecha */
+.tabla-historial td:nth-child(1) {
+    width: 15%;
+}
+
+.tabla-historial th:nth-child(2), /* Valor Pagado */
+.tabla-historial td:nth-child(2) {
+    width: 18%;
+}
+
+.tabla-historial th:nth-child(3), /* Diferencia */
+.tabla-historial td:nth-child(3) {
+    width: 18%;
+}
+
+.tabla-historial th:nth-child(4), /* Comprobante */
+.tabla-historial td:nth-child(4) {
+    width: 20%;
+}
+
+.tabla-historial th:nth-child(5), /* Notas */
+.tabla-historial td:nth-child(5) {
+    width: 22%;
+}
+
+.tabla-historial th:nth-child(6), /* Acciones */
+.tabla-historial td:nth-child(6) {
+    width: 7%;
+    text-align: center;
+}
+
+@media (max-width: 850px) {
+    .tabla-historial {
+        overflow-x: auto;
+    }
+    
+    .tabla-historial table {
+        min-width: 800px;
+    }
+}
+
+.tabla-historial table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+}
+
+.tabla-historial th {
+    background-color: #f5f5f5;
+    padding: 10px;
+    text-align: left;
+    font-weight: bold;
+    border-bottom: 2px solid #ddd;
+}
+
+.tabla-historial td {
+    padding: 8px 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.tabla-historial tr:hover {
+    background-color: #f8f9fa;
+}
+
+.tabla-historial .valor {
+    font-weight: 500;
+}
+
+.tabla-historial .diferencia {
+    font-weight: 500;
+}
+
+.tabla-historial .diferencia-mas {
+    color: #4CAF50;
+}
+
+.tabla-historial .diferencia-menos {
+    color: #f44336;
+}
+
+.no-pagos {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 20px;
+}
+
+.btn-editar {
+    background-color: #1976d2;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #1565c0;
+}
+
+.btn-pagar {
+    background-color: #4caf50;
+    color: white;
+}
+
+.btn-pagar:hover {
+    background-color: #43a047;
+}
+
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(3px);
+    z-index: 1000;
+}
+
+.modal-contenido {
+    background-color: white;
+    padding: 32px;
+    border-radius: 12px;
+    width: 95%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.08);
+    transform: translateY(20px);
+    opacity: 0;
+    animation: modalAppear 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    border: 1px solid rgba(255,255,255,0.1);
+    z-index: 1001;
+}
+
+/* Estilos específicos para el modal de historial */
+.modal-historial .modal-contenido {
+    max-width: 90%;
+    min-width: 800px;
+    padding: 20px;
+}
+
+@media (max-width: 850px) {
+    .modal-historial .modal-contenido {
+        min-width: 95%;
+    }
+}
+
+@keyframes modalAppear {
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: #1976D2;
+    font-size: 1.5em;
+}
+
+.info-gasto {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.info-gasto p {
+    margin: 8px 0;
+    display: flex;
+    justify-content: space-between;
+    color: #666;
+}
+
+.info-gasto p strong {
+    color: #333;
+    font-weight: 500;
+}
+
+.info-gasto {
+    background-color: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 15px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.info-gasto p {
+    margin: 0;
+    flex: 1;
+    min-width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+}
+
+.info-gasto p span {
+    font-weight: 500;
+    color: #2196F3;
+}
+
+.info-gasto p {
+    margin: 5px 0;
+}
+
+.form-pago label {
+    display: block;
+    margin-top: 10px;
+}
+
+.form-pago input,
+.form-pago textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.modal-botones {
+    margin-top: 20px;
+    text-align: right;
+}
+
+/* Estilos para el modal de confirmación */
+.modal-confirmacion {
+    max-width: 400px;
+    text-align: center;
+}
+
+.modal-confirmacion .confirmacion-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #ffebee;
+}
+
+.modal-confirmacion .confirmacion-header i {
+    font-size: 48px;
+    color: #f44336;
+    margin-bottom: 15px;
+    animation: warningPulse 2s infinite;
+}
+
+.modal-confirmacion .confirmacion-header h3 {
+    color: #d32f2f;
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.modal-confirmacion .confirmacion-body {
+    padding: 20px;
+    background-color: #fff8f8;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+.modal-confirmacion .confirmacion-body p {
+    margin: 10px 0;
+    color: #555;
+}
+
+.modal-confirmacion .confirmacion-body p:first-child {
+    font-size: 1.1em;
+    color: #333;
+    font-weight: 500;
+}
+
+.modal-confirmacion .gasto-a-eliminar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: white;
+    border-radius: 4px;
+    margin: 10px 0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.modal-confirmacion .gasto-a-eliminar strong {
+    color: #f44336;
+}
+
+.modal-confirmacion .modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.modal-confirmacion .modal-botones button {
+    min-width: 120px;
+    padding: 10px 20px;
+    transition: all 0.3s ease;
+    transform: scale(1);
+}
+
+.modal-confirmacion .modal-botones button:hover {
+    transform: scale(1.05);
+}
+
+.modal-confirmacion .modal-botones button:active {
+    transform: scale(0.95);
+}
+
+/* Animación de entrada del modal */
+.modal-confirmacion {
+    animation: confirmationAppear 0.3s ease forwards;
+}
+
+@keyframes confirmationAppear {
+    from {
+        transform: scale(0.8) translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Efecto hover en los elementos del gasto */
+.modal-confirmacion .gasto-a-eliminar {
+    transition: all 0.2s ease;
+}
+
+.modal-confirmacion .gasto-a-eliminar:hover {
+    transform: translateX(5px);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+}
+
+@keyframes warningPulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.confirmacion-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.confirmacion-header i {
+    font-size: 48px;
+    color: #ff9800;
+    margin-bottom: 10px;
+}
+
+.confirmacion-header h3 {
+    color: #d32f2f;
+    margin: 10px 0;
+}
+
+.confirmacion-body {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.confirmacion-body p {
+    margin: 10px 0;
+}
+
+.gasto-a-eliminar {
+    background-color: #f5f5f5;
+    padding: 8px;
+    border-radius: 4px;
+    margin: 5px 0;
+}
+
+.gasto-a-eliminar strong {
+    color: #d32f2f;
+}
+
+.modal-confirmacion .modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.modal-confirmacion .btn-eliminar,
+.modal-confirmacion .btn-cancelar {
+    padding: 8px 16px;
+    font-size: 14px;
+    min-width: 120px;
+}
+
+.modal-confirmacion .btn-eliminar i,
+.modal-confirmacion .btn-cancelar i {
+    margin-right: 5px;
+}
+
+.btn-registrar {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: auto;
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.btn-registrar:hover {
+    background-color: #45a049;
+}
+
+.btn-cancelar:hover {
+    background-color: #da190b;
+}
+
+/* Estilos para el botón eliminar en el historial de pagos */
+.tabla-historial .acciones {
+    white-space: nowrap;
+    text-align: center;
+}
+
+.btn-eliminar-pago {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    background-color: #ff4444;
+    color: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+}
+
+.btn-eliminar-pago:hover {
+    background-color: #cc0000;
+    transform: scale(1.1);
+}
+
+.btn-eliminar-pago i {
+    font-size: 12px;
+}
+
+/* Estilos para diferencias de valor */
+.diferencia-valor {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+.diferencia-valor.mas {
+    color: #4CAF50;
+    background-color: #e8f5e9;
+}
+
+.diferencia-valor.menos {
+    color: #f44336;
+    background-color: #ffebee;
+}
+
+.diferencia-valor.igual {
+    color: #2196F3;
+    background-color: #e3f2fd;
+}
+
+/* Estilos para valores en la tabla */
+.valor-pagado {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.diferencia-mas {
+    color: #4CAF50;
+}
+
+.diferencia-menos {
+    color: #f44336;
+}
+
+/* Estilos para el historial de pagos */
+.pagos-historial {
+    margin-top: 10px;
+    padding: 8px;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9em;
+}
+
+.pagos-historial strong {
+    display: block;
+    margin-bottom: 8px;
+    color: #2196F3;
+}
+
+.pago-item {
+    padding: 8px;
+    margin: 5px 0;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+}
+
+.pago-item div {
+    margin: 3px 0;
+}
+
+.total-pagado {
+    margin-top: 10px;
+    padding-top: 8px;
+    border-top: 1px solid #e0e0e0;
+    font-weight: bold;
+    color: #2196F3;
+}
+
+/* Estilos específicos para el modal de agregar gasto */
+#modalAgregarGasto .modal-contenido {
+    max-width: 700px;
+    max-height: 85vh;
+    width: 95%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+/* Estilos específicos para el modal de pago */
+#modalPago .modal-contenido {
+    max-width: 600px;
+    max-height: 85vh;
+    width: 95%;
+    box-sizing: border-box;
+    overflow-y: auto;
+    padding: 24px;
+}
+
+#modalPago .info-gasto {
+    padding: 12px;
+    margin-bottom: 15px;
+}
+
+#modalPago .info-gasto p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.form-pago {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.form-pago .form-row {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.form-pago .form-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.form-pago label {
+    display: block;
+    margin-top: 10px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-pago input,
+.form-pago textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+
+.form-pago input:focus,
+.form-pago textarea:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 2px rgba(33, 150, 243, 0.1);
+}
+
+.form-pago textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+
+/* Centrar botones del modal de pago */
+#modalPago .modal-botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+}
+
+#modalPago .modal-botones button {
+    min-width: 140px;
+    padding: 12px 20px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.btn-registrar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-registrar:hover {
+    background-color: #45a049;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.3);
+}
+
+.btn-cancelar {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-cancelar:hover {
+    background-color: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.3);
+}
+
+/* Estilos Responsive para dispositivos móviles */
+/* ... existing styles ... */
+
+/* Estilos Responsive para dispositivos móviles */
+@media (max-width: 768px) {
+    body {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .form-container {
+        margin-bottom: 20px;
+    }
+
+    .form-horizontal {
+        padding: 15px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .form-group {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .buttons-group {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .buttons-group button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Tabla responsive - SOLO para la tabla principal */
+    table:not(.tabla-historial table) {
+        font-size: 12px;
+        overflow-x: auto;
+        display: block;
+        margin-bottom: 120px; /* Más espacio en móviles para el FAB */
+    }
+
+    table:not(.tabla-historial table) thead {
+        display: none;
+    }
+
+    table:not(.tabla-historial table) tbody {
+        display: block;
+    }
+
+    table:not(.tabla-historial table) tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 10px;
+        background: white;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    table:not(.tabla-historial table) td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 8px 0;
+        border: none;
+        border-bottom: 1px solid #eee;
+    }
+
+    table:not(.tabla-historial table) td:last-child {
+        border-bottom: none;
+    }
+
+    table:not(.tabla-historial table) td::before {
+        content: attr(data-label);
+        font-weight: bold;
+        margin-right: 10px;
+        min-width: 80px;
+    }
+
+    /* Tabla de historial de pagos - MANTENER formato horizontal */
+    .tabla-historial {
+        overflow-x: auto;
+        margin: 15px 0;
+    }
+
+    .tabla-historial table {
+        min-width: 600px;
+        display: table;
+        width: 100%;
+        table-layout: fixed;
+    }
+
+    .tabla-historial thead {
+        display: table-header-group;
+    }
+
+    .tabla-historial tbody {
+        display: table-row-group;
+    }
+
+    .tabla-historial tr {
+        display: table-row;
+        margin-bottom: 0;
+        border: none;
+        padding: 0;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .tabla-historial td {
+        display: table-cell;
+        padding: 8px 10px;
+        border-bottom: 1px solid #eee;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .tabla-historial td::before {
+        content: none;
+    }
+
+    /* Botones de acciones en móvil */
+    .acciones {
+        flex-wrap: wrap;
+        gap: 5px;
+        justify-content: center;
+    }
+
+    .acciones button {
+        width: 35px;
+        height: 35px;
+        font-size: 12px;
+    }
+
+    /* Modales responsive */
+    .modal-contenido {
+        width: 95%;
+        max-width: none;
+        margin: 20px;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    /* Específico para modal de agregar gasto */
+    #modalAgregarGasto .modal-contenido {
+        width: 95%;
+        max-width: none;
+        margin: 10px;
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    /* Específico para modal de pago */
+    #modalPago .modal-contenido {
+        width: 95%;
+        max-width: none;
+        margin: 10px;
+        padding: 20px;
+        max-height: 90vh;
+        overflow-y: auto;
+    }
+
+    .modal-historial .modal-contenido {
+        width: 95%;
+        min-width: auto;
+    }
+
+    .modal-botones {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .modal-botones button {
+        width: 100%;
+        padding: 12px;
+    }
+
+    /* Formulario de pago específico */
+    .form-pago {
+        gap: 12px;
+    }
+    
+    .form-pago .form-row {
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .form-pago .form-group {
+        min-width: auto;
+    }
+
+    .form-pago input,
+    .form-pago textarea {
+        padding: 14px;
+        font-size: 16px;
+        box-sizing: border-box;
+    }
+
+    /* Centrar botones del modal de pago */
+    #modalPago .modal-botones {
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #modalPago .modal-botones button {
+        width: 100%;
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    /* Estados y badges */
+    .estado {
+        padding: 4px 8px;
+        font-size: 11px;
+    }
+
+    /* Títulos */
+    h2 {
+        font-size: 1.5em;
+        margin: 20px 0 15px 0;
+    }
+
+    /* Título principal responsive */
+    .main-title h1 {
+        font-size: 2em;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    /* Tarjeta de filtros responsive */
+    .filters-card {
+        margin: 15px 10px 25px 10px;
+        max-width: none;
+    }
+
+    /* Tarjeta de resultados responsive */
+    .results-card {
+        margin: 15px 10px 25px 10px;
+        max-width: none;
+    }
+
+    /* Tarjeta de tabla responsive */
+    .table-card {
+        margin: 15px 10px 25px 10px;
+        max-width: none;
+    }
+
+    .filters-header {
+        padding: 15px 20px;
+    }
+
+    .filters-header h3 {
+        font-size: 1.2em;
+    }
+
+    .filters-content {
+        padding: 20px;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filter-group {
+        min-width: auto;
+        max-width: none;
+        width: 100%;
+    }
+
+    .search-box {
+        padding: 14px 16px;
+        height: 52px;
+    }
+
+    .filter-group select {
+        padding: 14px 16px;
+        height: 52px;
+        font-size: 16px;
+    }
+
+    /* Filtro responsive */
+    .header-actions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+
+    .filter-container {
+        min-width: auto;
+    }
+
+    .search-box {
+        padding: 10px 12px;
+    }
+
+    .filter-options {
+        justify-content: center;
+    }
+
+    .filter-options select {
+        flex: 1;
+        min-width: 120px;
+        padding: 10px 12px;
+        font-size: 16px;
+    }
+
+    /* Resultados responsive */
+    .filter-results {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .results-left {
+        text-align: center;
+    }
+
+    .results-right {
+        justify-content: center;
+    }
+
+    .results-right button {
+        flex: 1;
+        min-width: 140px;
+    }
+
+    /* Info gasto en modales */
+    .info-gasto {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+
+    .info-gasto p {
+        margin: 8px 0;
+        font-size: 14px;
+    }
+}
+
+/* ... rest of existing styles ... */
+/* Estilos para tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
+    body {
+        padding: 20px;
+    }
+
+    .form-row {
+        gap: 20px;
+    }
+
+    .form-group {
+        flex: 1;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    .modal-contenido {
+        width: 80%;
+        max-width: 600px;
+    }
+    
+    #modalPago .modal-contenido {
+        max-width: 550px;
+        max-height: 80vh;
+    }
+}
+
+/* Estilos para pantallas muy pequeñas */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    .form-horizontal {
+        padding: 10px;
+    }
+
+    .modal-contenido {
+        margin: 10px;
+        padding: 15px;
+    }
+
+    .acciones button {
+        width: 30px;
+        height: 30px;
+        font-size: 11px;
+    }
+
+    table td {
+        padding: 6px 0;
+    }
+
+    table td::before {
+        min-width: 70px;
+        font-size: 12px;
+    }
+
+    #modalAgregarGasto .modal-contenido {
+        width: 98%;
+        margin: 5px;
+        padding: 15px;
+        max-height: 90vh;
+    }
+
+    #modalPago .modal-contenido {
+        width: 98%;
+        margin: 5px;
+        padding: 15px;
+        max-height: 90vh;
+    }
+
+    .form-pago input,
+    .form-pago textarea {
+        padding: 10px;
+        font-size: 16px; /* Evita zoom en iOS */
+    }
+
+    #modalPago .modal-botones button {
+        padding: 12px 16px;
+        min-width: 120px;
+    }
+    
+    #modalPago .info-gasto {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    
+    #modalPago .info-gasto p {
+        margin: 3px 0;
+        font-size: 13px;
+    }
+    
+    .form-pago .form-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .form-pago .form-group {
+        min-width: auto;
+    }
+}
+
+/* Estilos para la sección de estadísticas y gráficos */
+.stats-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stats-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stats-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.stats-content {
+    padding: 20px;
+}
+
+/* Tarjetas de estadísticas generales */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    color: white;
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card:nth-child(2) {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.stat-card:nth-child(3) {
+    background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+}
+
+.stat-card:nth-child(4) {
+    background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    opacity: 0.9;
+}
+
+.stat-info h4 {
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.stat-info p {
+    margin: 5px 0 0 0;
+    opacity: 0.9;
+    font-size: 0.9rem;
+}
+
+/* Contenedor de gráficos */
+.charts-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 20px;
+}
+
+.chart-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+    min-height: 350px;
+    max-height: 400px;
+}
+
+.chart-card h4 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.chart-card canvas {
+    max-width: 100%;
+    height: 300px !important;
+    max-height: 300px !important;
+}
+
+/* Resumen financiero */
+.financial-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid #007bff;
+}
+
+.summary-item span:first-child {
+    font-weight: 600;
+    color: #333;
+}
+
+.amount {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #007bff;
+}
+
+/* Responsive design para estadísticas */
+@media (max-width: 768px) {
+    .stats-overview {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .charts-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .stat-card {
+        padding: 15px;
+    }
+    
+    .stat-info h4 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    .stat-card {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+/* Animaciones para las estadísticas */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stats-content {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+.stat-card:nth-child(1) { animation-delay: 0.1s; }
+.stat-card:nth-child(2) { animation-delay: 0.2s; }
+.stat-card:nth-child(3) { animation-delay: 0.3s; }
+.stat-card:nth-child(4) { animation-delay: 0.4s; }

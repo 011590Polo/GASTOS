@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Design Complete - Administrador de Gastos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .demo-section {
+            margin: 40px 0;
+            padding: 24px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .demo-section h2 {
+            color: #1976d2;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e3f2fd;
+            padding-bottom: 10px;
+        }
+        .demo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .demo-item {
+            padding: 16px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .demo-item h3 {
+            margin-top: 0;
+            color: #424242;
+            font-size: 16px;
+        }
+        .component-showcase {
+            margin: 16px 0;
+            padding: 16px;
+            background: white;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 20px;">
+        <h1 style="text-align: center; color: #1976d2; margin-bottom: 40px;">
+            🎨 Material Design Complete - Componentes
+        </h1>
+
+        <!-- Botones -->
+        <div class="demo-section">
+            <h2>Botones Material Design</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Botones Principales</h3>
+                    <div class="component-showcase">
+                        <button class="md-button md-button--primary md-ripple">
+                            <i class="material-icons">save</i> Guardar
+                        </button>
+                        <button class="md-button md-button--secondary md-ripple">
+                            <i class="material-icons">cancel</i> Cancelar
+                        </button>
+                        <button class="md-button md-button--success md-ripple">
+                            <i class="material-icons">check</i> Aceptar
+                        </button>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Botones Outline</h3>
+                    <div class="component-showcase">
+                        <button class="md-button md-button--outlined md-ripple">
+                            <i class="material-icons">edit</i> Editar
+                        </button>
+                        <button class="md-button md-button--outlined md-ripple">
+                            <i class="material-icons">delete</i> Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Campos de Texto -->
+        <div class="demo-section">
+            <h2>Campos de Texto Material Design</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Text Fields con Labels Flotantes</h3>
+                    <div class="component-showcase">
+                        <div class="md-text-field">
+                            <input type="text" id="nombre" placeholder=" ">
+                            <label for="nombre">Nombre Completo</label>
+                        </div>
+                        <div class="md-text-field">
+                            <input type="email" id="email" placeholder=" ">
+                            <label for="email">Correo Electrónico</label>
+                        </div>
+                        <div class="md-text-field">
+                            <textarea id="comentario" placeholder=" " rows="3"></textarea>
+                            <label for="comentario">Comentarios</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Select Material Design</h3>
+                    <div class="component-showcase">
+                        <div class="md-select">
+                            <select>
+                                <option value="">Seleccionar categoría</option>
+                                <option value="servicios">Servicios</option>
+                                <option value="productos">Productos</option>
+                                <option value="alquiler">Alquiler</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controles de Formulario -->
+        <div class="demo-section">
+            <h2>Controles de Formulario</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Switch Material Design</h3>
+                    <div class="component-showcase">
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 8px 0;">
+                            <div class="md-switch">
+                                <input type="checkbox" id="switch1">
+                                <span class="md-switch-slider"></span>
+                            </div>
+                            Notificaciones por email
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 8px 0;">
+                            <div class="md-switch">
+                                <input type="checkbox" id="switch2" checked>
+                                <span class="md-switch-slider"></span>
+                            </div>
+                            Recordatorios automáticos
+                        </label>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Checkbox y Radio Buttons</h3>
+                    <div class="component-showcase">
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 8px 0;">
+                            <div class="md-checkbox">
+                                <input type="checkbox" id="checkbox1">
+                                <span class="md-checkbox-mark"></span>
+                            </div>
+                            Acepto los términos
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 8px 0;">
+                            <div class="md-radio">
+                                <input type="radio" name="opcion" id="radio1">
+                                <span class="md-radio-mark"></span>
+                            </div>
+                            Opción 1
+                        </label>
+                        <label style="display: flex; align-items: center; gap: 12px; margin: 8px 0;">
+                            <div class="md-radio">
+                                <input type="radio" name="opcion" id="radio2">
+                                <span class="md-radio-mark"></span>
+                            </div>
+                            Opción 2
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chips y Badges -->
+        <div class="demo-section">
+            <h2>Chips y Badges</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Chips Material Design</h3>
+                    <div class="component-showcase">
+                        <span class="md-chip md-chip--primary">Pendiente</span>
+                        <span class="md-chip md-chip--success">Pagado</span>
+                        <span class="md-chip md-chip--warning">Vence pronto</span>
+                        <span class="md-chip md-chip--error">Vencido</span>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Badges</h3>
+                    <div class="component-showcase">
+                        <span class="md-badge">5</span>
+                        <span class="md-badge md-badge--success">12</span>
+                        <span class="md-badge md-badge--warning">3</span>
+                        <span class="md-badge md-badge--error">1</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avatares y Listas -->
+        <div class="demo-section">
+            <h2>Avatares y Listas</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Avatares</h3>
+                    <div class="component-showcase">
+                        <div class="md-avatar md-avatar--small">JP</div>
+                        <div class="md-avatar">MG</div>
+                        <div class="md-avatar md-avatar--large">CL</div>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Lista Material Design</h3>
+                    <div class="component-showcase">
+                        <div class="md-list">
+                            <div class="md-list-item">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div class="md-avatar md-avatar--small">JP</div>
+                                    <div>
+                                        <div style="font-weight: 500;">Juan Pérez</div>
+                                        <div style="font-size: 12px; color: #666;">$150,000 - Pendiente</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-list-item">
+                                <div style="display: flex; align-items: center; gap: 12px;">
+                                    <div class="md-avatar md-avatar--small">MG</div>
+                                    <div>
+                                        <div style="font-weight: 500;">María García</div>
+                                        <div style="font-size: 12px; color: #666;">$200,000 - Pagado</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Grid System -->
+        <div class="demo-section">
+            <h2>Sistema de Grid Responsive</h2>
+            <div class="md-grid md-grid--4">
+                <div class="component-showcase">
+                    <h4>Columna 1</h4>
+                    <p>Este es el contenido de la primera columna del grid responsive.</p>
+                </div>
+                <div class="component-showcase">
+                    <h4>Columna 2</h4>
+                    <p>Este es el contenido de la segunda columna del grid responsive.</p>
+                </div>
+                <div class="component-showcase">
+                    <h4>Columna 3</h4>
+                    <p>Este es el contenido de la tercera columna del grid responsive.</p>
+                </div>
+                <div class="component-showcase">
+                    <h4>Columna 4</h4>
+                    <p>Este es el contenido de la cuarta columna del grid responsive.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading States -->
+        <div class="demo-section">
+            <h2>Estados de Carga</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Spinner de Carga</h3>
+                    <div class="component-showcase">
+                        <div class="md-spinner"></div>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Skeleton Loading</h3>
+                    <div class="component-showcase">
+                        <div class="md-skeleton md-skeleton--title"></div>
+                        <div class="md-skeleton md-skeleton--text"></div>
+                        <div class="md-skeleton md-skeleton--text"></div>
+                        <div class="md-skeleton md-skeleton--text"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tooltips -->
+        <div class="demo-section">
+            <h2>Tooltips</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Tooltips Material Design</h3>
+                    <div class="component-showcase">
+                        <button class="md-button md-button--primary md-tooltip" data-tooltip="Este es un tooltip de ejemplo">
+                            <i class="material-icons">info</i> Información
+                        </button>
+                        <button class="md-button md-button--secondary md-tooltip" data-tooltip="Botón con tooltip personalizado">
+                            <i class="material-icons">help</i> Ayuda
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="demo-section">
+            <h2>Barra de Progreso</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Progress Bar Material Design</h3>
+                    <div class="component-showcase">
+                        <div class="md-progress">
+                            <div class="md-progress__bar" style="width: 75%;"></div>
+                        </div>
+                        <p style="text-align: center; margin-top: 8px; font-size: 12px; color: #666;">75% Completado</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Divider -->
+        <div class="demo-section">
+            <h2>Separadores</h2>
+            <div class="component-showcase">
+                <p>Contenido arriba del separador</p>
+                <hr class="md-divider">
+                <p>Contenido abajo del separador</p>
+            </div>
+        </div>
+
+        <!-- FAB y Snackbar -->
+        <div class="demo-section">
+            <h2>FAB y Snackbar</h2>
+            <div class="demo-grid">
+                <div class="demo-item">
+                    <h3>Floating Action Button</h3>
+                    <div class="component-showcase">
+                        <button class="md-fab md-ripple" onclick="mostrarSnackbar('¡FAB funcionando!')" title="Agregar nuevo gasto">
+                            <i class="material-icons">add</i>
+                        </button>
+                    </div>
+                </div>
+                <div class="demo-item">
+                    <h3>Snackbar</h3>
+                    <div class="component-showcase">
+                        <button class="md-button md-button--primary" onclick="mostrarSnackbar('Este es un mensaje de ejemplo')">
+                            Mostrar Snackbar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Responsive Test -->
+        <div class="demo-section">
+            <h2>Test de Responsive Design</h2>
+            <div class="component-showcase">
+                <p><strong>Instrucciones:</strong> Redimensiona la ventana del navegador para ver cómo los componentes se adaptan a diferentes tamaños de pantalla.</p>
+                <div class="md-grid md-grid--3">
+                    <div style="background: #e3f2fd; padding: 16px; border-radius: 4px;">
+                        <h4>Columna 1</h4>
+                        <p>En móviles, esta columna se apilará verticalmente.</p>
+                    </div>
+                    <div style="background: #f3e5f5; padding: 16px; border-radius: 4px;">
+                        <h4>Columna 2</h4>
+                        <p>En tablets, se mostrarán 2 columnas por fila.</p>
+                    </div>
+                    <div style="background: #e8f5e9; padding: 16px; border-radius: 4px;">
+                        <h4>Columna 3</h4>
+                        <p>En desktop, se mostrarán 3 columnas por fila.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <script>
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Agregar listener para cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+
+        // Agregar efectos ripple a todos los botones
+        document.addEventListener('DOMContentLoaded', function() {
+            const buttons = document.querySelectorAll('.md-ripple');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    const ripple = document.createElement('span');
+                    const rect = this.getBoundingClientRect();
+                    const size = Math.max(rect.width, rect.height);
+                    const x = e.clientX - rect.left - size / 2;
+                    const y = e.clientY - rect.top - size / 2;
+                    
+                    ripple.style.width = ripple.style.height = size + 'px';
+                    ripple.style.left = x + 'px';
+                    ripple.style.top = y + 'px';
+                    ripple.classList.add('ripple');
+                    
+                    this.appendChild(ripple);
+                    
+                    setTimeout(() => {
+                        ripple.remove();
+                    }, 600);
+                });
+            });
+        });
+    </script>
+
+    <style>
+        .ripple {
+            position: absolute;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(0);
+            animation: ripple-animation 0.6s linear;
+            pointer-events: none;
+        }
+
+        @keyframes ripple-animation {
+            to {
+                transform: scale(4);
+                opacity: 0;
+            }
+        }
+    </style>
+</body>
+</html>

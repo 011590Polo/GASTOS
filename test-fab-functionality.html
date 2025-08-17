@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test FAB Functionality</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1>Test FAB Functionality</h1>
+        <p>Este archivo es para probar que el FAB (Floating Action Button) funciona correctamente.</p>
+        
+        <div style="margin: 20px 0; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+            <h3>Instrucciones de prueba:</h3>
+            <ul>
+                <li>Haz clic en el botón flotante (FAB) en la esquina inferior derecha</li>
+                <li>Debería hacer scroll al formulario</li>
+                <li>El formulario debería resaltarse con un efecto visual</li>
+                <li>El campo "Nombre" debería enfocarse automáticamente</li>
+                <li>Debería aparecer una notificación Snackbar</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Formulario de prueba -->
+    <div class="form-container">
+        <h2>Agregar Gasto / Categoría</h2>
+        <form class="form-horizontal" onsubmit="event.preventDefault(); alert('Formulario enviado!');">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nic">NIC:</label>
+                    <input type="text" id="nic" placeholder="Número de Identificación del Cliente" required>
+                </div>
+                <div class="form-group">
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" id="nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="deuda">Deuda (COP):</label>
+                    <input type="number" id="deuda" required>
+                </div>
+                <div class="form-group">
+                    <label for="fecha_a_pagar">Fecha a pagar:</label>
+                    <input type="date" id="fecha_a_pagar">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="enlace_pago">Enlace de pago:</label>
+                    <input type="url" id="enlace_pago" placeholder="https://...">
+                </div>
+                <div class="form-group">
+                    <!-- Espacio para mantener el balance -->
+                </div>
+                <div class="form-group buttons-group">
+                    <button type="submit" id="btnGuardar" class="md-button md-button--primary md-ripple">
+                        <i class="material-icons">save</i> Guardar
+                    </button>
+                    <button type="button" onclick="alert('Exportar!')" class="md-button md-button--success md-ripple">
+                        <i class="material-icons">file_download</i> Exportar JSON
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <!-- Contenido adicional para hacer scroll -->
+    <div style="padding: 20px; margin: 20px 0;">
+        <h2>Contenido adicional</h2>
+        <p>Este contenido es para que puedas hacer scroll y probar que el FAB funciona correctamente.</p>
+        
+        <div style="height: 500px; background: linear-gradient(45deg, #f0f0f0, #e0e0e0); display: flex; align-items: center; justify-content: center; border-radius: 8px;">
+            <div style="text-align: center;">
+                <h3>Área de scroll</h3>
+                <p>Haz scroll hacia abajo y luego haz clic en el FAB para volver al formulario</p>
+            </div>
+        </div>
+        
+        <div style="height: 300px; background: linear-gradient(45deg, #e0e0e0, #d0d0d0); display: flex; align-items: center; justify-content: center; border-radius: 8px; margin-top: 20px;">
+            <div style="text-align: center;">
+                <h3>Más contenido</h3>
+                <p>Continúa haciendo scroll para probar el FAB</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="md-fab md-ripple" onclick="scrollToForm()" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <script>
+        // Variables globales necesarias
+        let gastoEnEdicion = null;
+        let gastoEnPago = null;
+
+        // Funciones para Material Design
+        function scrollToForm() {
+            try {
+                const nombreInput = document.getElementById("nombre");
+                if (nombreInput) {
+                    // Limpiar el formulario si no está en modo edición
+                    if (!gastoEnEdicion) {
+                        document.getElementById("nic").value = "";
+                        document.getElementById("nombre").value = "";
+                        document.getElementById("deuda").value = "";
+                        document.getElementById("fecha_a_pagar").value = "";
+                        document.getElementById("enlace_pago").value = "";
+                        
+                        // Resetear el botón
+                        const btnGuardar = document.getElementById("btnGuardar");
+                        if (btnGuardar) {
+                            btnGuardar.innerHTML = '<i class="material-icons">save</i> Guardar';
+                        }
+                    }
+                    
+                    // Hacer scroll suave al formulario
+                    nombreInput.scrollIntoView({ 
+                        behavior: "smooth", 
+                        block: "center" 
+                    });
+                    
+                    // Agregar efecto visual al formulario
+                    const formContainer = document.querySelector('.form-container');
+                    if (formContainer) {
+                        formContainer.classList.add('form-container--highlight');
+                        setTimeout(() => {
+                            formContainer.classList.remove('form-container--highlight');
+                        }, 2000);
+                    }
+                    
+                    // Enfocar el campo nombre después de un pequeño delay
+                    setTimeout(() => {
+                        nombreInput.focus();
+                    }, 500);
+                    
+                    mostrarSnackbar("Formulario de nuevo gasto listo");
+                } else {
+                    console.error("No se encontró el elemento 'nombre'");
+                    mostrarSnackbar("Error: No se pudo encontrar el formulario", 3000);
+                }
+            } catch (error) {
+                console.error("Error en scrollToForm:", error);
+                mostrarSnackbar("Error al abrir el formulario", 3000);
+            }
+        }
+
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Agregar listener para cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+    </script>
+</body>
+</html>

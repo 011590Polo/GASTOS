@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejemplos Material Design - Administrador de Gastos</title>
+    <link rel="stylesheet" href="material-design.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1>Ejemplos de Material Design</h1>
+        
+        <!-- Botones -->
+        <section class="md-card">
+            <h2>Botones</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="md-button md-button--primary md-ripple">
+                    <i class="material-icons">save</i> Primario
+                </button>
+                <button class="md-button md-button--secondary md-ripple">
+                    <i class="material-icons">delete</i> Secundario
+                </button>
+                <button class="md-button md-button--success md-ripple">
+                    <i class="material-icons">check</i> Éxito
+                </button>
+                <button class="md-button md-button--outlined md-ripple">
+                    <i class="material-icons">edit</i> Outlined
+                </button>
+            </div>
+        </section>
+
+        <!-- Inputs -->
+        <section class="md-card">
+            <h2>Inputs</h2>
+            <div style="display: flex; flex-direction: column; gap: 15px;">
+                <input type="text" class="md-input" placeholder="Input de texto">
+                <input type="number" class="md-input" placeholder="Input numérico">
+                <input type="email" class="md-input" placeholder="Input de email">
+            </div>
+        </section>
+
+        <!-- Chips -->
+        <section class="md-card">
+            <h2>Chips</h2>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <span class="md-chip md-chip--primary">Pendiente</span>
+                <span class="md-chip md-chip--success">Pagado</span>
+                <span class="md-chip md-chip--warning">Vencido</span>
+                <span class="md-chip md-chip--error">Urgente</span>
+            </div>
+        </section>
+
+        <!-- Cards -->
+        <section class="md-card">
+            <h2>Cards</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                <div class="md-card">
+                    <h3>Card Normal</h3>
+                    <p>Esta es una card con elevación normal.</p>
+                </div>
+                <div class="md-card md-card--elevated">
+                    <h3>Card Elevada</h3>
+                    <p>Esta es una card con mayor elevación.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Bar -->
+        <section class="md-card">
+            <h2>Progress Bar</h2>
+            <div class="md-progress">
+                <div class="md-progress__bar" style="width: 75%;"></div>
+            </div>
+            <p style="margin-top: 10px;">75% completado</p>
+        </section>
+
+        <!-- FAB -->
+        <button class="md-fab md-ripple" onclick="alert('FAB clickeado!')" title="Acción flotante">
+            <i class="material-icons">add</i>
+        </button>
+
+        <!-- Snackbar -->
+        <div id="snackbar" class="md-snackbar">
+            <span id="snackbar-text"></span>
+        </div>
+
+        <!-- Botón para probar Snackbar -->
+        <section class="md-card">
+            <h2>Snackbar</h2>
+            <button class="md-button md-button--primary md-ripple" onclick="mostrarSnackbar('¡Este es un mensaje de ejemplo!')">
+                <i class="material-icons">notifications</i> Mostrar Snackbar
+            </button>
+        </section>
+    </div>
+
+    <script>
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+    </script>
+</body>
+</html>

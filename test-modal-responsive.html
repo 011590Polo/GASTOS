@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modal Responsive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1>Test Modal Responsive</h1>
+        <p>Este archivo es para probar que el modal de pago se ajusta correctamente a diferentes tamaños de pantalla.</p>
+        
+        <button onclick="abrirModalTest()" class="md-button md-button--primary md-ripple">
+            <i class="material-icons">payment</i> Abrir Modal de Pago
+        </button>
+        
+        <div style="margin-top: 20px;">
+            <h3>Instrucciones de prueba:</h3>
+            <ul>
+                <li>Haz clic en el botón para abrir el modal</li>
+                <li>Redimensiona la ventana del navegador</li>
+                <li>Prueba en diferentes dispositivos</li>
+                <li>Verifica que el FAB no se superponga</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Modal de prueba -->
+    <div id="modalPago" class="modal">
+        <div class="modal-contenido">
+            <h3>Registrar Pago</h3>
+            <div class="info-gasto">
+                <p>Gasto: <span>Servicio de Internet</span></p>
+                <p>Monto: <span>$50,000 COP</span></p>
+                <p>Fecha a pagar: <span>15/12/2024</span></p>
+            </div>
+            <div class="form-pago">
+                <label>Fecha de pago:</label>
+                <input type="date" value="2024-12-15">
+
+                <label>Valor pagado (COP):</label>
+                <input type="number" value="50000" placeholder="Ingrese el valor real pagado">
+                
+                <div class="diferencia-valor">Valor igual al original</div>
+                
+                <label>Comprobante de pago (opcional):</label>
+                <input type="text" placeholder="Número de comprobante o referencia">
+                
+                <label>Notas adicionales:</label>
+                <textarea rows="3" placeholder="Notas adicionales..."></textarea>
+                
+                <div class="modal-botones">
+                    <button onclick="cerrarModalTest()" class="btn-registrar">Registrar Pago</button>
+                    <button onclick="cerrarModalTest()" class="btn-cancelar">Cancelar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB para probar -->
+    <button class="md-fab md-ripple" onclick="alert('FAB funcionando!')" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <script>
+        function abrirModalTest() {
+            document.getElementById("modalPago").style.display = "flex";
+        }
+        
+        function cerrarModalTest() {
+            document.getElementById("modalPago").style.display = "none";
+        }
+        
+        // Cerrar modal al hacer clic fuera
+        document.getElementById("modalPago").addEventListener("click", function(e) {
+            if (e.target === this) {
+                cerrarModalTest();
+            }
+        });
+    </script>
+</body>
+</html>

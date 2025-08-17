@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Modal Pago - Layout Horizontal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #1565c0;
+        }
+        .layout-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            border-left: 4px solid #1976d2;
+        }
+        .layout-info h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test: Modal Pago - Layout Horizontal</h1>
+        
+        <div class="test-section">
+            <h2>Información del Layout</h2>
+            <div class="layout-info">
+                <h4>Cambios Implementados:</h4>
+                <ul>
+                    <li><strong>Layout Horizontal:</strong> Fecha y Valor pagado en la misma fila</li>
+                    <li><strong>Modal más ancha:</strong> max-width: 600px (antes 500px)</li>
+                    <li><strong>Responsive:</strong> En móviles se apilan verticalmente</li>
+                    <li><strong>Mejor distribución:</strong> Campos organizados en grupos lógicos</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Modal de Pago</h2>
+            <p>Haz clic en el botón para abrir el modal de pago con el nuevo layout horizontal:</p>
+            <button class="test-button" onclick="abrirModalPago()">
+                <i class="fas fa-credit-card"></i> Abrir Modal de Pago
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Instrucciones de Prueba</h2>
+            <ol>
+                <li>Abre el modal de pago usando el botón de arriba</li>
+                <li>Verifica que "Fecha de pago" y "Valor pagado" estén en la misma fila</li>
+                <li>El modal debe ser más ancho y menos alargado</li>
+                <li>En móviles, los campos deben apilarse verticalmente</li>
+                <li>Prueba diferentes tamaños de pantalla para verificar el responsive</li>
+            </ol>
+        </div>
+
+        <div class="test-section">
+            <h2>Responsive Testing</h2>
+            <p>Prueba estos tamaños de pantalla:</p>
+            <ul>
+                <li><strong>Desktop:</strong> > 768px - Campos en filas horizontales</li>
+                <li><strong>Tablet:</strong> 768px - Campos se adaptan</li>
+                <li><strong>Mobile:</strong> < 768px - Campos apilados verticalmente</li>
+                <li><strong>Small Mobile:</strong> < 480px - Layout optimizado para pantallas pequeñas</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="md-fab md-ripple" onclick="mostrarSnackbar('FAB clickeado')" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <!-- Modal de Pago -->
+    <div id="modalPago" class="modal">
+        <div class="modal-contenido">
+            <h3>Registrar Pago</h3>
+            <div class="info-gasto">
+                <p>Gasto: <span>Servicios de Internet</span></p>
+                <p>Monto: <span>$150,000</span></p>
+                <p>Fecha a pagar: <span>2024-02-15</span></p>
+            </div>
+            <div class="form-pago">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Fecha de pago:</label>
+                        <input type="date" id="modalFechaPago" value="2024-01-15">
+                    </div>
+                    <div class="form-group">
+                        <label>Valor pagado (COP):</label>
+                        <input type="number" id="modalValorPagado" placeholder="Ingrese el valor real pagado" value="150000">
+                    </div>
+                </div>
+                
+                <div class="diferencia-valor" id="diferenciaPago">Diferencia: $0 (Pago completo)</div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Comprobante de pago (opcional):</label>
+                        <input type="text" id="modalComprobante" placeholder="Número de comprobante o referencia" value="COMP-001">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Notas adicionales:</label>
+                    <textarea id="modalNotas" rows="3" placeholder="Notas adicionales sobre el pago">Pago realizado por transferencia bancaria</textarea>
+                </div>
+                
+                <div class="modal-botones">
+                    <button class="btn-registrar" onclick="cerrarModal('modalPago')">
+                        <i class="fas fa-save"></i> Registrar Pago
+                    </button>
+                    <button class="btn-cancelar" onclick="cerrarModal('modalPago')">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModalPago() {
+            document.getElementById('modalPago').style.display = 'flex';
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Cerrar modal al hacer clic fuera de él
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+    </script>
+</body>
+</html>

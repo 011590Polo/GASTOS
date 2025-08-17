@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test - Estadísticas Mejoradas</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .test-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        .test-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .test-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .test-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .test-content {
+            padding: 30px;
+        }
+        
+        .test-section {
+            margin-bottom: 40px;
+        }
+        
+        .test-section h2 {
+            color: #333;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .test-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .test-btn.success {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .test-btn.warning {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .test-btn.danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .test-results {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .test-results h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        
+        .test-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .test-item:last-child {
+            border-bottom: none;
+        }
+        
+        .test-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .test-status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .test-status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .test-status.warning {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .estado-demo {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin: 2px;
+        }
+        
+        .estado-pagado {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .estado-urgente {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        
+        .estado-puede-esperar {
+            background: #fff3cd;
+            color: #856404;
+        }
+        
+        .stats-overview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h4 {
+            font-size: 2rem;
+            margin: 10px 0;
+            color: #333;
+        }
+        
+        .stat-card p {
+            margin: 0;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .chart-card {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .chart-card h4 {
+            margin-top: 0;
+            color: #333;
+            text-align: center;
+        }
+        
+        .chart-card canvas {
+            max-height: 300px !important;
+            height: 300px !important;
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #ffc107;
+            margin: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <div class="test-header">
+            <h1><i class="material-icons">analytics</i> Test - Estadísticas Mejoradas</h1>
+            <p>Verificación de que las estadísticas y gráficas muestren los datos correctos según los nuevos estados</p>
+        </div>
+        
+        <div class="test-content">
+            <div class="highlight">
+                <h3>🎯 Objetivo de esta prueba:</h3>
+                <p><strong>Reorganización solicitada:</strong></p>
+                <ul>
+                    <li><strong>Total gastos:</strong> Número total de gastos registrados</li>
+                    <li><strong>Pendientes:</strong> Cantidad de gastos cuyo estado es "puede esperar"</li>
+                    <li><strong>Pagados:</strong> Cantidad de gastos cuyo estado es "pagado"</li>
+                    <li><strong>Urgentes:</strong> Cantidad de gastos cuyo estado es "urgente"</li>
+                </ul>
+            </div>
+            
+            <div class="test-section">
+                <h2><i class="material-icons">play_arrow</i> Pruebas de Estadísticas</h2>
+                
+                <div class="test-buttons">
+                    <button class="test-btn" onclick="testEstadisticasGenerales()">
+                        <i class="material-icons">assessment</i> Test Estadísticas Generales
+                    </button>
+                    <button class="test-btn" onclick="testGraficoEstados()">
+                        <i class="material-icons">pie_chart</i> Test Gráfico Estados
+                    </button>
+                    <button class="test-btn success" onclick="cargarDatosEstadisticas()">
+                        <i class="material-icons">data_usage</i> Cargar Datos de Prueba
+                    </button>
+                    <button class="test-btn danger" onclick="limpiarDatos()">
+                        <i class="material-icons">clear_all</i> Limpiar Datos
+                    </button>
+                </div>
+                
+                <div class="test-results" id="testResults">
+                    <h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>
+                    <p>Haz clic en los botones de arriba para ejecutar las pruebas.</p>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2><i class="material-icons">analytics</i> Estadísticas Actuales</h2>
+                
+                <!-- Tarjetas de estadísticas generales -->
+                <div class="stats-overview">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="material-icons">receipt_long</i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="totalGastos">0</h4>
+                            <p>Total Gastos</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="material-icons">pending</i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="gastosPendientes">0</h4>
+                            <p>Pendientes</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="material-icons">check_circle</i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="gastosPagados">0</h4>
+                            <p>Pagados</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="material-icons">warning</i>
+                        </div>
+                        <div class="stat-info">
+                            <h4 id="gastosUrgentes">0</h4>
+                            <p>Urgentes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="test-section">
+                <h2><i class="material-icons">pie_chart</i> Gráfico de Estados</h2>
+                
+                <div class="charts-container">
+                    <div class="chart-card">
+                        <h4><i class="material-icons">pie_chart</i> Distribución por Estado</h4>
+                        <canvas id="chartEstados" width="400" height="200"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Variables globales para los gráficos
+        let chartEstados = null;
+
+        // Datos de prueba para estadísticas
+        const datosEstadisticas = [
+            {
+                "id": 1,
+                "nombre": "INTERNET (PENDIENTE)",
+                "deuda": 95000,
+                "dia_pago": 25,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST001"
+            },
+            {
+                "id": 2,
+                "nombre": "AGUA (URGENTE)",
+                "deuda": 60000,
+                "dia_pago": 10,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST002"
+            },
+            {
+                "id": 3,
+                "nombre": "LUZ (URGENTE)",
+                "deuda": 200000,
+                "dia_pago": 5,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST003"
+            },
+            {
+                "id": 4,
+                "nombre": "DAVIVIENDA (PENDIENTE)",
+                "deuda": 450000,
+                "dia_pago": 20,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST004"
+            },
+            {
+                "id": 5,
+                "nombre": "ICETEX (PAGADO)",
+                "deuda": 200000,
+                "dia_pago": 15,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [
+                    {
+                        "id": 999,
+                        "fecha": new Date().toISOString().split('T')[0],
+                        "valor": 200000,
+                        "comprobante": "TEST",
+                        "notas": "Pago de prueba"
+                    }
+                ],
+                "nic": "TEST005"
+            },
+            {
+                "id": 6,
+                "nombre": "NETFLIX (PENDIENTE)",
+                "deuda": 45000,
+                "dia_pago": 30,
+                "enlace_pago": "https://ejemplo.com",
+                "pagos": [],
+                "nic": "TEST006"
+            }
+        ];
+
+        // Función para agregar resultado de prueba
+        function agregarResultadoTest(nombre, estado, mensaje) {
+            const resultsDiv = document.getElementById('testResults');
+            const testItem = document.createElement('div');
+            testItem.className = 'test-item';
+            
+            const statusClass = estado === 'success' ? 'success' : 
+                              estado === 'error' ? 'error' : 'warning';
+            
+            testItem.innerHTML = `
+                <span><strong>${nombre}:</strong> ${mensaje}</span>
+                <span class="test-status ${statusClass}">${estado.toUpperCase()}</span>
+            `;
+            
+            resultsDiv.appendChild(testItem);
+        }
+
+        // Función para limpiar resultados
+        function limpiarResultados() {
+            const resultsDiv = document.getElementById('testResults');
+            resultsDiv.innerHTML = '<h3><i class="material-icons">info</i> Resultados de las Pruebas</h3>';
+        }
+
+        // Test de estadísticas generales
+        function testEstadisticasGenerales() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                
+                if (gastos.length === 0) {
+                    agregarResultadoTest('Test Estadísticas', 'warning', 'No hay gastos para probar. Carga datos primero.');
+                    return;
+                }
+                
+                // Contar gastos por estado usando la nueva lógica
+                let gastosPendientes = 0;
+                let gastosPagados = 0;
+                let gastosUrgentes = 0;
+                
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    switch (estadoInfo.estado) {
+                        case 'pagado':
+                            gastosPagados++;
+                            break;
+                        case 'urgente':
+                            gastosUrgentes++;
+                            break;
+                        case 'puede esperar':
+                            gastosPendientes++;
+                            break;
+                    }
+                });
+                
+                const totalGastos = gastos.length;
+                
+                agregarResultadoTest('Total Gastos', 'success', `${totalGastos} gastos encontrados`);
+                agregarResultadoTest('Gastos Pendientes', 'success', `${gastosPendientes} gastos (estado: puede esperar)`);
+                agregarResultadoTest('Gastos Pagados', 'success', `${gastosPagados} gastos (estado: pagado)`);
+                agregarResultadoTest('Gastos Urgentes', 'success', `${gastosUrgentes} gastos (estado: urgente)`);
+                
+                // Verificar que la suma sea correcta
+                const sumaEstados = gastosPendientes + gastosPagados + gastosUrgentes;
+                if (sumaEstados === totalGastos) {
+                    agregarResultadoTest('Verificación Suma', 'success', '✅ La suma de estados coincide con el total');
+                } else {
+                    agregarResultadoTest('Verificación Suma', 'error', `❌ Suma incorrecta: ${sumaEstados} vs ${totalGastos}`);
+                }
+                
+                // Mostrar detalles de cada gasto
+                agregarResultadoTest('Detalles por Gasto', 'success', '---');
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    const estadoClass = estadoInfo.estado === 'pagado' ? 'estado-pagado' : 
+                                      estadoInfo.estado === 'urgente' ? 'estado-urgente' : 'estado-puede-esperar';
+                    
+                    agregarResultadoTest(`${gasto.nombre}`, 'success', 
+                        `Día ${gasto.dia_pago} → <span class="estado-demo ${estadoClass}">${estadoInfo.estado}</span>`);
+                });
+                
+            } catch (error) {
+                agregarResultadoTest('Test Estadísticas', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Test del gráfico de estados
+        function testGraficoEstados() {
+            limpiarResultados();
+            
+            try {
+                const gastos = obtenerGastos();
+                
+                if (gastos.length === 0) {
+                    agregarResultadoTest('Test Gráfico Estados', 'warning', 'No hay gastos para probar. Carga datos primero.');
+                    return;
+                }
+                
+                // Contar gastos por estado
+                const estados = {};
+                gastos.forEach(gasto => {
+                    const estadoInfo = calcularEstadoGasto(gasto);
+                    const estado = estadoInfo.estado;
+                    estados[estado] = (estados[estado] || 0) + 1;
+                });
+                
+                agregarResultadoTest('Estados Encontrados', 'success', 
+                    `${Object.keys(estados).length} tipos de estado: ${Object.keys(estados).join(', ')}`);
+                
+                Object.entries(estados).forEach(([estado, cantidad]) => {
+                    agregarResultadoTest(`Estado ${estado}`, 'success', `${cantidad} gastos`);
+                });
+                
+                // Crear el gráfico
+                crearGraficoEstados(estados);
+                agregarResultadoTest('Gráfico Creado', 'success', '✅ Gráfico de estados generado correctamente');
+                
+            } catch (error) {
+                agregarResultadoTest('Test Gráfico Estados', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Función para crear el gráfico de estados
+        function crearGraficoEstados(estados) {
+            const ctx = document.getElementById('chartEstados');
+            if (!ctx) {
+                console.error('Canvas chartEstados no encontrado');
+                return;
+            }
+            
+            // Destruir gráfico existente si existe
+            if (chartEstados) {
+                chartEstados.destroy();
+                chartEstados = null;
+            }
+            
+            try {
+                chartEstados = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: Object.keys(estados).map(estado => {
+                            const labels = {
+                                'puede esperar': 'Pendientes',
+                                'urgente': 'Urgentes',
+                                'pagado': 'Pagados'
+                            };
+                            return labels[estado] || estado;
+                        }),
+                        datasets: [{
+                            data: Object.values(estados),
+                            backgroundColor: [
+                                '#36A2EB', // Azul para pendientes
+                                '#FF6384', // Rojo para urgentes
+                                '#4BC0C0'  // Verde para pagados
+                            ],
+                            borderWidth: 2,
+                            borderColor: '#fff'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                position: 'bottom'
+                            },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                        const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                        return `${context.label}: ${context.parsed} (${percentage}%)`;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                });
+            } catch (error) {
+                console.error('Error al crear gráfico de estados:', error);
+            }
+        }
+
+        // Cargar datos de estadísticas
+        function cargarDatosEstadisticas() {
+            limpiarResultados();
+            
+            try {
+                localStorage.setItem('gastos', JSON.stringify(datosEstadisticas));
+                agregarResultadoTest('Datos de Estadísticas', 'success', 
+                    `${datosEstadisticas.length} gastos cargados exitosamente`);
+                
+                // Actualizar estadísticas
+                actualizarEstadisticasGenerales();
+                
+                // Ejecutar pruebas automáticamente
+                setTimeout(() => {
+                    testEstadisticasGenerales();
+                    setTimeout(() => testGraficoEstados(), 1000);
+                }, 1000);
+                
+            } catch (error) {
+                agregarResultadoTest('Datos de Estadísticas', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Limpiar datos
+        function limpiarDatos() {
+            limpiarResultados();
+            
+            try {
+                localStorage.removeItem('gastos');
+                agregarResultadoTest('Limpiar Datos', 'success', 'Datos eliminados exitosamente');
+                
+                // Limpiar gráfico
+                if (chartEstados) {
+                    chartEstados.destroy();
+                    chartEstados = null;
+                }
+                
+                // Limpiar estadísticas
+                document.getElementById('totalGastos').textContent = '0';
+                document.getElementById('gastosPendientes').textContent = '0';
+                document.getElementById('gastosPagados').textContent = '0';
+                document.getElementById('gastosUrgentes').textContent = '0';
+                
+            } catch (error) {
+                agregarResultadoTest('Limpiar Datos', 'error', `Error: ${error.message}`);
+            }
+        }
+
+        // Inicialización
+        document.addEventListener('DOMContentLoaded', () => {
+            agregarResultadoTest('Inicialización', 'success', 'Test de estadísticas mejoradas cargado correctamente');
+        });
+    </script>
+</body>
+</html>
+

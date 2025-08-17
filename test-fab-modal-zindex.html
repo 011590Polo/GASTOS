@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test FAB vs Modal Z-Index</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .test-button {
+            background: #1976d2;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px;
+            font-size: 16px;
+        }
+        .test-button:hover {
+            background: #1565c0;
+        }
+        .z-index-info {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        .z-index-info h4 {
+            margin-top: 0;
+            color: #1976d2;
+        }
+        .z-index-info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .z-index-info li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Test: FAB vs Modal Z-Index</h1>
+        
+        <div class="test-section">
+            <h2>Información de Z-Index</h2>
+            <div class="z-index-info">
+                <h4>Jerarquía de Z-Index (de menor a mayor):</h4>
+                <ul>
+                    <li><strong>FAB:</strong> z-index: 100</li>
+                    <li><strong>Modal Overlay:</strong> z-index: 1000</li>
+                    <li><strong>Modal Content:</strong> z-index: 1001</li>
+                    <li><strong>Snackbar:</strong> z-index: 1002</li>
+                </ul>
+                <p><strong>Resultado esperado:</strong> Los modales deben aparecer POR ENCIMA del FAB.</p>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Modal de Pago</h2>
+            <p>Haz clic en el botón para abrir el modal de pago y verificar que el FAB no se superponga:</p>
+            <button class="test-button" onclick="abrirModalPago()">
+                <i class="fas fa-credit-card"></i> Abrir Modal de Pago
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Modal de Confirmación</h2>
+            <p>Haz clic en el botón para abrir el modal de confirmación:</p>
+            <button class="test-button" onclick="abrirModalConfirmacion()">
+                <i class="fas fa-exclamation-triangle"></i> Abrir Modal de Confirmación
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Modal de Historial</h2>
+            <p>Haz clic en el botón para abrir el modal de historial:</p>
+            <button class="test-button" onclick="abrirModalHistorial()">
+                <i class="fas fa-history"></i> Abrir Modal de Historial
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Test de Snackbar</h2>
+            <p>Haz clic en el botón para mostrar un snackbar (debe aparecer por encima de todo):</p>
+            <button class="test-button" onclick="mostrarSnackbar('¡Snackbar funcionando! Este debe aparecer por encima de todo.')">
+                <i class="fas fa-bell"></i> Mostrar Snackbar
+            </button>
+        </div>
+
+        <div class="test-section">
+            <h2>Instrucciones de Prueba</h2>
+            <ol>
+                <li>Abre cualquiera de los modales usando los botones de arriba</li>
+                <li>Verifica que el FAB (botón flotante azul) NO se superponga sobre el modal</li>
+                <li>El modal debe estar completamente visible y funcional</li>
+                <li>El FAB debe quedar "detrás" del modal</li>
+                <li>Prueba el snackbar para verificar que aparece por encima de todo</li>
+            </ol>
+        </div>
+    </div>
+
+    <!-- FAB -->
+    <button class="md-fab md-ripple" onclick="mostrarSnackbar('FAB clickeado')" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <!-- Modal de Pago -->
+    <div id="modalPago" class="modal">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Registrar Pago</h3>
+            </div>
+            <div class="info-gasto">
+                <p><strong>Gasto:</strong> <span>Servicios de Internet</span></p>
+                <p><strong>Valor Total:</strong> <span>$150,000</span></p>
+                <p><strong>Estado:</strong> <span class="estado estado-pendiente">Pendiente</span></p>
+            </div>
+            <form class="form-pago">
+                <label for="valorPagado">Valor Pagado:</label>
+                <input type="number" id="valorPagado" value="150000" required>
+                
+                <label for="fechaPago">Fecha de Pago:</label>
+                <input type="date" id="fechaPago" required>
+                
+                <label for="comprobante">Comprobante:</label>
+                <input type="text" id="comprobante" placeholder="Número de comprobante">
+                
+                <label for="notas">Notas:</label>
+                <textarea id="notas" placeholder="Notas adicionales"></textarea>
+            </form>
+            <div class="modal-botones">
+                <button class="btn-registrar" onclick="cerrarModal('modalPago')">
+                    <i class="fas fa-save"></i> Registrar Pago
+                </button>
+                <button class="btn-cancelar" onclick="cerrarModal('modalPago')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmación -->
+    <div id="modalConfirmacion" class="modal">
+        <div class="modal-contenido modal-confirmacion">
+            <div class="confirmacion-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Confirmar Eliminación</h3>
+            </div>
+            <div class="confirmacion-body">
+                <p>¿Estás seguro de que deseas eliminar este gasto?</p>
+                <p>Esta acción no se puede deshacer.</p>
+                <div class="gasto-a-eliminar">
+                    <span>Servicios de Internet</span>
+                    <strong>$150,000</strong>
+                </div>
+            </div>
+            <div class="modal-botones">
+                <button class="btn-eliminar" onclick="cerrarModal('modalConfirmacion')">
+                    <i class="fas fa-trash"></i> Eliminar
+                </button>
+                <button class="btn-cancelar" onclick="cerrarModal('modalConfirmacion')">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Historial -->
+    <div id="modalHistorial" class="modal modal-historial">
+        <div class="modal-contenido">
+            <div class="modal-header">
+                <h3>Historial de Pagos</h3>
+            </div>
+            <div class="info-gasto">
+                <p><strong>Gasto:</strong> <span>Servicios de Internet</span></p>
+                <p><strong>Valor Total:</strong> <span>$150,000</span></p>
+                <p><strong>Estado:</strong> <span class="estado estado-pendiente">Pendiente</span></p>
+            </div>
+            <div class="tabla-historial">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Fecha</th>
+                            <th>Valor Pagado</th>
+                            <th>Diferencia</th>
+                            <th>Comprobante</th>
+                            <th>Notas</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-01-15</td>
+                            <td class="valor">$50,000</td>
+                            <td class="diferencia diferencia-menos">-$100,000</td>
+                            <td>COMP-001</td>
+                            <td>Pago parcial</td>
+                            <td class="acciones">
+                                <button class="btn-eliminar-pago" title="Eliminar pago">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-botones">
+                <button class="btn-cancelar" onclick="cerrarModal('modalHistorial')">
+                    <i class="fas fa-times"></i> Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function abrirModalPago() {
+            document.getElementById('modalPago').style.display = 'flex';
+        }
+
+        function abrirModalConfirmacion() {
+            document.getElementById('modalConfirmacion').style.display = 'flex';
+        }
+
+        function abrirModalHistorial() {
+            document.getElementById('modalHistorial').style.display = 'flex';
+        }
+
+        function cerrarModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Cerrar modales al hacer clic fuera de ellos
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('modal')) {
+                e.target.style.display = 'none';
+            }
+        });
+
+        // Cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+    </script>
+</body>
+</html>

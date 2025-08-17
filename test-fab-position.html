@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test FAB Position - Centro Inferior</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="material-design.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        .test-info {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #1976d2;
+        }
+        .test-info h3 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        .test-info ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        .test-info li {
+            margin: 5px 0;
+        }
+        .mock-table {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .mock-table h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .mock-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+        .mock-row:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 800px; margin: 0 auto; padding: 20px;">
+        <h1>Test FAB Position - Centro Inferior</h1>
+        
+        <div class="test-info">
+            <h3>✅ Cambios Realizados:</h3>
+            <ul>
+                <li><strong>Posición:</strong> FAB movido al centro inferior de la pantalla</li>
+                <li><strong>Responsive:</strong> Se mantiene centrado en todos los dispositivos</li>
+                <li><strong>Espacio:</strong> Agregado margen inferior a la tabla para evitar superposición</li>
+                <li><strong>Z-index:</strong> Mantenido en 999 para estar por encima del contenido</li>
+            </ul>
+        </div>
+
+        <div class="test-info">
+            <h3>🎯 Beneficios de la nueva posición:</h3>
+            <ul>
+                <li>No oculta la tabla de gastos</li>
+                <li>Fácil acceso con el pulgar en dispositivos móviles</li>
+                <li>Posición más intuitiva y accesible</li>
+                <li>Mejor distribución del espacio en pantalla</li>
+            </ul>
+        </div>
+
+        <!-- Tabla simulada para probar el espacio -->
+        <div class="mock-table">
+            <h3>Tabla de Gastos (Simulada)</h3>
+            <div class="mock-row">
+                <span>Juan Pérez</span>
+                <span>$150,000</span>
+                <span>Pendiente</span>
+            </div>
+            <div class="mock-row">
+                <span>María García</span>
+                <span>$200,000</span>
+                <span>Pagado</span>
+            </div>
+            <div class="mock-row">
+                <span>Carlos López</span>
+                <span>$75,000</span>
+                <span>Pendiente</span>
+            </div>
+            <div class="mock-row">
+                <span>Ana Rodríguez</span>
+                <span>$300,000</span>
+                <span>Pendiente</span>
+            </div>
+            <div class="mock-row">
+                <span>Luis Martínez</span>
+                <span>$125,000</span>
+                <span>Pagado</span>
+            </div>
+        </div>
+
+        <!-- Contenido adicional para hacer scroll -->
+        <div style="height: 400px; background: linear-gradient(45deg, #f5f5f5, #e0e0e0); display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0;">
+            <div style="text-align: center;">
+                <h3>Área de Scroll</h3>
+                <p>Haz scroll hacia abajo para ver el FAB en acción</p>
+                <p>El FAB debería estar centrado en la parte inferior</p>
+            </div>
+        </div>
+
+        <div style="height: 300px; background: linear-gradient(45deg, #e0e0e0, #d0d0d0); display: flex; align-items: center; justify-content: center; border-radius: 8px; margin: 20px 0;">
+            <div style="text-align: center;">
+                <h3>Más Contenido</h3>
+                <p>Continúa haciendo scroll para probar la posición del FAB</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- FAB centrado en la parte inferior -->
+    <button class="md-fab md-ripple" onclick="testFAB()" title="Agregar nuevo gasto">
+        <i class="material-icons">add</i>
+    </button>
+
+    <!-- Snackbar -->
+    <div id="snackbar" class="md-snackbar">
+        <span id="snackbar-text"></span>
+    </div>
+
+    <script>
+        function testFAB() {
+            mostrarSnackbar("✅ FAB funcionando correctamente desde el centro inferior!");
+        }
+
+        function mostrarSnackbar(mensaje, duracion = 3000) {
+            const snackbar = document.getElementById("snackbar");
+            const snackbarText = document.getElementById("snackbar-text");
+            
+            snackbarText.textContent = mensaje;
+            snackbar.classList.add("md-snackbar--show");
+            
+            setTimeout(() => {
+                snackbar.classList.remove("md-snackbar--show");
+            }, duracion);
+        }
+
+        // Agregar listener para cerrar snackbar al hacer clic
+        document.getElementById("snackbar").addEventListener("click", function() {
+            this.classList.remove("md-snackbar--show");
+        });
+    </script>
+</body>
+</html>

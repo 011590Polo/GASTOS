@@ -1,0 +1,57 @@
+� RESUMEN DEL PROYECTO: ADMINISTRADOR DE GASTOS
+🎯 ¿Qué es?
+Este es un Administrador de Gastos - una aplicación web moderna y completa para gestionar deudas y pagos de manera organizada. Es una herramienta de gestión financiera personal que permite llevar un control detallado de tus obligaciones monetarias.
+🚀 Características Principales
+Gestión de Gastos
+✅ Agregar, editar y eliminar deudas
+💳 Seguimiento completo de pagos con historial
+📊 Tres estados de gestión: "Puede Esperar", "Urgente", "Pagado"
+�� Enlaces directos a portales de pago
+Funcionalidades Avanzadas
+🔍 Filtros inteligentes: Búsqueda por texto y filtrado por estado
+💾 Importar/Exportar: Respaldo completo de datos en formato JSON
+📱 Diseño responsive: Funciona perfectamente en móviles y desktop
+🎨 Material Design: Interfaz moderna y intuitiva
+Privacidad y Seguridad
+�� Datos locales: Toda la información se guarda en tu navegador (LocalStorage)
+🚫 Sin servidor: No requiere conexión a internet para funcionar
+🛡️ Privacidad total: Tus datos nunca salen de tu dispositivo
+🛠️ Tecnologías Utilizadas
+HTML5 - Estructura semántica
+CSS3 - Material Design y responsive design
+JavaScript ES6+ - Funcionalidad dinámica
+LocalStorage - Almacenamiento local
+Material Icons - Iconografía moderna
+📁 Estructura del Proyecto
+🎮 Cómo Funciona
+Agregar un Gasto
+Clic en el botón flotante "+"
+Completar: NIC, Nombre, Deuda, Fecha a pagar, Enlace (opcional)
+Guardar
+Registrar un Pago
+Clic en "Registrar Pago" en cualquier gasto
+Completar: Fecha, Valor, Comprobante, Notas
+El estado cambia automáticamente a "Pagado"
+Filtrar y Buscar
+Barra de búsqueda para encontrar gastos específicos
+Filtro por estado (Puede Esperar/Urgente/Pagado)
+Resultados en tiempo real
+🌐 Demo en Vivo
+La aplicación está desplegada en GitHub Pages y es accesible públicamente en: https://011590polo.github.io/GASTOS/
+📱 Compatibilidad
+✅ Chrome 60+, Firefox 55+, Safari 12+, Edge 79+
+✅ Móviles (iOS Safari, Chrome Mobile)
+🔮 Próximas Características Planificadas
+Notificaciones push para recordatorios
+Gráficos y estadísticas de gastos
+Categorías personalizadas
+Modo oscuro
+Aplicación móvil nativa
+Sincronización en la nube
+�� Casos de Uso
+Gestión de facturas mensuales
+Control de deudas personales
+Seguimiento de pagos de servicios
+Organización de obligaciones financieras
+Historial de pagos para auditoría
+Este proyecto es una solución completa y profesional para la gestión personal de gastos, con una interfaz moderna y funcionalidades avanzadas que facilitan el control financiero diario
