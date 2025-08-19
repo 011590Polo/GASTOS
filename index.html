@@ -69,6 +69,12 @@
                         <span>Estadísticas</span>
                     </a>
                 </li>
+                <li class="menu-item" data-section="resultados">
+                    <a href="#resultados" onclick="mostrarSeccion('resultados')">
+                        <i class="material-icons">assessment</i>
+                        <span>Resultados y Acciones</span>
+                    </a>
+                </li>
                 <li class="menu-item" data-section="configuracion">
                     <a href="#configuracion" onclick="mostrarSeccion('configuracion')">
                         <i class="material-icons">settings</i>
@@ -113,10 +119,7 @@
             </div>
             <h1 class="page-title" id="pageTitle">Dashboard</h1>
             <div class="header-actions">
-                <button class="md-button md-button--primary md-ripple" onclick="abrirModalAgregarGasto()" title="Agregar gasto">
-                    <i class="material-icons">add</i>
-                    <span class="button-text">Agregar</span>
-                </button>
+                <!-- Botón Agregar eliminado -->
             </div>
         </header>
 
@@ -240,27 +243,7 @@
                 </div>
             </div>
 
-            <!-- Tarjeta de resultados y acciones -->
-            <div class="results-card">
-                <div class="results-header">
-                    <h3><i class="material-icons">analytics</i> Resultados y Acciones</h3>
-                </div>
-                <div class="results-content">
-                    <div class="filter-results">
-                        <div class="results-left">
-                            <span id="resultadosFiltro">Mostrando todos los gastos</span>
-                        </div>
-                        <div class="results-right">
-                            <button onclick="importarJSON()" class="md-button md-button--primary md-ripple">
-                                <i class="material-icons">file_upload</i> Importar JSON
-                            </button>
-                            <button onclick="exportarJSON()" class="md-button md-button--success md-ripple">
-                                <i class="material-icons">file_download</i> Exportar JSON
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
 
             <!-- Tarjeta de la tabla de gastos -->
             <div class="table-card">
@@ -374,6 +357,161 @@
                     <button onclick="limpiarGraficos()" class="md-button md-button--danger md-ripple" style="background: #f44336; color: white;">
                         <i class="material-icons">stop</i> Detener Gráficos (Emergencia)
                     </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección Resultados y Acciones -->
+        <section id="resultados" class="content-section">
+            <div class="results-header">
+                <h3><i class="material-icons">assessment</i> Resultados y Acciones</h3>
+                <p>Gestiona los resultados de tus filtros y realiza acciones masivas</p>
+            </div>
+            
+            <div class="results-content">
+                <!-- Tarjeta de resultados de filtros -->
+                <div class="results-card">
+                    <div class="results-card-header">
+                        <h4><i class="material-icons">filter_list</i> Resultados de Filtros</h4>
+                    </div>
+                    <div class="results-card-content">
+                        <div class="filter-results">
+                            <div class="results-left">
+                                <span id="resultadosFiltro">Mostrando todos los gastos</span>
+                            </div>
+                            <div class="results-right">
+                                <button onclick="limpiarFiltro()" class="md-button md-button--secondary md-ripple">
+                                    <i class="material-icons">clear</i> Limpiar Filtros
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de acciones masivas -->
+                <div class="actions-card">
+                    <div class="actions-card-header">
+                        <h4><i class="material-icons">batch_prediction</i> Acciones Masivas</h4>
+                    </div>
+                    <div class="actions-card-content">
+                        <div class="actions-grid">
+                            <div class="action-item">
+                                <h5><i class="material-icons">warning</i> Gastos Urgentes</h5>
+                                <p>Gastos que vencen en los próximos 3 días</p>
+                                <button onclick="filtrarUrgentes()" class="md-button md-button--warning md-ripple">
+                                    <i class="material-icons">visibility</i> Ver Urgentes
+                                </button>
+                            </div>
+                            
+                            <div class="action-item">
+                                <h5><i class="material-icons">schedule</i> Próximos Vencimientos</h5>
+                                <p>Gastos que vencen en los próximos 7 días</p>
+                                <button onclick="filtrarProximos()" class="md-button md-button--info md-ripple">
+                                    <i class="material-icons">schedule</i> Ver Próximos
+                                </button>
+                            </div>
+                            
+                            <div class="action-item">
+                                <h5><i class="material-icons">check_circle</i> Gastos Pagados</h5>
+                                <p>Gastos que ya han sido pagados</p>
+                                <button onclick="filtrarPagados()" class="md-button md-button--success md-ripple">
+                                    <i class="material-icons">check_circle</i> Ver Pagados
+                                </button>
+                            </div>
+                            
+                            <div class="action-item">
+                                <h5><i class="material-icons">pending</i> Gastos Pendientes</h5>
+                                <p>Gastos que aún no han sido pagados</p>
+                                <button onclick="filtrarPendientes()" class="md-button md-button--primary md-ripple">
+                                    <i class="material-icons">pending</i> Ver Pendientes
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de importación/exportación -->
+                <div class="data-card">
+                    <div class="data-card-header">
+                        <h4><i class="material-icons">backup</i> Gestión de Datos</h4>
+                    </div>
+                    <div class="data-card-content">
+                        <div class="data-actions">
+                            <div class="data-action">
+                                <h5><i class="material-icons">file_upload</i> Importar Datos</h5>
+                                <p>Restaurar datos desde un archivo JSON</p>
+                                <button onclick="importarJSON()" class="md-button md-button--primary md-ripple">
+                                    <i class="material-icons">file_upload</i> Importar JSON
+                                </button>
+                            </div>
+                            
+                            <div class="data-action">
+                                <h5><i class="material-icons">file_download</i> Exportar Datos</h5>
+                                <p>Descargar todos los datos como archivo JSON</p>
+                                <button onclick="exportarJSON()" class="md-button md-button--success md-ripple">
+                                    <i class="material-icons">file_download</i> Exportar JSON
+                                </button>
+                            </div>
+                            
+                            <div class="data-action">
+                                <h5><i class="material-icons">delete_forever</i> Limpiar Datos</h5>
+                                <p>Eliminar todos los datos de la aplicación</p>
+                                <button onclick="limpiarDatos()" class="md-button md-button--danger md-ripple">
+                                    <i class="material-icons">delete_forever</i> Limpiar Datos
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta de estadísticas rápidas -->
+                <div class="quick-stats-card">
+                    <div class="quick-stats-header">
+                        <h4><i class="material-icons">insights</i> Estadísticas Rápidas</h4>
+                    </div>
+                    <div class="quick-stats-content">
+                        <div class="quick-stats-grid">
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon">
+                                    <i class="material-icons">receipt_long</i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-number" id="quickTotalGastos">0</span>
+                                    <span class="quick-stat-label">Total Gastos</span>
+                                </div>
+                            </div>
+                            
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon">
+                                    <i class="material-icons">pending</i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-number" id="quickPendientes">0</span>
+                                    <span class="quick-stat-label">Pendientes</span>
+                                </div>
+                            </div>
+                            
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon">
+                                    <i class="material-icons">warning</i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-number" id="quickUrgentes">0</span>
+                                    <span class="quick-stat-label">Urgentes</span>
+                                </div>
+                            </div>
+                            
+                            <div class="quick-stat">
+                                <div class="quick-stat-icon">
+                                    <i class="material-icons">check_circle</i>
+                                </div>
+                                <div class="quick-stat-info">
+                                    <span class="quick-stat-number" id="quickPagados">0</span>
+                                    <span class="quick-stat-label">Pagados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

@@ -1,6 +1,5 @@
 let gastoEnEdicion = null;
 let gastoEnPago = null;
-
 // Funciones para Material Design
 function abrirModalAgregarGasto() {
     try {
@@ -121,7 +120,7 @@ function crearGasto() {
     const enlace_pago = document.getElementById("enlace_pago").value.trim() || null;
 
     if (!nic) {
-        mostrarSnackbar("El NIC es obligatorio", 4000);
+        mostrarSnackbar("El NIC: es obligatorio", 4000);
         return;
     }
 
@@ -174,6 +173,7 @@ function crearGasto() {
     
     // Cerrar la modal después de guardar
     cerrarModalAgregarGasto();
+    actualizarDashboard();
     
     // Mostrar notificación de éxito
     if (gastoEnEdicion) {
